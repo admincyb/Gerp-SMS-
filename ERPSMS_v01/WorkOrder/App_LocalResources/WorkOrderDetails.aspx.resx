@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Amt" xml:space="preserve">
+    <value>Amt.</value>
+  </data>
+  <data name="Charge" xml:space="preserve">
+    <value>Charge</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DiscPerc" xml:space="preserve">
+    <value>Percentage</value>
+    <comment>Percentage value for custom Discount</comment>
+  </data>
+  <data name="Err_Amount" xml:space="preserve">
+    <value>Enter Amount</value>
+  </data>
+  <data name="Err_Amount_Valid" xml:space="preserve">
+    <value>Enter valid Amount</value>
+  </data>
+  <data name="Err_File_Upload" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="Err_Name" xml:space="preserve">
+    <value>Enter Name</value>
+  </data>
+  <data name="Err_Valid_PriceAdj" xml:space="preserve">
+    <value>Enter valid Amount Adj.</value>
+  </data>
+  <data name="Err_Valid_Shipping" xml:space="preserve">
+    <value>Enter valid Shipping Charges</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="GrossWeight" xml:space="preserve">
+    <value>Gross Weight : </value>
+  </data>
+  <data name="Issued" xml:space="preserve">
+    <value>Issued</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="PriceAdj" xml:space="preserve">
+    <value>Amount Adj.</value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Qty.</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Other Charges</value>
+  </data>
+  <data name="ShippingCharge" xml:space="preserve">
+    <value>Shipping Charge</value>
+  </data>
+  <data name="SlNo" xml:space="preserve">
+    <value>Sl.No.</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubContractor" xml:space="preserve">
+    <value>Sub Contractor</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="UploadPageSize" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="WODate" xml:space="preserve">
+    <value>WO Date</value>
+  </data>
+  <data name="WOItem" xml:space="preserve">
+    <value>WO Item</value>
+  </data>
+  <data name="WOItems" xml:space="preserve">
+    <value>WO Items</value>
+  </data>
+  <data name="WONo" xml:space="preserve">
+    <value>WO #</value>
+  </data>
+  <data name="Err_SubContractor" xml:space="preserve">
+    <value>Select Sub Contractor</value>
+  </data>
+  <data name="Breadcrumb" xml:space="preserve">
+    <value>Work Order &gt;&gt; Creation</value>
+  </data>
+  <data name="BreadcrumbList" xml:space="preserve">
+    <value>Work Order &gt;&gt; Listing</value>
+  </data>
+  <data name="Err_Valid_SubTotal" xml:space="preserve">
+    <value>Enter valid Sub Total</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="ItemType" xml:space="preserve">
+    <value>Item Type</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Err_OperWork" xml:space="preserve">
+    <value>Select Operation/Work</value>
+  </data>
+  <data name="Err_WOItem" xml:space="preserve">
+    <value>Select WO Item</value>
+  </data>
+  <data name="Err_SameItemExist" xml:space="preserve">
+    <value>Same Item Exist</value>
+  </data>
+  <data name="DiscountDetails" xml:space="preserve">
+    <value>Discount Details</value>
+  </data>
+  <data name="Err_Date" xml:space="preserve">
+    <value>Enter Work Order Date</value>
+  </data>
+  <data name="Err_Qty" xml:space="preserve">
+    <value>Enter Quantity</value>
+  </data>
+  <data name="Err_Rate" xml:space="preserve">
+    <value>Enter Rate</value>
+  </data>
+  <data name="TaxDetails" xml:space="preserve">
+    <value>Tax Details</value>
+  </data>
+  <data name="Err_Category" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="Err_Item" xml:space="preserve">
+    <value>Select Item</value>
+  </data>
+  <data name="Err_Min_Items" xml:space="preserve">
+    <value>At least one Item is mandatory</value>
+  </data>
+  <data name="Err_SubTotal" xml:space="preserve">
+    <value>Sub total should be greater than zero</value>
+  </data>
+  <data name="Err_Type" xml:space="preserve">
+    <value>Select Type</value>
+  </data>
+  <data name="Err_WO_Cancel" xml:space="preserve">
+    <value>Work Order is used in other places</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>WIH_DATE</value>
+  </data>
+  <data name="Err_DeliveryTo" xml:space="preserve">
+    <value>Select Delivery to</value>
+  </data>
+  <data name="Err_Location" xml:space="preserve">
+    <value>Select Location</value>
+  </data>
+  <data name="Msg_Submit_Success" xml:space="preserve">
+    <value>{0} submitted successfully. Work Order No is {1}</value>
+  </data>
+  <data name="Issued_Received" xml:space="preserve">
+    <value>Issued/Received</value>
+  </data>
+  <data name="NotIssued" xml:space="preserve">
+    <value>grey-icon</value>
+  </data>
+  <data name="NotIssuedText" xml:space="preserve">
+    <value>Not Issued</value>
+  </data>
+  <data name="RefNo" xml:space="preserve">
+    <value>Ref. #</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="Err_ItemType" xml:space="preserve">
+    <value>Select Item Type</value>
+  </data>
+  <data name="EnterRemarks" xml:space="preserve">
+    <value>Enter Remarks</value>
+  </data>
+  <data name="CancelWO" xml:space="preserve">
+    <value>Cancel WO</value>
+  </data>
+  <data name="WOShortClosureURL" xml:space="preserve">
+    <value>/WorkOrder/WorkOrderDetails.aspx</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="GeneralTerms" xml:space="preserve">
+    <value>WO TERMS</value>
+  </data>
+  <data name="RevisionHistory" xml:space="preserve">
+    <value>Revision History</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="IssueItem" xml:space="preserve">
+    <value>Issue Item</value>
+  </data>
+  <data name="MaterialsToBeIssued" xml:space="preserve">
+    <value>Materials to be issued</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Msg_Delete_Success" xml:space="preserve">
+    <value>Work Order deleted successfully</value>
+  </data>
+  <data name="Discounts" xml:space="preserve">
+    <value>Discounts</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="IssuedIcon" xml:space="preserve">
+    <value>issued-icon</value>
+  </data>
+  <data name="NotIssuedIcon" xml:space="preserve">
+    <value>not-issued-icon</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="TrnStatus" xml:space="preserve">
+    <value>Transaction Status</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Err_Customer" xml:space="preserve">
+    <value>Select Customer</value>
+  </data>
+  <data name="ErrMaterialIssueExist" xml:space="preserve">
+    <value>Material Issue transaction is in progress.Please Check</value>
+  </data>
+  <data name="CustomerConfirm" xml:space="preserve">
+    <value>Do you want continue without select customer?</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="balRequired" xml:space="preserve">
+    <value>Balance Required</value>
+  </data>
+  <data name="Msg_ActualQty" xml:space="preserve">
+    <value>Enter Quantity</value>
+  </data>
+  <data name="Msg_SelectBatch" xml:space="preserve">
+    <value>Select Batch No.</value>
+  </data>
+  <data name="QtymustbeGreaterZero" xml:space="preserve">
+    <value>Quantity Must be Greater than Zero</value>
+  </data>
+  <data name="RequiredQty" xml:space="preserve">
+    <value>Required Qty.</value>
+  </data>
+  <data name="TextUom" xml:space="preserve">
+    <value>UOM : </value>
+  </data>
+  <data name="totalbatchqty" xml:space="preserve">
+    <value>Total Batch Qty.</value>
+  </data>
+  <data name="Allocate" xml:space="preserve">
+    <value>Allocate</value>
+  </data>
+  <data name="AllocationDetails" xml:space="preserve">
+    <value>Allocation Details</value>
+  </data>
+  <data name="MaximumQtyAdded" xml:space="preserve">
+    <value>Quantity Must be Less than or Equal to Required Balance</value>
+  </data>
+  <data name="NotEnoughStock" xml:space="preserve">
+    <value>Not enough stock.</value>
+  </data>
+  <data name="SameBatchExist" xml:space="preserve">
+    <value>Same Batch Exist</value>
+  </data>
+  <data name="AllocationConfirm" xml:space="preserve">
+    <value>Do you want to continue without allocating existing stock in client?</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock : </value>
+  </data>
+  <data name="VendorChangeConfirm" xml:space="preserve">
+    <value>The data will clear if you change the Sub Contractor. Do you want to continue?</value>
+  </data>
+  <data name="ColColor" xml:space="preserve">
+    <value>#E2FACF</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Issue Date</value>
+  </data>
+  <data name="IssueDetails" xml:space="preserve">
+    <value>Issue Details</value>
+  </data>
+  <data name="IssueNo" xml:space="preserve">
+    <value>Issue No</value>
+  </data>
+  <data name="RowColor" xml:space="preserve">
+    <value>#F9DEE5</value>
+  </data>
+  <data name="PartialIssuedIcon" xml:space="preserve">
+    <value>partial-issued-icon</value>
+  </data>
+  <data name="BOMMismatch" xml:space="preserve">
+    <value>BOM mismatch</value>
+  </data>
+  <data name="BOMQtyMismatchWO" xml:space="preserve">
+    <value>BOM quantity is mismatch with Work Order quantity</value>
+  </data>
+  <data name="WOLessThanGRN" xml:space="preserve">
+    <value>Work Order quantity is less than GRN</value>
+  </data>
+  <data name="ItemDetails" xml:space="preserve">
+    <value>Item Details</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="GRNAccQty" xml:space="preserve">
+    <value>Acc Qty</value>
+  </data>
+  <data name="GRNNo" xml:space="preserve">
+    <value>GRN No.</value>
+  </data>
+  <data name="GRNRcvdQty" xml:space="preserve">
+    <value>Rcvd Qty</value>
+  </data>
+  <data name="GrnStore" xml:space="preserve">
+    <value>GRN Store</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemCat" xml:space="preserve">
+    <value>Item Category</value>
+  </data>
+  <data name="WOInvQty" xml:space="preserve">
+    <value>Invoiced Qty</value>
+  </data>
+  <data name="WOQty" xml:space="preserve">
+    <value>WO Qty</value>
+  </data>
+  <data name="WORcvdQty" xml:space="preserve">
+    <value>Received Qty</value>
+  </data>
+  <data name="BalanePcs" xml:space="preserve">
+    <value>Balane Pcs</value>
+  </data>
+  <data name="TotalPcs" xml:space="preserve">
+    <value>Total Pcs</value>
+  </data>
+  <data name="WalletNo" xml:space="preserve">
+    <value>Wallet No</value>
+  </data>
+  <data name="WalletPcs" xml:space="preserve">
+    <value>Wallet Pcs</value>
+  </data>
+  <data name="PackingMaterialRequired" xml:space="preserve">
+    <value>Packing material is required in Material to be issued</value>
+  </data>
+  <data name="Err_Brand" xml:space="preserve">
+    <value>Select Brand</value>
+  </data>
+  <data name="BinIssueExist" xml:space="preserve">
+    <value>Bin Issue transaction is in progress.Please Check</value>
+  </data>
+  <data name="ShortClose" xml:space="preserve">
+    <value>Short Close</value>
+  </data>
+  <data name="ActualStock" xml:space="preserve">
+    <value>Actual Stock</value>
+  </data>
+  <data name="AdjustNow" xml:space="preserve">
+    <value>Adjust Now</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="ConsumedQty" xml:space="preserve">
+    <value>Consumed Qty.</value>
+  </data>
+  <data name="IssuedQty" xml:space="preserve">
+    <value>Issued Qty.</value>
+  </data>
+  <data name="StockAdjustment" xml:space="preserve">
+    <value>Stock Adjustment</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Msg_StockAdjustSaveSuccess" xml:space="preserve">
+    <value>Stock Adjustment Saved Successfully</value>
+  </data>
+  <data name="Bin" xml:space="preserve">
+    <value>Bin</value>
+  </data>
+  <data name="PackingMaterial" xml:space="preserve">
+    <value>Packing Material</value>
+  </data>
+  <data name="Err_AdjustSaveZero" xml:space="preserve">
+    <value>Any of the adjust now to be greater than 0</value>
+  </data>
+  <data name="ReturnedQty" xml:space="preserve">
+    <value>Returned Qty</value>
+  </data>
+  <data name="Err_AdjustNow" xml:space="preserve">
+    <value>Adjust now cannot be greater than balance</value>
+  </data>
+</root>

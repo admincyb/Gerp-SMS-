@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminMaster.Master.cs"
+    Inherits="ERPSMS_v01.Administration.AdminMasterDtls" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="../../App_Themes/ERP-Blue/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <asp:Literal ID="scriptSrc" Text="" runat="server"></asp:Literal>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="roundedbox-outer">
+        <div id="maincontainer">
+            <div id="topheader-wrap">
+                <div id="MenuSearch" class="menuSearchwrap">
+                    <span class="logo">ERP ADMIN CONTROL</span>
+                </div>
+                <div class="welcomeuser-wrap">
+                    <label for="SBU">
+                        SBU</label>
+                    <asp:DropDownList ID="SBU" runat="server" AutoPostBack="false" Width="200px" AppendDataBoundItems="True"
+                        ClientIDMode="Static" onselectedindexchanged="SBU_SelectedIndexChanged" EnableViewState="true" ViewStateMode="Enabled">
+                    </asp:DropDownList>
+                    <a id="A1" href="~/Administration/Default.aspx" class="homlink" runat="server" title="Home">home</a>
+                    <asp:LinkButton runat="server" ID="lnbLogout" onclick="lnbLogout_Click" OnClientClick="javascript:ResetFormValidation();">Logout</asp:LinkButton>
+                    <asp:Label ID="lblUserName" runat="server"></asp:Label>
+                </div>
+            </div>
+            <div id="contentarea-container">
+                <asp:HiddenField ID="UserPk" runat="server" Value="0" />
+                 <asp:HiddenField ID="BizUnitPk" runat="server" />
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" EnableViewState="false" >
+                </asp:ContentPlaceHolder>
+                <div class="clear">
+                </div>
+            </div>
+            <div id="popupHolder">
+            </div>
+        </div>
+    </div>
+    <div id="mcbottom">
+        <span>Developed by team gti</span>
+        <img id="Img1" src="~/Images/ERP-Blue/erp-production-logo.png" runat="server" />
+        <div class="clear">
+        </div>
+    </div>
+    <div id="MSGBox" title="Status">
+    </div>
+    <div id="divAjaxLoading">
+    </div>
+    <div id="errMsgContainer" title="<%=Resources.Captions.Information%>">
+        <ul>
+        </ul>
+    </div>
+    </form>
+</body>
+</html>

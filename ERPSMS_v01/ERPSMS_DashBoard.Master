@@ -1,0 +1,483 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ERPSMS_DashBoard.Master.cs"
+    Inherits="ERPSMS_v01.ERPSMS_DashBoard" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Src="UserControls/MenuControl.ascx" TagName="MenuControl" TagPrefix="uc3" %>
+<%@ Register Src="UserControls/RelatedItemWidget.ascx" TagName="RelatedItemWidget"
+    TagPrefix="uc2" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>gERP – Dashboard</title>
+    <asp:Literal ID="scriptSrc" Text="" runat="server"></asp:Literal>
+    <style type="text/css">
+        .fixed_overlay
+        {
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+        .fixed_overlay_img
+        {
+            left: 46% !important;
+            top: 45% !important;
+        }
+        .fixed_overlay_img_pos
+        {
+            position: fixed !important;
+        }
+    </style>
+    <script type="text/javascript">
+
+        function InitDate() {
+            GrandScriptUtils.AddDateRangeCommon("txtFromDate", "hdfFromDate", "txtToDate", "hdfToDate", false, false);
+            if ($("[id$=txtFromDate]").val() == "") {
+                $("[id$=txtToDate]").val("");
+                $("[id$=hdfFromDate]").val("");
+                $("[id$=hdfToDate]").val("");
+            }
+            InitCustomer();
+        }
+
+        function InitCustomer() {
+            var pageURL = window.document.URL;
+            var virtualPath = $("[id$='hdfAbsolutePath']").val();
+            var urlauto = pageURL.replace(location.pathname, virtualPath == "" ? "/Handlers/UIAutoComplete.ashx" : "/" + virtualPath + "Handlers/UIAutoComplete.ashx");
+            GrandScriptUtils.MakeAutoCompleteDDL("txtCustomerSearch", urlauto, "hdfCustomerSearch", true, true, "CUSTOMER");
+            if ($("[id$=txtCustomerSearch]").attr("disabled") == true) {
+                DisableAuto($("[id$=txtCustomerSearch]"), $("[id$=hdfCustomerSearch]"));
+            }
+        }
+
+        function ValidateNow() {
+            if (typeof (Page_ClientValidate) == 'function') {
+                Page_ClientValidate();
+            }
+            if (!Page_IsValid) {
+                $("[id$=litErrorMsg]").hide();
+                ShowErrorMessage($("#diverror").html());
+                return false;  //Page is invalid -- stop right here
+            }
+            else {
+                //everythings ok --- Call your function & do your stuff
+                return true;
+            }
+        }
+
+        function DisableAuto(extender, hfield) {
+            ///<summary>
+            /// Used to disable Autocomplete
+            ///</summary>
+            $(extender).next($(".ddlSelect")).removeClass("ddlSelect").addClass("ddlSelect-disable");
+            $(extender).autocomplete("option", "disabled", true);
+            $(extender).attr("disabled", true);
+        }
+         
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="scrMenu" runat="server">
+    </asp:ScriptManager>
+    <div class="overlay" id="updateProgress" style="display: none; height: 100%">
+        <!--<div class="ui-widget ui-widget-content ui-corner-all" style="z-index:5000; position:relative; width:200px; height:auto; padding:10px;top:expression(($.position().top/2)+'px'); left:expression((document.body.clientWidth/2)+'px')">Progressing</div>-->
+        <table id="wrapper" class="ui-widget-overlay fixed_overlay" style="width: 100%; height: 100%;">
+            <tr>
+                <td>
+                    <%--<asp:Image ImageUrl="~/Images/Classic/layout/loader-img.gif" Style="z-index: 1200"
+                        CssClass="fixed_overlay_img" runat="server" ID="imgLoader" />--%>
+                        <div id="inTurnFadingTextG" class="fixed_overlay_img loading" >
+                        <div id="inTurnFadingTextG_1" class="inTurnFadingTextG">L</div>
+                        <div id="inTurnFadingTextG_2" class="inTurnFadingTextG">O</div>
+                        <div id="inTurnFadingTextG_3" class="inTurnFadingTextG">A</div>
+                        <div id="inTurnFadingTextG_4" class="inTurnFadingTextG">D</div>
+                        <div id="inTurnFadingTextG_5" class="inTurnFadingTextG">I</div>
+                        <div id="inTurnFadingTextG_6" class="inTurnFadingTextG">N</div>
+                        <div id="inTurnFadingTextG_7" class="inTurnFadingTextG">G</div>
+                        <br />
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span>
+                        </span>
+                        </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="main-container">
+        <div id="header-container">
+            <div id="header-wrap">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 10%">
+                        </td>
+                        <td style="width: 85%">
+                        </td>
+                        <td style="width: 5%">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="blank-top-dash">
+        </div>
+        <div id="menu-container">
+            <div class="dash-menu-bar">
+                <table align="center" width="920px">
+                    <tr>
+                        <td width="420px">
+                            <ul class="dash-menu">
+                                <li class="menu-space">
+                                    <asp:ImageButton SkinID="imgbtnProfile" runat="server" ID="ibButton1" OnClick="ActionHandler"
+                                        CommandName="Profile" /></li>
+                                <li>
+                                    <asp:ImageButton SkinID="imgbtnEnquiries" runat="server" ID="ibButton2" OnClick="ActionHandler"
+                                        CommandName="Enquiries" /></li>
+                                <li class="menu-space">
+                                    <asp:ImageButton SkinID="imgbtnQuote" runat="server" ID="ibButton5" OnClick="ActionHandler"
+                                        CommandName="Quote" /></li>
+                                <li>
+                                    <asp:ImageButton SkinID="imgbtnOrders" runat="server" ID="imageButton6" OnClick="ActionHandler"
+                                        CommandName="Orders" /></li>
+                                <li class="menu-space">
+                                    <asp:ImageButton SkinID="imgbtnContracts" runat="server" ID="ibButton3" OnClick="ActionHandler"
+                                        CommandName="Contracts" /></li>
+                                <li>
+                                    <asp:ImageButton SkinID="imgbtnInbox1" runat="server" ID="ibButton4" OnClick="ActionHandler"
+                                        CommandName="Inbox" /></li>
+                            </ul>
+                        </td>
+                        <td style="width: 500px;" align="right">
+                            <div class="buttonwrap">
+                                <asp:TextBox ID="txtCustomerSearch" runat="server" MaxLength="100"></asp:TextBox>
+                                <asp:HiddenField ID="hdfCustomerSearch" runat="server" />
+                                <div class="dash-buttons">
+                                    <label>
+                                        <asp:Literal ID="lblUserName" runat="server"></asp:Literal></label>
+                                    <asp:ImageButton ID="lnkMenu" SkinID="imgbtnmenu1" runat="server" CausesValidation="false"
+                                        Text="<%$ Resources:Captions, Menu %>" ToolTip="<%$ Resources:Captions, Menu %>"
+                                        OnClientClick="javascript:ShowMenu();return false;"></asp:ImageButton>
+                                    <asp:ImageButton runat="server" ID="imbLogout" SkinID="imgbtnlogout1" CausesValidation="false"
+                                        OnClientClick="javascript:ResetFormValidation();" OnClick="Logout_Click" />
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                                <div class="clear">
+                                </div>
+                            </div>
+                            <div class="dashboard-search">
+                                <asp:Label runat="server" ID="lblFromDate" Text="<%$ Resources:ErpRes, FromDate %>"
+                                    AssociatedControlID="txtFromDate"></asp:Label>
+                                <asp:TextBox runat="server" ID="txtFromDate" CssClass="Uidate-picker"></asp:TextBox>
+                                <asp:HiddenField ID="hdfFromDate" runat="server" />
+                                <asp:RequiredFieldValidator ID="vrfFromDate" CssClass="star" SetFocusOnError="true"
+                                    ValidationGroup="SearchByDate" EnableClientScript="true" runat="server" ControlToValidate="txtFromDate"
+                                    Display="Dynamic" Text="*" ErrorMessage="<%$ Resources:ErpRes, Err_From_Date  %>">
+                                </asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="vrgFromDate" CssClass="star" ValidationGroup="SearchByDate"
+                                    runat="server" ControlToValidate="txtFromDate" SetFocusOnError="true" ErrorMessage="<%$ Resources:ErpRes, Err_Val_From_Date  %>"
+                                    ValidationExpression="^(?:((31-(Jan|Mar|May|Jul|Aug|Oct|Dec))|((([0-2]\d)|30)-(Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))|(([01]\d|2[0-8])-Feb))|(29-Feb(?=-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))-((1[6-9]|[2-9]\d)\d{2})$"
+                                    EnableClientScript="true" Display="Dynamic" Text="*"></asp:RegularExpressionValidator>
+                                <asp:Label runat="server" ID="lblToDate" Text="<%$ Resources:ErpRes, ToDate %>" AssociatedControlID="txtToDate"></asp:Label>
+                                <asp:TextBox runat="server" ID="txtToDate" CssClass="Uidate-picker"></asp:TextBox>
+                                <asp:HiddenField ID="hdfToDate" runat="server" />
+                            
+                                 <asp:RegularExpressionValidator ID="vrgToDate" CssClass="star" ValidationGroup="SearchByDate"
+                                    runat="server" ControlToValidate="txtToDate" SetFocusOnError="true" ErrorMessage= "<%$ Resources:ErpRes, Err_Val_To_Date  %>"
+                                    ValidationExpression="^(?:((31-(Jan|Mar|May|Jul|Aug|Oct|Dec))|((([0-2]\d)|30)-(Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))|(([01]\d|2[0-8])-Feb))|(29-Feb(?=-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))-((1[6-9]|[2-9]\d)\d{2})$"
+                                    EnableClientScript="true" Display="Dynamic" Text="*"></asp:RegularExpressionValidator>
+                                <asp:ImageButton runat="server" ID="btnSearchByDate" SkinID="imgbtnsearch" ValidationGroup="SearchByDate"
+                                    OnClientClick="javascript:ValidateNow();" OnClick="RefreshDashBoard" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="Div1" class="hidden">
+            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="content-container">
+            <asp:HiddenField ID="UserPk" runat="server" />
+            <asp:HiddenField ID="AbsolutePath" runat="server" />
+            <asp:HiddenField ID="BizUnitPk" runat="server" />
+            <asp:HiddenField ID="LAST_MOD_DT" runat="server" />
+            <asp:HiddenField ID="hdnPageID" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfAmtDecimal" runat="server" />
+            <asp:HiddenField ID="hdfQtyDecimal" runat="server" />
+            <asp:HiddenField ID="hdfAbsolutePath" runat="server" />
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="divMenu" style="display: none">
+            <div id="divMenuContent">
+                <uc3:MenuControl ID="MenuControl1" runat="server" />
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div id="footer-wrap">
+        <asp:UpdatePanel runat="server" ID="udpFooter">
+            <ContentTemplate>
+                <table id="tblAppFooter" runat="server" style="width: 100%; border-color: transparent"
+                    align="center">
+                    <tr>
+                        <td style="width: 350px" class="version">
+                            <asp:Label ID="lblVersion" AssociatedControlID="lblVersion" runat="server" Text="Ver 1.1"></asp:Label>
+                            <%--  <label>Ver 1.1</label>--%>
+                            <%--<img id="Img1" src="~/Images/ERP-Blue/erp-production-logo.png" runat="server" />--%>
+                            <%-- <span>Developed by team gti</span>--%>
+                        </td>
+                       <td style="width: 290px">
+                            <div class="logwrap">
+                                <b>
+                                    <asp:Literal runat="server" ID="litSBU" Text=""></asp:Literal></b>
+                            </div>
+                        </td>
+                        <td style="width: 290px">
+                            <div class="logwrap">
+                             <b>
+                                    <asp:Literal runat="server" ID="litDeptCaption" Text=""></asp:Literal></b>
+                                <b class="highlite2">
+                                    <asp:Literal runat="server" ID="litDept" Text=""></asp:Literal></b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="welcome-user floatRight">
+                                <span runat="server" id="WelcomeNote"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+    <div class="clear">
+    </div>
+    <div id="divmodel" class="ui-widget-overlay" style="display: none; z-index: 1000">
+    </div>
+    <div id="divConfirmation">
+    </div>
+    <div id="MSGBox" title="Status" style="width: 700px">
+    </div>
+    <div id="popupHolderMenu">
+    </div>
+    <div id="diverror" style="display: none">
+        <asp:Label runat="server" ID="litErrorMsg" ClientIDMode="Static" CssClass="star"></asp:Label>
+        <asp:ValidationSummary ID="vsPage" ValidationGroup="SearchByDate" runat="server" />
+    </div>
+    <%--   <div id="divAjaxLoading">
+    </div>--%>
+    <div id="errMsgContainer" title="<%=Resources.Captions.Information%>">
+        <ul>
+        </ul>
+    </div>
+    <asp:UpdatePanel runat="server" ID="aupdpnlPopupHolder">
+        <ContentTemplate>
+            <div id="popupHolder">
+            </div>
+            <div class="error" style="display: none">
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    </form>
+    <script type="text/javascript" language="javascript">
+        //For Fixed Overlay
+        function SetWrapper() {
+            $("#wrapper").css({ "height": $(window).height() + "px", "width": $(window).width() + "px" });
+        }
+        $(document).ready(function () {
+
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+            Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+            //            $("#wrapper").css({ "height": $(document).height() + "px", "width": $(document).width() + "px" });
+            //            //$("#updateProgress").css({ "height": $(document).height() + "px" }); 
+            //            $("#divmodel").css({ "height": $(document).height() + "px" });
+
+            // For Setting Overlay Style
+            $("#wrapper").css({ "height": $(window).height() + "px", "width": $(window).width() + "px" });
+            if (navigator.appName == "Microsoft Internet Explorer") {
+                $(".fixed_overlay_img").css({ "position": "absolute!important" });
+            }
+            else {
+                $(".fixed_overlay_img").addClass("fixed_overlay_img_pos");
+            }
+            $("#divmodel").css({ "height": $(document).height() + "px" });
+        });
+        function encodeInput() {
+            $("input[type='text'],textarea").each(function () {
+                var oldValue = $(this).val();
+                $("#popupHolder").html(oldValue);
+                var newValue = $("#popupHolder").html();
+                newValue = newValue.replace("<", "&lt;");
+                newValue = newValue.replace(">", "&gt;");
+                $(this).val(newValue);
+                $("#popupHolder").html("");
+            });
+        }
+        function BeginRequestHandler(sender, args) {
+
+            $("#updateProgress").show();
+            if (typeof BeginRequest == "function") {
+                //                BeginRequest();
+                SetWrapper();
+            }
+        }
+
+        function ClosePopup() {
+            $('html').css('overflow', 'auto');
+            $('body').css('overflow', 'visible');
+            if ($('#divmodel').length > 0) {
+                $('#divmodel').hide();
+            }
+        }
+        //        // Validate the input text controls to prevent XSS
+        //        function EndRequestHandler(sender, args) {
+        //            if (typeof EndRequest == "function") {
+        //                EndRequest();
+        //            }
+
+        //            //To add tooltip to dropdown
+        //            $("#updateProgress").hide();
+        //            if ($.browser.msie) {
+        //                $("select").each(function () {
+        //                    var drp = $(this);
+        //                    $(drp).attr("id");
+        //                    $(drp).find("option").each(function () {
+        //                        $(this).attr("title", $(this).text());
+        //                    });
+        //                });
+        //            }
+
+        //            //To add tooltip to autocomplete
+        //            $("input:text.ui-autocomplete-input").each(function () {
+        //                $(this).attr("title", $(this).val());
+        //            });
+        function EndRequestHandler(sender, args) {
+
+            if (typeof EndRequest == "function") {
+                EndRequest();
+            }
+
+            //            if (args.get_error() != undefined && args.get_error().httpStatusCode == '500') {
+            //                var errorMessage;
+            //                var errorResponse = args.get_response();
+            //                args.set_errorHandled(true);
+
+            //                if (errorResponse._xmlHttpRequest) {
+            //                    errorMessage = errorResponse._xmlHttpRequest.responseText;
+            //                    //errorMessage = $(errorMessage).find("title").text();
+            //                    //XSS Attack..
+            //                    if (errorMessage.indexOf('A potentially dangerous Request.Form value') >= 0) {
+            //                        ShowErrorMessage("Potentially Dangerous input found! Please refine your input");
+            //                    }
+            //                }
+            //            }
+
+            //To add tooltip to dropdown
+            $("#updateProgress").hide();
+            if ($.browser.msie) {
+                $("select").each(function () {
+                    var drp = $(this);
+                    $(drp).attr("id");
+                    $(drp).find("option").each(function () {
+                        $(this).attr("title", $(this).text());
+                    });
+                });
+            }
+
+            //To add tooltip to autocomplete
+            $("input:text.ui-autocomplete-input").each(function () {
+                $(this).attr("title", $(this).val());
+            });
+
+            //To remove unnecessary space between controls
+            $(document).ready(function () {
+                $('.divcolmiddle-S,.input-inlinediv,.small-input-width,.div2col-S').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).remove();
+            });
+
+            $("input:text,input:radio,input:checkbox,input:file,select").live("keydown", function (event) {
+                // track enter key
+                var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+                if (keycode == 13) { // keycode for enter key
+                    // force prevent Default
+                    event.preventDefault();
+                }
+            });       // end of function
+            if (typeof EndRequestHandlerPage == 'function') {
+                $("#wrapper").css({ "height": $(document).height() + "px", "width": $(document).width() + "px" });
+                $("#divmodel").css({ "height": $(document).height() + "px" });
+                EndRequestHandlerPage();
+            }
+        }
+        //To remove unnecessary space between controls
+        $(document).ready(function () {
+            $('.divcolmiddle-S,.input-inlinediv,.small-input-width,.div2col-S').contents().filter(function () {
+                return this.nodeType === 3;
+            }).remove();
+        });
+        $(document).ready(function () {
+            if ($.browser.msie) {
+                $("select").each(function () {
+                    var drp = $(this);
+                    $(drp).attr("id");
+                    $(drp).find("option").each(function () {
+                        $(this).attr("title", $(this).text());
+                    });
+                });
+            }
+            $("input:text.ui-autocomplete-input").each(function () {
+                $(this).attr("title", $(this).val());
+            });
+            $("input:text,input:radio,input:checkbox,input:file,select").live("keydown", function (event) {
+                // track enter key
+                var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+                if (keycode == 13) { // keycode for enter key
+                    // force prevent Default
+                    event.preventDefault();
+                }
+            });    // end of function           
+        });
+
+        function ShowDeleteConfirm(btn, message) {
+            var msgTitle;
+            var msg;
+            msgTitle = '<%= Resources.ErpRes.Title_Information %>';
+            msg = message ? message : '<%= Resources.ErpRes.MsgDeleteConfirm %>';
+            $("#divConfirmation").html(msg).dialog({
+                modal: true,
+                height: 150,
+                width: 350,
+                title: msgTitle,
+                resizable: false,
+                buttons: {
+                    OK: function (e) {
+                        $(this).dialog("close");
+                        __doPostBack(btn.name, '');
+                    },
+                    Cancel: function (e) {
+                        $(this).dialog("close");
+                        if (typeof AfterDeleteConfirmationCancel == "function") {
+                            AfterDeleteConfirmationCancel(btn.id);
+                        }
+                        return false;
+                    }
+                }
+            });
+            return false;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace GTIService.Constants.AssetService
+{
+    public class Procedures
+    {
+        public const string SPASR_SERVICE_REQUEST_WKF_SAVE = "SPASR_SERVICE_REQUEST_WKF_SAVE";
+        public const string SPASR_MNTSERVICETYPEMST_GET_KV = "SPASR_MNTSERVICETYPEMST_GET_KV";
+        public const string SPASR_SERVICE_REQUEST_GET_XML = "SPASR_SERVICE_REQUEST_GET_XML";
+        public const string SPASR_SERVICE_REQUEST_AUTO = "SPASR_SERVICE_REQUEST_AUTO";
+        public const string SPASR_SERVICE_REQUEST_GET_LIST = "SPASR_SERVICE_REQUEST_GET_LIST";
+        public const string SPASR_SERVICE_REQUEST_DELETE = "SPASR_SERVICE_REQUEST_DELETE";
+        public const string SPINV_DEPT_STORE_GET_KV = "SPINV_DEPT_STORE_GET_KV";
+        public const string SPASR_SERVICE_REQUEST_CANCEL_CHECK = "SPASR_SERVICE_REQUEST_CANCEL_CHECK";
+        public const string SPASR_GET_ASSET_TYPE = "SPASR_AsrAssetMst_GET_KV";
+
+        public const string SPASR_SERVICE_ORDER_WKF_SAVE = "SPASR_SERVICE_ORDER_WKF_SAVE";
+        public const string SPASR_SERVICE_REQ_PENDING_GET_LIST = "SPASR_SERVICE_REQ_PENDING_GET_LIST";
+        public const string SPASR_SERVICE_ORDR_REQ_GET_XML = "SPASR_SERVICE_ORDR_REQ_GET_XML";
+        public const string SPASR_SERVICE_ORDER_SAVE = "SPASR_SERVICE_ORDER_SAVE";
+        public const string SPASR_SERVICE_ORDER_GET_LIST = "SPASR_SERVICE_ORDER_GET_LIST";
+        public const string SPASR_SERVICE_ORDER_GET_XML = "SPASR_SERVICE_ORDER_GET_XML";
+        public const string SPASR_SERVICE_ORDER_DELETE = "SPASR_SERVICE_ORDER_DELETE";
+        public const string SPASR_SERVICE_REQ_DTL_GET = "SPASR_SERVICE_REQ_DTL_GET";
+        public const string SPASR_SERVICE_ORDER_AUTO = "SPASR_SERVICE_ORDER_AUTO";
+        public const string SPASR_SERVICE_ORDER_CANCEL_CHECK = "SPASR_SERVICE_ORDER_CANCEL_CHECK";
+
+        public const string SPASR_SERVICE_RECEIPT_PENDING_GET_LIST = "SPASR_SERVICE_RECEIPT_PENDING_GET_LIST";
+        public const string SPASR_SERVICE_RECEIPT_ORDER_GET_XML = "SPASR_SERVICE_RECEIPT_ORDER_GET_XML";
+        public const string SPASR_SERVICE_RECEIPT_SAVE = "SPASR_SERVICE_RECEIPT_SAVE";
+        public const string SPASR_SERVICE_RECEIPT_GET_LIST = "SPASR_SERVICE_RECEIPT_GET_LIST";
+        public const string SPASR_SERVICE_RECEIPT_GET_XML = "SPASR_SERVICE_RECEIPT_GET_XML";
+        public const string SPASR_SERVICE_RECEIPT_DELETE = "SPASR_SERVICE_RECEIPT_DELETE";
+        public const string SPASR_SERVICE_RECEIPT_AUTO = "SPASR_SERVICE_RECEIPT_AUTO";
+        public const string SPASR_SERVICE_ORDR_DTL_GET = "SPASR_SERVICE_ORDR_DTL_GET";
+        public const string SPASR_SERVICE_RECEIPT_WKF_SAVE = "SPASR_SERVICE_RECEIPT_WKF_SAVE";
+        public const string SPASR_SERVICE_REQUEST_RPT = "SPASR_SERVICE_REQUEST_RPT";
+        public const string SPASR_ASSET_WRITE_OFF_GET_RPT = "SPASR_ASSET_WRITE_OFF_GET_RPT";
+        public const string SPFIN_TRX_CWIP_RPT_PRINT = "SPFIN_TRX_CWIP_RPT_PRINT";
+        public const string SPASR_SERVICE_ORDER_RPT = "SPASR_SERVICE_ORDER_RPT";
+        public const string SPASR_SERVICE_RECEIPT_RPT = "SPASR_SERVICE_RECEIPT_RPT";
+    }
+}

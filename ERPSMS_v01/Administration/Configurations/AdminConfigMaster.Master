@@ -1,0 +1,117 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminConfigMaster.Master.cs"
+    Inherits="ERPSMS_v01.Administration.AdminMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Admin Configuration</title>
+    <link href="../../App_Themes/ERP-Blue/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="../../App_Themes/ERP-Blue/Autocomplete.css" rel="stylesheet" type="text/css" />
+    <asp:Literal ID="scriptSrc" Text="" runat="server"></asp:Literal>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+      <asp:ScriptManager ID="scrptScriptManager" runat="server" CompositeScript-ScriptMode="Auto"
+        LoadScriptsBeforeUI="true" 
+       >
+
+         <%--<CompositeScript>
+            <Scripts>              
+                <asp:ScriptReference Path="~/Scripts/Jquery/jquery.min.js" ScriptMode="Auto" />
+                <asp:ScriptReference Path="~/Scripts/Jquery/jquery-ui.min.js" ScriptMode="Auto" />
+                <asp:ScriptReference Path="~/Scripts/Jquery/TimePicker.js" ScriptMode="Auto" />
+                <asp:ScriptReference Path="~/Scripts/PageScript/Master.js" ScriptMode="Auto" />                     
+                <asp:ScriptReference Path="~/Scripts/PageScript/GrandScriptUtils.js" ScriptMode="Auto" />                
+
+            </Scripts>
+        </CompositeScript>--%>
+    </asp:ScriptManager>     
+    <div id="maincontainer">
+        <%-- header section--%>
+        <div id="inbox-header">
+            <div class="logo">
+            </div>
+            <div class="inbox-menu">
+                <asp:Label ID="lblUserName" runat="server" Visible="false"></asp:Label>
+                <asp:ImageButton runat="server" ID="imbLogout" SkinID="imgbtn-logout" CausesValidation="false"
+                    OnClientClick="javascript:ResetFormValidation();" OnClick="Logout_Click" />
+                <asp:ImageButton runat="server" ID="btnHome" SkinID="imgbtn-home" CausesValidation="false"
+                    OnClick="Home_Click" />
+                <asp:ImageButton runat="server" ID="btnInbox" SkinID="imgbtnWorkflowInbox" CausesValidation="false"
+                    OnClick="Inbox_Click" />
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <%-- header section--%>
+        <div class="roundedbox-outer">
+            <div id="topheader-wrap" style="background: none">
+                <div id="MenuSearch" class="menuSearchwrap">
+                    <span class="logo">ERP ADMIN CONTROL</span>
+                </div>
+                <%-- <div class="welcomeuser-wrap">
+                    <a href="~/Administration/Default.aspx" class="homlink" runat="server" 
+                        title="Home">home</a>
+                        <asp:LinkButton runat="server" ID="lnbLogout" onclick="lnbLogout_Click"
+                            OnClientClick="javascript:ResetFormValidation();">Logout</asp:LinkButton>
+                    
+                </div>--%>
+            </div>
+            <div id="contentarea-container">
+                <asp:HiddenField ID="UserPk" runat="server" Value="0" />
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mcbottom">
+        <span>Developed by team gti</span>
+        <img id="Img1" src="~/Images/ERP-Blue/erp-production-logo.png" runat="server" />
+        <div class="clear">
+        </div>
+    </div>
+    <div id="MSGBox" title="Status">
+    </div>
+     <div class="error" style="display: none">
+        </div>
+        <div id="popupHolder">
+        </div>
+        <div id="divConfirmation">
+        </div>
+
+    </form>
+    <script type="text/javascript">
+        function limitText(limitField, limitNum) {
+            ///<summary>
+            ///limits the multiline length - on copy too
+            ///</summary>
+            if (limitField.value.length > limitNum) {
+                limitField.value = limitField.value.substring(0, limitNum);
+            }
+        }
+        function ShowErrorMessage(message, title) {
+
+            //if (!title) // we are not dealing with passed titles anymore ! change - 16-Jun-2011
+            title = title ? title : '<%= Resources.Captions.Information %>';
+            $(".error").html("");
+            $(".error").html(message);
+            $(".error").dialog({
+                resizable: false,
+                title: title,
+
+                modal: true,
+                open: function (event, ui) {
+                    $(this).parent().appendTo("#popupHolder");
+                }
+            });
+            return false;
+        }
+    </script>
+</body>
+</html>

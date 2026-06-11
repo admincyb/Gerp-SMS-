@@ -1,0 +1,976 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Breadcrumb" xml:space="preserve">
+    <value>Order to Cash &gt;&gt; Sales Invoice</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Inv. Amt.</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Cur</value>
+  </data>
+  <data name="DeliveryTerms" xml:space="preserve">
+    <value>Delivery Terms</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DiscountDetails" xml:space="preserve">
+    <value>Discount Details</value>
+  </data>
+  <data name="Err_Amount" xml:space="preserve">
+    <value>Enter Amount</value>
+  </data>
+  <data name="Err_Amount_Greater_Discount" xml:space="preserve">
+    <value>Total amount should be greater than or equal to Total discount</value>
+  </data>
+  <data name="Err_Amount_Valid" xml:space="preserve">
+    <value>Enter valid Amount</value>
+  </data>
+  <data name="Err_Currency" xml:space="preserve">
+    <value>Select Currency</value>
+  </data>
+  <data name="Err_DeliveryTerms" xml:space="preserve">
+    <value>Enter Delivery Terms</value>
+  </data>
+  <data name="Err_Discount" xml:space="preserve">
+    <value>Enter Discount</value>
+  </data>
+  <data name="Err_Empty_Rate" xml:space="preserve">
+    <value>At least one item should have rate greater than zero</value>
+  </data>
+  <data name="Err_Invalid_Amount" xml:space="preserve">
+    <value>Invalid Amount</value>
+  </data>
+  <data name="Err_Invalid_Discount" xml:space="preserve">
+    <value>Invalid Discount</value>
+  </data>
+  <data name="Err_Invalid_Rate" xml:space="preserve">
+    <value>Invalid Rate</value>
+  </data>
+  <data name="Err_Invliad_Discount" xml:space="preserve">
+    <value>Invalid Discount</value>
+  </data>
+  <data name="Err_Invliad_Tax" xml:space="preserve">
+    <value>Invalid Tax</value>
+  </data>
+  <data name="Err_OtherDetails" xml:space="preserve">
+    <value>Enter Other Details</value>
+  </data>
+  <data name="Err_PaymentTerms" xml:space="preserve">
+    <value>Enter Payment Terms</value>
+  </data>
+  <data name="Err_PriceAdj" xml:space="preserve">
+    <value>Enter Amount Adj.</value>
+  </data>
+  <data name="Err_Rate" xml:space="preserve">
+    <value>Enter Price</value>
+  </data>
+  <data name="Err_Rate_Discount" xml:space="preserve">
+    <value>Invalid Rate or Discount</value>
+  </data>
+  <data name="Err_Rate_Greater_Discount" xml:space="preserve">
+    <value>Rate should be greater than or equal to discount</value>
+  </data>
+  <data name="Err_InvoiceDate" xml:space="preserve">
+    <value>Enter Invoice Date</value>
+  </data>
+  <data name="Err_Invoice_Save" xml:space="preserve">
+    <value>Invoice Saving Failed</value>
+  </data>
+  <data name="Err_Shipping" xml:space="preserve">
+    <value>Enter Shipping Charges</value>
+  </data>
+  <data name="Err_Tax" xml:space="preserve">
+    <value>Enter Tax</value>
+  </data>
+  <data name="Err_TaxName" xml:space="preserve">
+    <value>Enter Name</value>
+  </data>
+  <data name="Err_Tax_Add" xml:space="preserve">
+    <value>Given Item Already Added</value>
+  </data>
+  <data name="Err_Tax_Amount" xml:space="preserve">
+    <value>Amount shold be numeric</value>
+  </data>
+  <data name="Err_TotalDiscount" xml:space="preserve">
+    <value>Enter Total Discount</value>
+  </data>
+  <data name="Err_TotalTax" xml:space="preserve">
+    <value>Enter Total Tax</value>
+  </data>
+  <data name="Err_Vendor" xml:space="preserve">
+    <value>Select a vendor</value>
+  </data>
+  <data name="Err_VendorRef" xml:space="preserve">
+    <value>Enter Vendor Reference No</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="OtherDetails" xml:space="preserve">
+    <value>Other Details</value>
+  </data>
+  <data name="PageSize" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="PaymentTerms" xml:space="preserve">
+    <value>Payment Terms</value>
+  </data>
+  <data name="AmountAdj" xml:space="preserve">
+    <value>Amount Adj.</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Prices</value>
+  </data>
+  <data name="InvoiceDate" xml:space="preserve">
+    <value>Invoice Date</value>
+  </data>
+  <data name="InvoiceDueDate" xml:space="preserve">
+    <value>Invoice Due Date</value>
+  </data>
+  <data name="InvoiceNo" xml:space="preserve">
+    <value>Invoice No.</value>
+  </data>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping</value>
+  </data>
+  <data name="Specifications" xml:space="preserve">
+    <value>Specifications</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="TaxDetails" xml:space="preserve">
+    <value>Tax Details</value>
+  </data>
+  <data name="TaxName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TaxType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="UoM" xml:space="preserve">
+    <value>UoM</value>
+  </data>
+  <data name="Vendor" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="VendorRef" xml:space="preserve">
+    <value>Vendor Ref</value>
+  </data>
+  <data name="Err_InvoiceDueDate" xml:space="preserve">
+    <value>Enter Invoice Due Date</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="InvQuantity" xml:space="preserve">
+    <value>Invd. Qty.</value>
+  </data>
+  <data name="OrderQuantity" xml:space="preserve">
+    <value>Ord. Qty.</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Advance" xml:space="preserve">
+    <value>Advance Received</value>
+  </data>
+  <data name="ContainerNo" xml:space="preserve">
+    <value>Container No.</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Err_Advance" xml:space="preserve">
+    <value>Enter Advance Received</value>
+  </data>
+  <data name="Err_Invalid_Advance" xml:space="preserve">
+    <value>Invalid Advance Received</value>
+  </data>
+  <data name="Err_Invalid_PriceAdj" xml:space="preserve">
+    <value>Invalid Amount Adj.</value>
+  </data>
+  <data name="Err_Invalid_Shipping" xml:space="preserve">
+    <value>Invalid Shipping</value>
+  </data>
+  <data name="Err_Save" xml:space="preserve">
+    <value>Invoice Saving Failed</value>
+  </data>
+  <data name="ETA" xml:space="preserve">
+    <value>ETA</value>
+  </data>
+  <data name="ETD" xml:space="preserve">
+    <value>ETD</value>
+  </data>
+  <data name="FeederVessel" xml:space="preserve">
+    <value>Feeder Vessel</value>
+  </data>
+  <data name="FinalDest" xml:space="preserve">
+    <value>Final Destination</value>
+  </data>
+  <data name="InvAmt" xml:space="preserve">
+    <value>Invoiced Amount</value>
+  </data>
+  <data name="InvNow" xml:space="preserve">
+    <value>Inv. Now</value>
+  </data>
+  <data name="MotherVessel" xml:space="preserve">
+    <value>Mother Vessel</value>
+  </data>
+  <data name="PortofLoading" xml:space="preserve">
+    <value>Port of Loading</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="ShippingMark" xml:space="preserve">
+    <value>Shipping Mark</value>
+  </data>
+  <data name="SOAmt" xml:space="preserve">
+    <value>SC Amount</value>
+  </data>
+  <data name="SODate" xml:space="preserve">
+    <value>SC Date</value>
+  </data>
+  <data name="SONo" xml:space="preserve">
+    <value>SC No.</value>
+  </data>
+  <data name="Err_InvQty" xml:space="preserve">
+    <value>Invoice Now is greater than Balance to Invoice</value>
+  </data>
+  <data name="InvoiceType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Inv. No.</value>
+  </data>
+  <data name="Msg_Select_Invoice" xml:space="preserve">
+    <value>Please select a row to perform the required operation.</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>drafted-icon</value>
+  </data>
+  <data name="mark" xml:space="preserve">
+    <value>approved-icon</value>
+    <comment>mark</comment>
+  </data>
+  <data name="posted" xml:space="preserve">
+    <value>posted-icon</value>
+    <comment>Posted</comment>
+  </data>
+  <data name="unposted" xml:space="preserve">
+    <value>unposted-icon</value>
+  </data>
+  <data name="Msg_Submit_Success" xml:space="preserve">
+    <value>{0} submitted successfully. Invoice No. is {1}</value>
+  </data>
+  <data name="Journalize" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="Msg_Journalize_Msg" xml:space="preserve">
+    <value>Please submit and approve this Invoice to proceed further.</value>
+  </data>
+  <data name="Msg_PickPayment_Msg" xml:space="preserve">
+    <value>Please submit and approve this Invoice to proceed further.</value>
+  </data>
+  <data name="TabActive" xml:space="preserve">
+    <value>tab-active</value>
+    <comment>tab-active</comment>
+  </data>
+  <data name="TabInActive" xml:space="preserve">
+    <value>tab-inactive</value>
+    <comment>tab-inactive</comment>
+  </data>
+  <data name="Msg_Err_Currency" xml:space="preserve">
+    <value>Not allowed to invoice multiple currencies</value>
+  </data>
+  <data name="Msg_Err_Customer" xml:space="preserve">
+    <value>Not allowed to invoice multiple customers</value>
+  </data>
+  <data name="Msg_PickPaymentPost_Msg" xml:space="preserve">
+    <value>Please post this Invoice to proceed further.</value>
+  </data>
+  <data name="PickForCrDrNote" xml:space="preserve">
+    <value>Pick for CN/DN</value>
+    <comment>Pick Inv  for Cr/Dr. Note</comment>
+  </data>
+  <data name="PickInvforReceipt" xml:space="preserve">
+    <value>Pick for Receipt</value>
+    <comment>Pick Inv  for Receipt</comment>
+  </data>
+  <data name="BalAmt" xml:space="preserve">
+    <value>Bal. Amt.</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due Date</value>
+  </data>
+  <data name="InvDate" xml:space="preserve">
+    <value>Inv. Date</value>
+  </data>
+  <data name="InvNo" xml:space="preserve">
+    <value>Inv. No.</value>
+  </data>
+  <data name="Err_Disc_Add" xml:space="preserve">
+    <value>Given Discount Already Added</value>
+  </data>
+  <data name="Err_Discount_Amount" xml:space="preserve">
+    <value>Total Discount should not exceed Amount</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Err_Invalid_InvNow" xml:space="preserve">
+    <value>Enter valid Inv. Now</value>
+  </data>
+  <data name="ResetSelection" xml:space="preserve">
+    <value>Reset Inv. Selection</value>
+  </data>
+  <data name="Sales_Invoice_Journal" xml:space="preserve">
+    <value>Sales Invoice Journal</value>
+  </data>
+  <data name="HdrCurrency" xml:space="preserve">
+    <value>Currency :</value>
+  </data>
+  <data name="HdrCustomer" xml:space="preserve">
+    <value>Customer :</value>
+  </data>
+  <data name="HdrInvAmt" xml:space="preserve">
+    <value>Invoiced Amt. :</value>
+  </data>
+  <data name="HdrSOAmt" xml:space="preserve">
+    <value>SC Amount :</value>
+  </data>
+  <data name="HdrSODate" xml:space="preserve">
+    <value>SC Date :</value>
+  </data>
+  <data name="HdrSONo" xml:space="preserve">
+    <value>SC No. :</value>
+  </data>
+  <data name="APPLICATION_STATUS" xml:space="preserve">
+    <value>APPLICATION STATUS</value>
+  </data>
+  <data name="prnormal-icon" xml:space="preserve">
+    <value>prnormal-icon</value>
+  </data>
+  <data name="Alert_Type_Text" xml:space="preserve">
+    <value>Sales Invoice</value>
+  </data>
+  <data name="Err_InvoiceType" xml:space="preserve">
+    <value>Enter Invoice Type</value>
+  </data>
+  <data name="InvoiceType1" xml:space="preserve">
+    <value>Invoice Type</value>
+  </data>
+  <data name="InvProformaQuantity" xml:space="preserve">
+    <value>Pro. Qty.</value>
+  </data>
+  <data name="Deduction" xml:space="preserve">
+    <value>Deduct : Advance Received</value>
+  </data>
+  <data name="Err_TotalDeduction" xml:space="preserve">
+    <value>Enter Total Deduction</value>
+  </data>
+  <data name="DeductionDetails" xml:space="preserve">
+    <value>Allocation Details</value>
+  </data>
+  <data name="Msg_InvoiceQty" xml:space="preserve">
+    <value>Maximum allowed Qty is {0}</value>
+  </data>
+  <data name="Err_InvalidAllocation" xml:space="preserve">
+    <value>Invalid Allocation Entry</value>
+  </data>
+  <data name="Balance_Before_Tax" xml:space="preserve">
+    <value>Balance Before Tax</value>
+  </data>
+  <data name="Msg_Already_Credit_Adjusted" xml:space="preserve">
+    <value>Their is a Credit adjustment entry against the selected invoice</value>
+  </data>
+  <data name="Msg_Already_Debit_Adjusted" xml:space="preserve">
+    <value>Their is a Debit adjustment entry against the selected invoice</value>
+  </data>
+  <data name="Msg_Already_Journalized" xml:space="preserve">
+    <value>Their is a journalize entry against the selected invoice</value>
+  </data>
+  <data name="Msg_Already_Received" xml:space="preserve">
+    <value>Their is a Receipt entry against the selected invoice</value>
+  </data>
+  <data name="Currency1" xml:space="preserve">
+    <value>Currency :</value>
+  </data>
+  <data name="Customer1" xml:space="preserve">
+    <value>Customer :</value>
+  </data>
+  <data name="InvoiceDate1" xml:space="preserve">
+    <value>Invoice Date :</value>
+  </data>
+  <data name="InvoiceNo1" xml:space="preserve">
+    <value>Invoice No. :</value>
+  </data>
+  <data name="SoDate1" xml:space="preserve">
+    <value>SC. Date :</value>
+  </data>
+  <data name="SoNo1" xml:space="preserve">
+    <value>SC. No. :</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Do you want to delete?</value>
+  </data>
+  <data name="Err_BalBeforeVat" xml:space="preserve">
+    <value>Enter Balance Befor Tax</value>
+  </data>
+  <data name="Err_Total" xml:space="preserve">
+    <value>Enter Total</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="GrossTotal" xml:space="preserve">
+    <value>Gross Total</value>
+  </data>
+  <data name="Err_Gross_Total" xml:space="preserve">
+    <value>Enter Gross Total</value>
+  </data>
+  <data name="Allocated" xml:space="preserve">
+    <value>Allocated</value>
+  </data>
+  <data name="AllocateNow" xml:space="preserve">
+    <value>Allocate Now</value>
+  </data>
+  <data name="Amount1" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="InvoiceAmount" xml:space="preserve">
+    <value>Inv. Amt.</value>
+  </data>
+  <data name="ReceiptAmount" xml:space="preserve">
+    <value>Rcpt. Amt.</value>
+  </data>
+  <data name="ReceiptDate" xml:space="preserve">
+    <value>Rcpt. Date</value>
+  </data>
+  <data name="ReceiptNo" xml:space="preserve">
+    <value>Rcpt. No</value>
+  </data>
+  <data name="InvoiceDate2" xml:space="preserve">
+    <value>Inv. Date</value>
+  </data>
+  <data name="InvoiceNo2" xml:space="preserve">
+    <value>Inv. No.</value>
+  </data>
+  <data name="Msg_InvoiceQty_Zero" xml:space="preserve">
+    <value>Already reached maximum allowed quantity</value>
+  </data>
+  <data name="Err_MsgExceeds_Allocation" xml:space="preserve">
+    <value>Exceeds maximum invoice amount</value>
+  </data>
+  <data name="GrossAmount" xml:space="preserve">
+    <value>Gross Amt.</value>
+  </data>
+  <data name="Msg_Err_Currency_CNDN" xml:space="preserve">
+    <value>Multiple currencies are not allowed in single CN/DN</value>
+  </data>
+  <data name="Msg_Err_Currency_Payment" xml:space="preserve">
+    <value>Multiple currencies are not allowed in single receipt</value>
+  </data>
+  <data name="Msg_Err_Vendor_CNDN" xml:space="preserve">
+    <value>Multiple customers are not allowed in single CN/DN</value>
+  </data>
+  <data name="Msg_Err_Vendor_Payment" xml:space="preserve">
+    <value>Multiple customers are not allowed in single receipt</value>
+  </data>
+  <data name="Invoice_Total" xml:space="preserve">
+    <value>Invoice Total</value>
+  </data>
+  <data name="Net_Receivable" xml:space="preserve">
+    <value>Net Receivable</value>
+  </data>
+  <data name="Msg_Save_Without_Allocation" xml:space="preserve">
+    <value>Do you want to save without allocating the deduction.</value>
+  </data>
+  <data name="PendingBal" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="CancelSI" xml:space="preserve">
+    <value>Cancel SI</value>
+  </data>
+  <data name="Err_SI_Cancel" xml:space="preserve">
+    <value>Sales invoice is used in other places</value>
+  </data>
+  <data name="Msg_Cancelled_Success" xml:space="preserve">
+    <value>{0} cancelled successfully</value>
+  </data>
+  <data name="Msg_Err_InvoiceTypes_CNDN" xml:space="preserve">
+    <value>Multiple Invoice types not allowed in single CN/DN</value>
+  </data>
+  <data name="Msg_Err_InvoiceTypes_receipt" xml:space="preserve">
+    <value>Multiple Invoice types not allowed in single receipt</value>
+  </data>
+  <data name="SpecialNotes" xml:space="preserve">
+    <value>Special Notes</value>
+  </data>
+  <data name="Msg_PickPaymentCancelled_Msg" xml:space="preserve">
+    <value>Selected invoice is a cancelled one</value>
+  </data>
+  <data name="Msg_Cont_Confirm" xml:space="preserve">
+    <value>The selected invoice already Recieved.Do you want to continue?</value>
+  </data>
+  <data name="OtherCharges" xml:space="preserve">
+    <value>Other Charges</value>
+  </data>
+  <data name="Charges" xml:space="preserve">
+    <value>Charges</value>
+  </data>
+  <data name="PopOtherOtherName" xml:space="preserve">
+    <value>Sea Freight</value>
+  </data>
+  <data name="Msg_Save_Success" xml:space="preserve">
+    <value>{0} saved successfully. Invoice No. is {1}</value>
+  </data>
+  <data name="DOR" xml:space="preserve">
+    <value>Deduct : Other charge recieved</value>
+  </data>
+  <data name="Msg_Saved_Success" xml:space="preserve">
+    <value>Invoice Saved Successfully.</value>
+  </data>
+  <data name="SOotherChrg" xml:space="preserve">
+    <value>Oth. Charges</value>
+  </data>
+  <data name="Msg_Err_Tax" xml:space="preserve">
+    <value>Please select same type of Invoice for with/without Tax.</value>
+  </data>
+  <data name="Msg_Invoice_notcreated" xml:space="preserve">
+    <value>There is no data to perform  the required operation.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>HeadOffice/Branch</value>
+    <comment>HeadOffice/Branch</comment>
+  </data>
+  <data name="TaxId" xml:space="preserve">
+    <value>Tax ID</value>
+    <comment>Tax ID</comment>
+  </data>
+  <data name="Err_BranchID" xml:space="preserve">
+    <value>Enter Branch ID</value>
+    <comment>Enter Branch ID</comment>
+  </data>
+  <data name="Err_ReqType" xml:space="preserve">
+    <value>Please Select Head Office/Branch</value>
+  </data>
+  <data name="Err_Type" xml:space="preserve">
+    <value>Please select type.</value>
+  </data>
+  <data name="Err_BranchCode" xml:space="preserve">
+    <value>Enter Branch ID</value>
+  </data>
+  <data name="Err_Save_emptygrid" xml:space="preserve">
+    <value>Invoice Saving failed due to empty records</value>
+  </data>
+  <data name="TaxAmount" xml:space="preserve">
+    <value>Tax Amount</value>
+  </data>
+  <data name="TaxCode" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="TaxRate" xml:space="preserve">
+    <value>Rate (%)</value>
+  </data>
+  <data name="DedDisc" xml:space="preserve">
+    <value>Deduct : Deduct discount adjusted</value>
+  </data>
+  <data name="TotalDeductionExp" xml:space="preserve">
+    <value>Deductions</value>
+  </data>
+  <data name="TrxNo" xml:space="preserve">
+    <value>Transaction No</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TrxDetails" xml:space="preserve">
+    <value>Transaction Details</value>
+  </data>
+  <data name="TrxAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Msg_InvZeroAmount" xml:space="preserve">
+    <value>Please select Invoice with Inv. Amt greater than zero.</value>
+  </data>
+  <data name="ShowInvDueDetails" xml:space="preserve">
+    <value>Invoice Due Date Details</value>
+  </data>
+  <data name="DueAmount" xml:space="preserve">
+    <value>Due Amount</value>
+  </data>
+  <data name="Err_Invdate" xml:space="preserve">
+    <value>Invalid Invoice date .</value>
+  </data>
+  <data name="RefreshInv" xml:space="preserve">
+    <value>Refresh Invoice</value>
+  </data>
+  <data name="Err_NoItems" xml:space="preserve">
+    <value>No Items Found.</value>
+  </data>
+  <data name="ScNo" xml:space="preserve">
+    <value>SC No. </value>
+  </data>
+  <data name="Msg_SelectItem" xml:space="preserve">
+    <value>Please select an item from the list</value>
+  </data>
+  <data name="Msg_SelectoneItem" xml:space="preserve">
+    <value>Please select only one item from the list to perform your action</value>
+  </data>
+  <data name="MsgApproveforReceipt" xml:space="preserve">
+    <value>Please select approved invoice(s) from the list to pick for receipt</value>
+  </data>
+  <data name="MsgJournalizeforReceipt" xml:space="preserve">
+    <value>Please select journalized invoice(s) from the list to pick for receipt</value>
+  </data>
+  <data name="MsgPickCancelledInv" xml:space="preserve">
+    <value>Cancelled invoice(s) are not allowed to pick for receipt.</value>
+  </data>
+  <data name="Msg_DO_Modified" xml:space="preserve">
+    <value>Invoice under modification.Please modify this invoice before cancellation.</value>
+  </data>
+  <data name="AdjustNow" xml:space="preserve">
+    <value>Adjust Now</value>
+  </data>
+  <data name="Error_OtherChargeAllocation" xml:space="preserve">
+    <value>Other charge should not be greater than total amount</value>
+  </data>
+  <data name="Err_AdjNowAmount" xml:space="preserve">
+    <value>Enter adjust now amount</value>
+  </data>
+  <data name="Err_InvalidAdjNowAmount" xml:space="preserve">
+    <value>Invalid adjust now amount</value>
+  </data>
+  <data name="Err_InvalidOthercharge" xml:space="preserve">
+    <value>Adjust now must be less than or equal to balance</value>
+  </data>
+  <data name="InvdAmt" xml:space="preserve">
+    <value>Invoiced (Other Charge)</value>
+  </data>
+  <data name="Err_ExchangeRate" xml:space="preserve">
+    <value>Invalid Exchange rate.</value>
+  </data>
+  <data name="Msg_alreadycancelled" xml:space="preserve">
+    <value>Already cancelled.</value>
+  </data>
+  <data name="Msg_DraftedInv" xml:space="preserve">
+    <value>Please submit this Invoice to proceed further.</value>
+  </data>
+  <data name="Msg_Err_CustomTaxType" xml:space="preserve">
+    <value>Not allowed to invoice multiple SC with custom Tax / custom Discount /custom Other Charge.</value>
+  </data>
+  <data name="Msg_Err_DiffAgent" xml:space="preserve">
+    <value>Not allowed to invoice multiple SC with different Agent.</value>
+  </data>
+  <data name="Msg_Err_DiffTaxType" xml:space="preserve">
+    <value>Not allowed to invoice multiple SC with different header tax / header discount /Other Charge.</value>
+  </data>
+  <data name="Msg_Err_DiscountExist" xml:space="preserve">
+    <value>Not allowed to invoice multiple SC with discount.</value>
+  </data>
+  <data name="Msg_Err_DO_Modified" xml:space="preserve">
+    <value>Invoice already created and under modification.</value>
+  </data>
+  <data name="Msg_Err_HeaderTaxType" xml:space="preserve">
+    <value>Not allowed to invoice multiple SC with more than one header tax/discount/Other Charge.</value>
+  </data>
+  <data name="Msg_Err_SC" xml:space="preserve">
+    <value>Please select Sale Contract under Same DO.</value>
+  </data>
+  <data name="NoItemPickforInvoicing" xml:space="preserve">
+    <value>Please select atleast one item for Invoicing.</value>
+  </data>
+  <data name="MsgApproveforCNDN" xml:space="preserve">
+    <value>Please select approved invoice(s) from the list to pick for CN/DN</value>
+  </data>
+  <data name="InvNowPcs" xml:space="preserve">
+    <value>Inv. Now (Pcs)</value>
+  </data>
+  <data name="Msg_nopermission" xml:space="preserve">
+    <value>You have no permission to cancel this Invoice.</value>
+  </data>
+  <data name="DefaultCodeForHo" xml:space="preserve">
+    <value>00000</value>
+  </data>
+  <data name="BalanceAmount" xml:space="preserve">
+    <value>Balance Amount</value>
+  </data>
+  <data name="ReceivedAmt" xml:space="preserve">
+    <value>Received Amt.</value>
+  </data>
+  <data name="CrDrNo" xml:space="preserve">
+    <value>Cr/Dr No.</value>
+  </data>
+  <data name="CancelPageURL" xml:space="preserve">
+    <value>/Sales/Invoicing.aspx?PID=11</value>
+  </data>
+  <data name="DoCancelled" xml:space="preserve">
+    <value>(Cancelled)</value>
+  </data>
+  <data name="MsgVerifyforReceipt" xml:space="preserve">
+    <value>Please select verified invoice(s) from the list to pick for receipt.</value>
+  </data>
+  <data name="FOB" xml:space="preserve">
+    <value>FOB</value>
+  </data>
+  <data name="Excluded" xml:space="preserve">
+    <value>Excluded</value>
+  </data>
+  <data name="Included" xml:space="preserve">
+    <value>Included</value>
+  </data>
+  <data name="Msg_Err_Opening_cancel" xml:space="preserve">
+    <value>This is an Opening Invoice.So cancellation is not possible.</value>
+  </data>
+  <data name="Msg_Err_Opening_Print" xml:space="preserve">
+    <value>This is an Opening Invoice.So print is not possible.</value>
+  </data>
+  <data name="Fileupload_Details" xml:space="preserve">
+    <value>Upload Documents</value>
+  </data>
+  <data name="Err_File_Upload" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="SlNo" xml:space="preserve">
+    <value>Sl.No</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="AmountAdvAdjDed" xml:space="preserve">
+    <value>Amount Adjusted</value>
+  </data>
+  <data name="Err_RateGraterThanZero" xml:space="preserve">
+    <value>Please select at least one item with rate grater than zero for Invoicing.</value>
+  </data>
+  <data name="DueAson" xml:space="preserve">
+    <value>Due as on</value>
+  </data>
+  <data name="Msg_InvAmtGreaterSCAmt_Confirm" xml:space="preserve">
+    <value>The invoice amount exceeds SC amount.Do you want to continue?</value>
+  </data>
+  <data name="Msg_InvAmtGreaterSCAmt" xml:space="preserve">
+    <value>The invoice amount exceeds SC amount.</value>
+  </data>
+  <data name="Err_ContainerRelease" xml:space="preserve">
+    <value>Container Release exists against the selected Invoice. Remove the cartons from Container Release and then try again.</value>
+  </data>
+  <data name="Plant" xml:space="preserve">
+    <value>Plant</value>
+  </data>
+  <data name="InvoiceTermsRemarks" xml:space="preserve">
+    <value>Special Remarks</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="InvoiceGstType" xml:space="preserve">
+    <value>GST Type</value>
+  </data>
+  <data name="SubType" xml:space="preserve">
+    <value>Sub Type</value>
+  </data>
+  <data name="CustomsDetails" xml:space="preserve">
+    <value>Customs Other Charge Details</value>
+  </data>
+  <data name="OtherCustomesCharges" xml:space="preserve">
+    <value>Other Customs Charges</value>
+  </data>
+  <data name="MsgCustomsCharge" xml:space="preserve">
+    <value>Please Enter Charge</value>
+  </data>
+  <data name="MsgCustomsDescription" xml:space="preserve">
+    <value>Please Enter Description</value>
+  </data>
+  <data name="Err_CustomsDesc" xml:space="preserve">
+    <value>Enter Description</value>
+  </data>
+  <data name="Enter_Desc" xml:space="preserve">
+    <value>Customs Description Already Added</value>
+  </data>
+  <data name="Msc_ConfirmAdditionalOtherCharge" xml:space="preserve">
+    <value>Do you want to add other charges more than mentioned PO?</value>
+  </data>
+  <data name="Err_Terms" xml:space="preserve">
+    <value>Please Select Payemnt Terms</value>
+  </data>
+  <data name="EffectDate" xml:space="preserve">
+    <value>Sale Eff. Dt.</value>
+  </data>
+  <data name="ShipmentTerms" xml:space="preserve">
+    <value>Shipment Terms</value>
+  </data>
+  <data name="Err_ETADate" xml:space="preserve">
+    <value>Enter ETA</value>
+  </data>
+  <data name="Err_ETDDate" xml:space="preserve">
+    <value>Enter ETD</value>
+  </data>
+  <data name="OtherChargeCategoryValues" xml:space="preserve">
+    <value>2,5,6</value>
+    <comment>2-&gt; Shipment, 5-&gt;Duties, 6-&gt; Surchages</comment>
+  </data>
+  <data name="Verification" xml:space="preserve">
+    <value>Verification</value>
+  </data>
+</root>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12BBD0E6-4BA3-44A1-BFDE-BC35A0EAAD4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPManager</RootNamespace>
+    <AssemblyName>ERPManager</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+<TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Server.1.0.0\lib\net46\Microsoft.SqlServer.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.170.1000.7\lib\netstandard2.0\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administration\AdmCompanyMstManager.cs" />
+    <Compile Include="Administration\AdmCountryMstManager.cs" />
+    <Compile Include="Administration\AdmCurrencyMstManager.cs" />
+    <Compile Include="Administration\AdmDeptMstManager.cs" />
+    <Compile Include="Administration\EmployeeMstManager.cs" />
+    <Compile Include="Administration\FinCashBankMstManager.cs" />
+    <Compile Include="Administration\FinCOAMasterManager.cs" />
+    <Compile Include="Administration\FinCoaMstManager.cs" />
+    <Compile Include="Administration\FinYearMstManager.cs" />
+    <Compile Include="Administration\IAdmCompanyMstManager.cs" />
+    <Compile Include="Administration\IAdmCountryMstManager.cs" />
+    <Compile Include="Administration\IAdmCurrencyMstManager.cs" />
+    <Compile Include="Administration\IAdmDeptMstManager.cs" />
+    <Compile Include="Administration\IEmployeeMstManager.cs" />
+    <Compile Include="Administration\IFinCashBankMstManager.cs" />
+    <Compile Include="Administration\IFinCoaMstManager.cs" />
+    <Compile Include="Administration\IFinYearMstManager.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Common\CommonFunctionsManager.cs" />
+    <Compile Include="Common\ICommonFunctionsManager.cs" />
+    <Compile Include="Customer\CustomerManager.cs" />
+    <Compile Include="DataFieldRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataFieldRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DataTableRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataTableRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DMSManagerRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DMSManagerRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\EmpEmployeeMstManager.cs" />
+    <Compile Include="Employee\IEmpEmployeeMstManager.cs" />
+    <Compile Include="EntitySorter.cs" />
+    <Compile Include="ERPManagerRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ERPManagerRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\CrdrAllocations.cs" />
+    <Compile Include="Finance\FinPaymentAllocationAdjnManager.cs" />
+    <Compile Include="Finance\IFinPaymentAllocationAdjnManager.cs" />
+    <Compile Include="Finance\FinCrDrNoteTaxManager.cs" />
+    <Compile Include="Finance\FinPaymentVndTaxDtlManager.cs" />
+    <Compile Include="Finance\FinCashBankManager.cs" />
+    <Compile Include="Finance\FinCrDrHdrNoteManager.cs" />
+    <Compile Include="Finance\FinCrDrHdrNoteMpgManager.cs" />
+    <Compile Include="Finance\FinCrDrNoteDtlManager.cs" />
+    <Compile Include="Finance\FinCrDrNoteTaxHdrManager.cs" />
+    <Compile Include="Finance\FinPaymentVndPoMpgManager.cs" />
+    <Compile Include="Finance\FinReceiptAllocationAdjnManager.cs" />
+    <Compile Include="Finance\FinReceiptCusSoMpgManager.cs" />
+    <Compile Include="Finance\FinTrxHdrManager.cs" />
+    <Compile Include="Finance\FinVoucherEntryCfgManager.cs" />
+    <Compile Include="Finance\IFinCashBankManager.cs" />
+    <Compile Include="Finance\IFinCrDrHdrNoteManager.cs" />
+    <Compile Include="Finance\IFinCrDrHdrNoteMpgManager.cs" />
+    <Compile Include="Finance\IFinCrDrNoteDtlManager.cs" />
+    <Compile Include="Finance\IFinCrDrNoteTaxHdrManager.cs" />
+    <Compile Include="Finance\IFinCrDrNoteTaxManager.cs" />
+    <Compile Include="Finance\IFinPaymentVndPoMpgManager.cs" />
+    <Compile Include="Finance\IFinPaymentVndtaxDtlManager.cs" />
+    <Compile Include="Finance\IFinReceiptAllocationAdjnManager.cs" />
+    <Compile Include="Finance\IFinReceiptCusSoMpgManager.cs" />
+    <Compile Include="Finance\IFinTrxHdrManager.cs" />
+    <Compile Include="Finance\IFinTrxManager.cs" />
+    <Compile Include="Finance\FinTrxManager.cs" />
+    <Compile Include="Finance\IFinVoucherEntryCfgManager.cs" />
+    <Compile Include="Inventory\AdmCheckListMstManager.cs" />
+    <Compile Include="Inventory\AdmProductPropertiesManager.cs" />
+    <Compile Include="Inventory\AdmCustomerBrandsManager.cs" />
+    <Compile Include="Inventory\IAdmCustomerBrandsManager.cs" />
+    <Compile Include="Inventory\IAdmProductPropertiesManager.cs" />
+    <Compile Include="Inventory\IAdmCheckListMstManager.cs" />
+    <Compile Include="Inventory\IInvItemGroupMstManager.cs" />
+    <Compile Include="Inventory\IInvItemMstManager.cs" />
+    <Compile Include="Inventory\IInvItemSpecDtlManager.cs" />
+    <Compile Include="Inventory\InvItemGroupMstManager.cs" />
+    <Compile Include="Inventory\InvItemMstManager.cs" />
+    <Compile Include="Inventory\InvItemSpecDtlManager.cs" />
+    <Compile Include="ManagerUtilities.cs" />
+    <Compile Include="OrderToCash\AdmFormCfgManager.cs" />
+    <Compile Include="OrderToCash\AdmFormTabCfgManager.cs" />
+    <Compile Include="OrderToCash\AdmFormTabControlCfgManager.cs" />
+    <Compile Include="OrderToCash\CrmCustContactDtlManager.cs" />
+    <Compile Include="OrderToCash\CrmCustomerMstManager.cs" />
+    <Compile Include="OrderToCash\IAdmFormCfgManager.cs" />
+    <Compile Include="OrderToCash\IAdmFormTabCfgManager.cs" />
+    <Compile Include="OrderToCash\IAdmFormTabControlCfgManager.cs" />
+    <Compile Include="OrderToCash\ICrmCustContactDtlManager.cs" />
+    <Compile Include="OrderToCash\ICrmCustomerMstManager.cs" />
+    <Compile Include="POInvoicing\PaymentInvoiceDetails.cs" />
+    <Compile Include="POInvoicing\PaymentAdjustments.cs" />
+    <Compile Include="POInvoicing\PaymentCrdrMpg.cs" />
+    <Compile Include="POInvoicing\FinInvoiceVndTrxMpgManager.cs" />
+    <Compile Include="POInvoicing\FinPaymentVndHdrManager.cs" />
+    <Compile Include="POInvoicing\FinPaymentVndTaxHdrmanager.cs" />
+    <Compile Include="POInvoicing\FinPaymentVndTrxMpgManager.cs" />
+    <Compile Include="Customer\ICustomerManager.cs" />
+    <Compile Include="POInvoicing\IFinInvoiceVndHdrManager.cs" />
+    <Compile Include="POInvoicing\IFinInvoiceVndTrxMpgManager.cs" />
+    <Compile Include="POInvoicing\IFinPaymentVndHdrManager.cs" />
+    <Compile Include="POInvoicing\IFinPaymentVndTaxHdrmanager.cs" />
+    <Compile Include="POInvoicing\IFinPaymentVndTrxMpgManager.cs" />
+    <Compile Include="POInvoicing\FinInvoiceVndHdrManager.cs" />
+    <Compile Include="POInvoicing\IPOListManager.cs" />
+    <Compile Include="POInvoicing\ISampleClass.cs" />
+    <Compile Include="POInvoicing\POListManager.cs" />
+    <Compile Include="POInvoicing\SampleClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\AdmReportCfgManager.cs" />
+    <Compile Include="Reports\AdmReportControlCfgManager.cs" />
+    <Compile Include="Reports\AdmReportGroupCfgManager.cs" />
+    <Compile Include="Reports\IAdmReportCfgManager.cs" />
+    <Compile Include="Reports\IAdmReportControlCfgManager.cs" />
+    <Compile Include="Reports\IAdmReportGroupCfgManager.cs" />
+    <Compile Include="Sales\ContainerEvaluationManager.cs" />
+    <Compile Include="Sales\ContainerInspectionManager.cs" />
+    <Compile Include="Sales\FinInvoiceCusDetailsManager.cs" />
+    <Compile Include="Sales\FinInvoiceCusHdrManager.cs" />
+    <Compile Include="Sales\FinInvoiceCusTrxMpgManager.cs" />
+    <Compile Include="Sales\FinReceiptCusHdrManager.cs" />
+    <Compile Include="Sales\FinReceiptCustaxDtlManager.cs" />
+    <Compile Include="Sales\FinReceiptCusTrxMpgManager.cs" />
+    <Compile Include="Sales\IContainerEvaluationManager.cs" />
+    <Compile Include="Sales\IContainerInspectionManager.cs" />
+    <Compile Include="Sales\IFinInvoiceCusDetailsManager.cs" />
+    <Compile Include="Sales\IFinInvoiceCusHdrManager.cs" />
+    <Compile Include="Sales\IFinInvoiceCusTrxMpgManager.cs" />
+    <Compile Include="Sales\IFinReceiptCusHdrManager.cs" />
+    <Compile Include="Sales\IFinReceiptCustaxDtlManager.cs" />
+    <Compile Include="Sales\IFinReceiptCusTrxMpgManager.cs" />
+    <Compile Include="Sales\ISalDespatchDtlManager.cs" />
+    <Compile Include="Sales\ISalDespatchHdrManager.cs" />
+    <Compile Include="Sales\ISaleOrderManager.cs" />
+    <Compile Include="Sales\ReceiptCrdrMpg.cs" />
+    <Compile Include="Sales\SalDespatchDtlManager.cs" />
+    <Compile Include="Sales\SalDespatchHdrManager.cs" />
+    <Compile Include="Sales\SaleOrderManager.cs" />
+    <Compile Include="ServiceUtility.cs" />
+    <Compile Include="Shipping\ISalShippingPlanDtlManager.cs" />
+    <Compile Include="Shipping\SalShippingPlanDtlManager.cs" />
+    <Compile Include="Vendor\IVendorMaster.cs" />
+    <Compile Include="Vendor\VendorMaster.cs" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\datafieldres.designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+      <Project>{FACEBA43-69BF-4414-865A-E00919B020CA}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Utilities\ERP.Utilities.csproj">
+      <Project>{678E1AC7-C52F-4E53-9A5F-E509B1F8D65B}</Project>
+      <Name>ERP.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERPData\ERPData.csproj">
+      <Project>{67A6BB87-15EC-481E-B6C0-A2259A36AC03}</Project>
+      <Name>ERPData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFieldRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataFieldRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataTableRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataTableRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DMSManagerRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DMSManagerRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ERPManagerRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ERPManagerRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Resources\datafieldres.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

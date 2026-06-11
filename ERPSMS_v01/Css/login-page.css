@@ -1,0 +1,178 @@
+﻿/* CSS for gBudget+ created on 25th may 2011, vk */
+
+/* Login CSS modified on 21 Nov 2017, Sreejith RC */
+
+/*---------- Common HTML Elements -----------*/
+
+html,body       {       margin:0;padding:0;border:none; overflow:hidden; height:100%; background:url('../images/Classic/layout/bg.jpg') no-repeat; background-size:cover; }                        
+body            {       font-family: Verdana, Arial, Helvetica, sans-serif; color: #696969; line-height:18px; height:100%; margin:0 auto;    }
+    
+h1, h2, h3, p   {       margin:5px 0 0 0; padding:0; font-family:Verdana;}
+h1              {       font-size:24px;} 
+h2              {       font-size:18px;letter-spacing:-1px}
+h3              {       font-size:11px}	
+p               {       font-size:11px}
+
+hr              {       border-bottom:solid 1px #fff;  border-top:solid 1px #8ae0d7;  border-left:solid 1px #fff;   margin:10px 0 15px 0;  padding:0;  }
+    
+a, a img        {       outline:none!important; border:0;}
+
+#mainwrap       {       margin:0 auto; padding:10px; width:960px!important; height:620px!important;position:relative; }
+
+.loginwrapSbu      {       width:950px;  height:525px;  margin:5.5% auto 0px auto;  background: url('../images/Classic/layout/portal-login-bg.png') no-repeat; 
+                        position:relative;    }
+
+.loginwrap {
+    width: 950px;
+    height: 525px;
+    margin: 5.5% auto 0px auto;
+    background: url('../images/Classic/layout/portal-login-bg-1.png') no-repeat !important;
+    position: relative;
+}
+
+/*-------------- customer portal login screen change ----------------*/
+                        
+#loginwrapper   {       width:950px;  height:525px;  margin:5.5% auto 0px auto; background: url('../images/Classic/layout/cuportal-login-bg.png') no-repeat 0 0;
+                        position:relative;    }                        
+    
+#loginwrap-home {       width:960px;  height:1500px; margin:30px auto 0 auto;  background:#172653 url('../images/Classic/layout/portal-home-bg.jpg') no-repeat 0 0; 
+                        position:relative;    }
+
+#login-container input[type=text], #login-container input[type=password], #login-container select{
+    width: 197px;
+    height: 25px;
+    margin: 0 2px 4px 0;
+    float: left;
+    border-radius: 2px;
+    border: 1px solid #00a08f;
+    padding: 0px 0px 0px 8px;
+    box-sizing: border-box;
+}
+                                                                                
+#login-container input[type=submit]     {   width:197px; height:25px; padding:2px 10px; border:solid 1px #141f42; margin:-1px 0 0 0; color:#006257; font-size:12px; float:left;
+                                            text-transform:uppercase; border-radius:2px; border:1px solid #00a08f; cursor:pointer;
+                                            
+                                            background: #3effe9; /* Old browsers */
+                                            background: -moz-linear-gradient(top,  #3effe9 0%, #02baa6 100%); /* FF3.6-15 */
+                                            background: -webkit-linear-gradient(top,  #3effe9 0%,#02baa6 100%); /* Chrome10-25,Safari5.1-6 */
+                                            background: linear-gradient(to bottom,  #3effe9 0%,#02baa6 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                                            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3effe9', endColorstr='#02baa6',GradientType=0 ); /* IE6-9 */
+}
+#login-container input[type=submit]:hover   {   background: #28DAC6; }
+
+#login-container a      {   color:#fff; font-size:11px; font-style:italic;}
+
+input[type=text], input[type=password], select, textarea    {    width:auto; margin: 0 0 0px 0px; vertical-align:top; border:none; height:18px; }
+    
+select      {   width:48%; margin-left:0px;}
+
+table       {   border-collapse:collapse;   width:100%;  border-color:transparent;  margin:10px auto;    }
+table td    {   margin:0; padding:0; vertical-align:top}
+
+
+/*_________________ Reset Styles __________________________*/
+*       {   margin:0; padding:0;}
+.clear  {   clear: both;}
+
+/*_________________ Main Blocks____________________________*/
+
+#banner-container       {    width:647px; height:330px; position:absolute; top:130px; left:20px;    }
+
+/*
+html,body       {       margin:0;padding:0;border:none; overflow:hidden; background-image:url('../images/Classic/layout/bg-repeat.jpg');  background-repeat:repeat;} 
+body            {       font-family: Verdana, Arial, Helvetica, sans-serif; color: #696969; line-height:18px; height:100%; margin:0 auto;    }
+
+hr              {       border-bottom:solid 1px #e1e1e1;  border-top:solid 1px #fff;  border-left:solid 1px #e1e1e1;   margin:10px 0 15px 0;  padding:0;  }
+
+#loginwrap      {       width:960px;  height:566px;  margin:30px auto 0 auto;  background: url('../images/Classic/layout/portal-login-bg.jpg') no-repeat 0 0; 
+                        position:relative;    }
+#loginwrapper   {       width:960px; height:566px; margin:30px auto 0 auto; background: url('../images/Classic/layout/cuportal-login-bg.jpg') no-repeat 0 0;
+                        position:relative;    }
+
+#news-container         {    width:226px;  height:170px; position:absolute; top:175px;  right:48px; overflow:hidden;    }
+#news-container h2      {   font-size: 18px;letter-spacing: -1px;color:#254689;}
+#news-container  a      {   text-decoration:none; font-size:11px; color:#336699;}
+
+#login-container        {   width:247px; height:50px; position:absolute; top:370px; right:23px;}
+#login-container a      {   color:#b8c0d8; font-size:11px;} 
+#login-container input[type=text], #login-container input[type=password]    {   width:80px; margin:0 2px 0 0; float:left}
+#login-container input[type=submit]     {   background:#001c73; padding:2px 10px; border:solid 1px #141f42; margin:-1px 0 0 0; color:#ccc; font-size:11px; float:left}
+
+.error-input    {   font-size:12px;color:#CCFF33} /*8/5/13 #FF0000
+
+.copyright      {   width:600px; position:absolute; bottom:25%; font-size:11px; color:#696969; left:30px;}
+*/ 
+
+#news-container         {    width:222px;  height:167px; position:absolute; top:197px;  right:85px; overflow:hidden; color:#00675c;}
+#news-container  a      {   text-decoration:underline; font-size:11px; font-style:italic; color:#00675c;}
+
+#news-container h2      {   font-size: 12px;letter-spacing: 0px!important; font-weight:bold;}
+#vmarquee               {   position: absolute; width: 226px; overflow:visible;}
+#login-container        {   width:197px; height:85px; position:absolute; top:307px; right:95px;  }
+.loginwrap #login-container {
+    width: 197px;
+    height: 85px;
+    position: absolute;
+    top: 319px !important;
+    right: 95px;
+}
+    
+#module-wrap        {    width:835px;  height:80px;  position:absolute; bottom:-235px;  right:25px;  }
+    
+p.budget , p.contract, p.profit {    position:absolute; top:0px;  }
+    
+p.budget    {   width:150px; left:97px;} 
+p.contract  {   width:180px; left:370px;} 
+p.profit    {   width:180px; left:658px;}    
+#module-wrap p  {   color:#464646; }
+
+#module-wrap span   {    font-weight:bold;}
+
+/*_________Error Showing DIV__________________*/
+
+div.error       {   background:#172653;text-align:center; color:#ccc; font-size:11px; text-align:center; position:absolute; width:300px; z-index:999; top:250px;left:265px}
+div.error img   {   float:right; margin:10px}
+div.error span  {   }
+div.error ul    {   list-style:none; color:#f1dda1; font-family:Arial; text-align:left;}
+div.error ul li {   background: url('../../images/Classic/Icons/error.png') no-repeat 0 0; padding:5px 22px 0px 22px; line-height:10px; margin:10px}
+
+#ValidationSummary ul, #ValidationSummary ul li     {   list-style:none!important; font-size:12px; padding-left:25px; line-height:21px;}
+#ValidationSummary ul li    {   background: url('../../images/Classic/Icons/error.png') no-repeat 0 0;}
+
+
+.error-input    {   font-size:11px;color:#3801E9; margin-top:0px;  font-style:italic;}
+/*__________________________________________________________________________________________________*/
+
+ul#portfolio    {	list-style:none;position:absolute;}
+
+ul#portfolio li img {	border:none;}
+
+
+/*___________Err Page___________*/
+
+err-container           {   width:950px; margin:10px auto 0 auto; padding:0 0 30px 0}
+               
+err-container-header    {   height:45px; margin:0; padding:0}
+err-container-hrzlinks  {   height:25px; margin:0; padding:0}
+
+err-container-content       {   margin:10px; padding:20px}
+err-container-content h1    {   font-size:18px; color:#336699}
+err-container-content p     {   font-size:11px; color:#336699}
+err-container-hrzlinks a    {   float:right; color:#fff; text-decoration:none}
+err-container-hrzlinks a:hover  {   color:#f1f1f1;}
+
+/*----- Login Page ----------*/
+.copyright      {   width:/*195*/755px; position:relative; bottom:12%; font-size:11px; color:#808080; left:/*662*/67px; font-style:italic;}
+.sitelinks      {   position:relative; float:right; color:#808080; left:70px; font-style:normal;}
+.sitelinks a    {   text-decoration:none; color:#808080;}
+.sitelinks a:hover  {   color:#454545;}
+
+.select-def {
+    color: #696969 !important;
+    padding-left: 4px !important;
+}
+
+.select-def-1 {
+    color: #000000 !important;
+    padding-left: 4px !important;
+}

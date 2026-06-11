@@ -1,0 +1,176 @@
+/*
+ *********************************************
+ * Prototype of styles for horizontal CSS-menu
+ *********************************************
+ * (X)HTML-scheme:
+ *  <div id="menu">
+ *      <ul class="menu">
+ *          <li><a href="#" class="parent"><span>level 1</span></a>
+ *              <div><ul>
+ *                  <li><a href="#" class="parent"><span>level 2</span></a>
+ *                      <div><ul><li><a href="#"><span>level 3</span></a></li></ul></div>
+ *                  </li>
+ *              </ul></div>
+ *          </li>
+ *          <li class="last"><a href="#"><span>level 1</span></a></li>
+ *      </ul>
+ *  </div>
+ *********************************************
+ */
+
+div#menu {
+	background:#afc6e4;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin:9px 5px 0 0;
+	float:left;
+	padding:5px 15px;
+	z-index:100;
+	position:absolute;
+}
+
+ul.menu {
+	clear: both;
+	float: none;
+	cursor: pointer;
+	z-index: 1;
+	position: relative; 
+}
+
+div#menu ul {
+	margin: 0px;
+	padding:5px 0px;
+	list-style: none;
+	float: left;
+	z-index: 2;
+	position: relative;
+}
+
+div#menu li {
+	position: relative;
+	margin: 0px;
+	padding:0px;
+	display: block;
+	overflow: visible;
+	float: left;  
+	z-index: 3;
+}
+
+/* menu::level1 */
+
+div#menu li a {
+	display: block;
+	float: left;
+	text-decoration: none;
+	color:#fff;
+	overflow: hidden;
+	z-index: 4;
+    position: relative;
+    font-weight:normal;
+    padding:0;
+}
+
+
+/* Main Color Theme Dont use background color it will hide Arrow image -Link Font Color */
+div#menu li span {  
+	color:#6881a0; 
+	display: block;
+	padding:0px 10px;/**/
+	z-index: 6;
+	position: relative;
+}
+
+div#menu span:hover {font-weight:normal;}
+
+
+div#menu li ul span:hover {
+	color:#5ba2e4;
+}
+ 
+
+
+/* Selected Link */
+div#menu li span.bg { 
+	display: block;
+  	background: transparent url('../../images/menu_level1_item.png') repeat-x scroll 0pt 100%;/**/
+	z-index: 5;
+	position: relative;
+  	float: left;
+}
+
+div#menu li.current {  
+	font-weight:normal;
+}
+
+div#menu li.current ul {  
+		font-weight:normal;
+}
+
+/* menu::level2 */
+
+div#menu ul.menu ul {
+	padding:0;
+	left: -999em; 
+	width:200px;
+	position: absolute;
+    top:0px;
+    padding-left:7px;
+	background:url('../../images/ERP-Blue/opaq-img.png') repeat 0 0;
+    /*border-top:solid 3px #f3bf96;*/
+    border-top:solid 5px #96bff3;
+    border-left:solid 1px #fff;
+}
+
+div#menu li:hover ul, div#menu li.sfhover ul { 
+	left: 0px; 
+	z-index: 100;
+	visibility: visible; 
+}
+
+div#menu li li { 
+	width: 100%; 
+	text-indent: 0px;
+	float: none; 
+	height: auto;
+}
+
+/* Main heights goes here */
+
+div#menu li li a, div#menu li li span.separator { 
+	margin:0;
+	padding:0px 0 10px 0;/* */
+	background:#c2d7f1 url('../../Images/menu_level2_item.gif') no-repeat left bottom;
+	float: none; 
+	display: block; 
+	line-height: 25px; 
+	width:200px;
+}
+
+div#menu li li a.parent  
+{
+    /*background:url('../../images/menu_level1_item.png') repeat-x left bottom;*/
+	background:#c2d7f1 url('../../Images/menu_level2_item_parent.gif') no-repeat right bottom;/**/
+}
+
+/* menu::level3 */
+
+div#menu li ul ul { 
+	margin:-5px 0 0 200px;
+	
+}
+
+div#menu li:hover ul ul, div#menu li.sfhover ul ul { 
+
+}
+
+div#menu li:hover ul ul, div#menu li.sfhover ul ul, div#menu li:hover ul ul ul, div#menu li.sfhover ul ul ul, div#menu li:hover ul ul ul ul, div#menu li.sfhover ul ul ul ul { 
+	left: -999em;
+	border-top:solid 3px #f3bf96;
+}
+div#menu li li:hover ul, div#menu li li.sfhover ul, div#menu li li li:hover ul, div#menu li li li.sfhover ul, div#menu li li li li:hover ul, div#menu li li li li.sfhover ul { left: 0pt; z-index: 100; }
+
+div#menu a:hover {
+	font-weight:normal;
+}
+
+

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(grep -n \"GetCompanyList\\\\|GetConfigValues\\\\|GetWorkFlowStatus\\\\|GetCurrentFinPeriod\\\\|GetfinTxtHdrList\\\\|GetCurrencyCode\\\\|GetInvoiceCusHdrByPK\\\\|GetInvoiceCusDtlByPK\\\\|GetActiveTaxCategory\" \"D:/NEENU/ERP_SMS/ERPManager/\"*/*.cs)",
+      "Bash(grep -n \"GetInvoiceNumberAutoCompleteList\\\\|GetVendorListAutoCompleteList\" \"D:/NEENU/ERP_SMS/ERPManager/\"*.cs \"D:/NEENU/ERP_SMS/ERPManager/\"*/*.cs)",
+      "Bash(grep -v \"^\\\\s*//\")",
+      "Bash(find . -name \"*.cs\" -type f -exec grep -l \"GetInvCusReceivedAmntDetails\" {} \\\\;)",
+      "Bash(grep -E \"\\\\.aspx$\")"
+    ]
+  }
+}

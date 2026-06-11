@@ -1,0 +1,98 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" /> 
+--%>
+
+
+
+<asp:GridView runat="server" CellSpacing="1"  CellPadding="0" GridLines="None" BorderColor="#d7e5e5" BorderWidth="0"  Font-Names="Arial" Font-Size="12px">
+    <HeaderStyle Font-Bold="true" ForeColor="Black"/>  
+    <RowStyle Font-Names="Arial" Font-Size="12px" BorderWidth="1px" BorderStyle="solid" BorderColor="Silver" ForeColor="#333333" Height="15px" />
+    <EditRowStyle BackColor="#999999" ForeColor="#333333" /> 
+    <SelectedRowStyle Font-Names="Arial" Font-Size="12px" BackColor="#FFFFFF" Font-Bold="True" ForeColor="#333333" />
+    <AlternatingRowStyle />
+    <FooterStyle Font-Names="Arial" Font-Size="12px" Font-Bold="True" ForeColor="#fff" HorizontalAlign="Left"/> 
+    <PagerStyle Font-Names="Arial" Font-Size="12px" BackColor="#dbe3e6" ForeColor="#000000" HorizontalAlign="Center" />
+</asp:GridView>
+
+<asp:TextBox runat="server" 
+   Font-Names="Arial" Font-Size="12px"   
+   ForeColor="Black" Style="height:18px; border:solid 1px #7f9db9;background:#f5f8fa;text-indent:2px;margin-bottom:5px; position:relative">
+</asp:TextBox>
+
+<asp:DropDownList runat="server"
+    Font-Names="Arial" Font-Size="12px"
+    ForeColor="Black" Style="height:20px; border:solid 1px #7f9db9;background:#f5f8fa; margin-bottom:5px">
+</asp:DropDownList>
+
+<asp:Label runat="server" Font-Names="Verdana" Font-Size="11px" ForeColor="#506c92" Style="height:18px; padding-top:3px;font-family:Verdana; float:left;margin-bottom:5px">
+</asp:Label>
+
+<asp:LinkButton runat="server" Font-Names="Arial" CSSClass="linkbtn" ForeColor="Black">
+</asp:LinkButton>
+
+<asp:HyperLink runat="server" Font-Names="Arial" Font-Size="12px" >
+</asp:HyperLink>
+ 
+<asp:Button  runat="server" CssClass="inputbtn" Font-Names="Arial" Font-Size="11px" Font-Bold="True" Style="height:18px;margin-bottom:5px;"/>
+
+<%--Skins for ImagesButtons--%>
+<asp:ImageButton SkinID="btnadd" tooltip="Add" ImageUrl="~/Images/ERP-Blue/page-btn-add.gif" runat="server"/>
+<asp:ImageButton SkinID="btndelete" tooltip="Delete" ImageUrl="~/Images/ERP-Blue/page-btn-del.gif" runat="server"/>
+<asp:ImageButton SkinID="btnsave" tooltip="Save" ImageUrl="~/Images/ERP-Blue/page-btn-save.gif" runat="server"/>
+<asp:ImageButton SkinID="btnreset" tooltip="Reset" ImageUrl="~/Images/ERP-Blue/Page-btn-reset.gif" runat="server"/>
+<asp:ImageButton SkinID="btncancel" tooltip="Cancel" ImageUrl="~/Images/ERP-Blue/page-btn-cancel.gif" runat="server"/>
+<asp:ImageButton SkinID="btnsearch" tooltip="Search" ImageUrl="~/Images/ERP-Blue/Buttons/view.png" runat="server"/>
+<asp:ImageButton SkinID="btnevaluate" tooltip="Evaluate" ImageUrl="~/Images/ERP-Blue/Buttons/evaluate.png" runat="server"/>
+<asp:ImageButton SkinID="btndraft" tooltip="Draft" ImageUrl="~/Images/ERP-Blue/Buttons/draft.png" runat="server"/>
+<asp:ImageButton SkinID="btnview" tooltip="View" ImageUrl="~/Images/ERP-Blue/Buttons/view.png" runat="server"/>
+<asp:ImageButton SkinID="btnactive" tooltip="Active" ImageUrl="~/Images/ERP-Blue/Buttons/active.gif" runat="server"/>
+<asp:ImageButton SkinID="btninactive" tooltip="Inactive" ImageUrl="~/Images/ERP-Blue/Buttons/inactive.gif" runat="server"/>
+<asp:ImageButton SkinID="btnrefresh" tooltip="Refresh" ImageUrl="~/Images/ERP-Blue/Buttons/refresh_backwards.png" runat="server"/>
+<asp:ImageButton SkinID="btnshortclose" tooltip="ShortClose" ImageUrl="~/Images/ERP-Blue/Buttons/short-closure.png" runat="server"/>
+
+<asp:ImageButton SkinID="btnsearchgo" tooltip="Search" ImageUrl="~/Images/ERP-Blue/Buttons/go.png" style="width:30px; height:20px;" runat="server"/>
+<asp:ImageButton SkinID="btnPrint" tooltip="Print" ImageUrl="~/Images/ERP-Blue/Buttons/Printed.png" runat="server"/>
+<asp:ImageButton SkinID="btnPagePrint" tooltip="Print" ImageUrl="~/Images/ERP-Blue/page-btn-print.gif" runat="server"/>
+
+
+<asp:ImageButton SkinID="lineAddbtn" tooltip="Add Lines" ImageUrl="~/images/ERP-Blue/Buttons/lineadd.png" style="background-position: 0 0px;width:30px; height:30px;background:no-repeat"  runat="server"/>
+<asp:ImageButton SkinID="calAddbtn" tooltip="Next Period" ImageUrl="~/images/ERP-Blue/Buttons/calendaradd.png" style="background-position: 0 -60px;width:30px; height:30px;"  runat="server"/>
+<asp:ImageButton SkinID="calDelbtn" tooltip="Previous Period" ImageUrl="~/images/ERP-Blue/Buttons/calendardel.png" style="background-position: 0 -30px;width:30px; height:30px;"  runat="server"/>
+<asp:ImageButton SkinID="imbrevoke" tooltip="Revoke" ImageUrl="~/Images/ERP-Blue/Buttons/revoke.png" runat="server"/>
+
+<asp:ImageButton SkinID="imgbtn-menu" tooltip="Menu" ImageUrl="~/Images/ERP-Blue/Buttons/menu-btn.png" runat="server"/>
+<asp:ImageButton SkinID="imgbtn-home" tooltip="Home" ImageUrl="~/Images/ERP-Blue/Buttons/gbudget-btn-home.png" runat="server"/>
+<asp:ImageButton SkinID="imgbtn-inbox" tooltip="Inbox" ImageUrl="~/Images/ERP-Blue/Buttons/gbudget-btn-inbox.png" runat="server"/>
+<asp:ImageButton SkinID="imgbtn-logout" tooltip="Logout" ImageUrl="~/Images/ERP-Blue/Buttons/gbudget-btn-logout.png" runat="server"/>
+
+<%--Skins for Images--%>
+<asp:Image SkinID="imgreset" tooltip="Reset" ImageUrl="~/Images/ERP-Blue/Page-btn-reset.gif" runat="server"/>
+<asp:Image SkinID="imgExpand" tooltip="Reset" ImageUrl="~/images/ERP-Blue/grandtrustERP-button-plus.gif" runat="server"/>
+<asp:Image SkinID="imgCollapse" tooltip="Reset" ImageUrl="~/images/ERP-Blue/grandtrustERP-button-minus.gif" runat="server"/>
+
+<asp:ImageButton SkinID="imbselect" tooltip="Select" ImageUrl="~/Images/ERP-Blue/Buttons/select.png" runat="server"/>
+<asp:ImageButton SkinID="imbselect2" ImageUrl="~/Images/ERP-Blue/Buttons/select.png" runat="server"/>
+
+<asp:ImageButton SkinID="imbaddnew" tooltip="Add" ImageUrl="~/Images/ERP-Blue/Buttons/add.png" runat="server"/>
+<asp:ImageButton SkinID="imgaddnew" ImageUrl="~/Images/ERP-Blue/Buttons/add.png" runat="server"/>
+
+<asp:ImageButton SkinID="imbeditgrid" tooltip="Edit" ImageUrl="~/Images/ERP-Blue/Buttons/erp-grid-edit.png" runat="server"/>
+<asp:ImageButton SkinID="imbdeletegrid" tooltip="Delete" ImageUrl="~/Images/ERP-Blue/Buttons/erp-grid-delete.png" runat="server"/>
+<asp:ImageButton SkinID="imbusermapping" tooltip="User Mapping"  ImageUrl="~/Images/ERP-Blue/Buttons/user-mapping.png" runat="server"/>
+
+<asp:ImageButton  SkinID="imgbtnWorkflowInbox" tooltip="Inbox" ImageUrl="~/images/Classic/layout/gbudget-btn-inbox1.png" runat="server" />
+<asp:ImageButton SkinID="workflowapprove" ImageUrl="~/images/Classic/Icons/approve-inbox.png" runat="server"/>
+<asp:ImageButton SkinID="workflowactiongrid"  ImageUrl="~/images/Classic/Icons/action-inbox.png" runat="server"/>
+

@@ -1,0 +1,600 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ERPSMS_2.master.cs" Inherits="ERPSMS_v01.ERPSMS_2" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Src="UserControls/MenuControl.ascx" TagName="MenuControl" TagPrefix="uc3" %>
+<%@ Register Src="UserControls/RelatedItemWidget.ascx" TagName="RelatedItemWidget"
+    TagPrefix="uc2" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+    <title>gERP – STORE MANAGEMENT</title>
+    <asp:Literal ID="scriptSrc" Text="" runat="server"></asp:Literal>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <%--   <script src="../Scripts/jquery/moment.min.js" type="text/javascript"></script>--%>
+    <style type="text/css">
+        .fixed_overlay
+        {
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+        .fixed_overlay_img
+        {
+            left: 46% !important;
+            top: 45% !important;
+        }
+        .fixed_overlay_img_pos
+        {
+            position: fixed !important;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript" language="javascript">
+        //var excludeUrl = "AutoComplete.ashx?SearchType=MESSAGECOUNT".toLocaleLowerCase();
+        var excludeUrl = "&AUTOSEARCH=1";
+        var excludeUiAutoComplete = "Handlers/UIAutoComplete.ashx";
+        var excludeAutoComplete = "Handlers/AutoComplete.ashx";
+        var excludeMenuAutoComplete = "GetAutoCompleteMenu";
+        $.xhrPool = [];
+        //var pendingProgress = false;
+
+        //        $(document).ajaxStart(function (event, jqxhr, settings) {
+        //            if ($.xhrPool.length > 0) {                
+        //                $('#updateProgress').show();
+        //            }
+        //        });
+
+        $(document).ajaxStop(function (event, jqxhr, settings) {
+            //Preserver the loading symbol before getting response from server.
+            //This case is occured when wait long time for server response 
+            //You can set hdfWaitForServerResponse = 1 in content page, if you need to preserver the loading symbol untill get response from server
+            if ($("[id$=hdfWaitForServerResponse]").val() == "0")
+                $('#updateProgress').hide();
+        });       
+
+        $(document).ajaxSend(function (event, jqxhr, settings) {
+            var isExcludeUrl = settings.url.indexOf(excludeUrl);
+            var isExcludeUiAutoComplete = settings.url.indexOf(excludeUiAutoComplete);
+            var isExcludeAutoComplete = settings.url.indexOf(excludeAutoComplete);
+            var isExcludeMenuAutoComplete = settings.url.indexOf(excludeMenuAutoComplete);
+
+            if (isExcludeUrl === -1 && isExcludeUiAutoComplete === -1 && isExcludeAutoComplete === -1 && isExcludeMenuAutoComplete == -1) {
+                if ($.xhrPool.length === 0) {
+                    $('#updateProgress').show();
+                }
+                $.xhrPool.push(jqxhr);
+                //alert("start: " + settings.url);
+            }
+        });
+
+        function ajaxProgressTracking() {
+            $.ajaxSetup({
+                cache: false,
+                global: true,
+                beforeSend: function (jqXHR, settings) {
+                    var isExcludeUrl = settings.url.indexOf(excludeUrl);
+                    var isexcludeUiAutoComplete = settings.url.indexOf(excludeUiAutoComplete);
+                    var isexcludeAutoComplete = settings.url.indexOf(excludeAutoComplete);
+                    if (isExcludeUrl === -1 && isexcludeUiAutoComplete === -1 && isexcludeAutoComplete === -1) {
+                        alert('inside');
+                        if ($.xhrPool.length === 0) {
+                            $('#updateProgress').show();
+                        }
+                        $.xhrPool.push(jqXHR);
+                        alert("start: " + settings.url);
+                    }
+                },
+                complete: function (jqXHR) {
+                    var isExcludeUrl = this.url.indexOf(excludeUrl);
+                    var isexcludeUiAutoComplete = this.url.indexOf(excludeUiAutoComplete);
+                    var isexcludeAutoComplete = this.url.indexOf(excludeAutoComplete);
+                    if (isExcludeUrl === -1 && isexcludeUiAutoComplete === -1 && isexcludeAutoComplete === -1) {
+                        alert("end: " + this.url);
+                        if ($.xhrPool.length > -1) {
+                            $.xhrPool.pop(jqXHR);
+                        }
+                        if ($.xhrPool.length === 0 && $("[id$=hdfWaitForServerResponse]").val() == "0") {
+                            $('#updateProgress').hide();
+                        }
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    $.xhrPool.pop(jqXHR);
+                    alert("error:" + this.url);
+                    if ($.xhrPool.length === 0 && $("[id$=hdfWaitForServerResponse]").val() == "0") {
+                        $('#updateProgress').hide();
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+//            //if (typeof (Storage) !== 'undefined') { sessionStorage.setItem('uniqueIdSessionStorage', 'xyz') }
+//            if (sessionStorage.getItem('uniqueIdSessionStorage') !=  $("[id$='hdfAuthValue']").val()) {
+//                sessionStorage.setItem('uniqueIdSessionStorage', null);
+//               
+//                window.location = "../InvalidTab.aspx";
+//                //$("[id$=imbLogout]").click();
+//            }
+
+            //ajaxProgressTracking();            
+            var pageURL = window.document.URL;
+            var virtualPath = $("[id$='hdfAbsolutePath']").val();
+            var urlauto = pageURL.replace(location.pathname, virtualPath == "" ? "/Handlers/AutoComplete.ashx" : "/" + virtualPath + "Handlers/AutoComplete.ashx");
+
+            $("[id$=divNewMessage]").hide();
+            getMessageCount();
+            var myVar = setInterval(function () { getMessageCount() }, 60000);
+            function getMessageCount() {
+                $.get(urlauto, 'SearchType=MESSAGECOUNT&AUTOSEARCH=1',
+                function (data) {
+                    var cnt = parseInt(data);
+                    if (isNaN(cnt) == false) {
+                        if (cnt > 0) {
+                            if ($("[id$=lblMessageCount]").html() != data && $("[id$='hdfIsAlertSound']").val() == "1")
+                                playAudio('notify');
+                            $("[id$=divNewMessage]").show();
+                            $("[id$=lblMessageCount]").html(data);
+                        }
+                        else {
+                            $("[id$=divNewMessage]").hide();
+                        }
+                    }
+                    else {
+                        $("[id$=divNewMessage]").hide();
+                    }
+                });
+            }
+        });
+
+        function hideProgress() {
+            $('#updateProgress').hide();
+        }
+
+        ///Show Hide compnay based on ConfigResource
+        function ShowCompany() {
+            if ($("[id$='hdfIsCompanyShow']").val() == "0") {
+                $("[id$=divSBUCompany]").hide();
+            }
+            ShowPlantCompany();
+        }
+
+        ///Show Hide Plant or Company 
+        function ShowPlantCompany() {
+            if ($("[id$='hdfIsCompanyPlantShow']").val() == "0") {
+                $("[id$=divPlantCompany]").hide();
+            }
+        }
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <%-- <div id="debugData" style="color:White;font-weight:bold">This is the debug area
+    </div>--%>
+    <asp:ScriptManager ID="scrMenu" runat="server" ><%-- AsyncPostBackTimeout="56000"--%>
+    </asp:ScriptManager>
+    <div class="overlay" id="updateProgress" style="display: none; height: 100%">
+        <!--<div class="ui-widget ui-widget-content ui-corner-all" style="z-index:5000; position:relative; width:200px; height:auto; padding:10px;top:expression(($.position().top/2)+'px'); left:expression((document.body.clientWidth/2)+'px')">Progressing</div>-->
+        <table id="wrapper" class="ui-widget-overlay fixed_overlay" style="width: 100%; height: 100%;">
+            <tr>
+                <td>
+                    <%--<asp:Image ImageUrl="~/Images/Classic/layout/loader-img.gif" Style="z-index: 1200"
+                        CssClass="fixed_overlay_img" runat="server" ID="imgLoader" />--%>
+                        <div id="inTurnFadingTextG" class="fixed_overlay_img loading" >
+                        <div id="inTurnFadingTextG_1" class="inTurnFadingTextG">L</div>
+                        <div id="inTurnFadingTextG_2" class="inTurnFadingTextG">O</div>
+                        <div id="inTurnFadingTextG_3" class="inTurnFadingTextG">A</div>
+                        <div id="inTurnFadingTextG_4" class="inTurnFadingTextG">D</div>
+                        <div id="inTurnFadingTextG_5" class="inTurnFadingTextG">I</div>
+                        <div id="inTurnFadingTextG_6" class="inTurnFadingTextG">N</div>
+                        <div id="inTurnFadingTextG_7" class="inTurnFadingTextG">G</div>
+                        <br />
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span>
+                        </span>
+                        </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="main-container">
+        <div id="header-container">
+            <div id="header-wrap">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 10%">
+                        </td>
+                        <td style="width: 85%">
+                        </td>
+                        <td style="width: 5%">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="blank-top">
+        </div>
+        <div id="menu-container">
+            <div id="menu-wrap">
+                <table align="center" width="920px" class="minw-100per">
+                    <tr>
+                        <td width="670px">
+                            <div class="new-message" id="divNewMessage">
+                                <asp:LinkButton ID="lnkbtnNewMessage" runat="server" PostBackUrl="~/AccountManagement/WorkflowInbox.aspx">
+                                    <label>
+                                        <%=Resources.Captions.NewMessages%></label>
+                                    <asp:Label ID="lblMessageCount" runat="server"></asp:Label>
+                                </asp:LinkButton>
+                                <asp:Image ImageUrl="~/Images/Classic/layout/message-animate.gif" ID="imgMessages"
+                                    runat="server" />
+                            </div>
+                        </td>
+                        <td style="width: 250px;" align="right">
+                            <div class="buttonwrap">
+                                <ul>
+                                    <li>
+                                        <div style="display: inline">
+                                            <%--<asp:ImageButton runat="server" ID="imgMenu" SkinID="imgbtn-menu" CausesValidation="false"
+                                                OnClientClick="javascript:ShowMenu();return false;" />--%>
+                                            <asp:ImageButton ID="lnkMenu" runat="server" CausesValidation="false" SkinID="imgbtnMenu" ToolTip="<%$ Resources:Captions, Menu %>"
+                                                OnClientClick="javascript:ShowMenu();return false;"> </asp:ImageButton>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <asp:ImageButton runat="server" ID="imbRefresh" Visible="false" ToolTip="<%$ Resources:Captions, DeleteTemp %>"
+                                            SkinID="imgbtnRefreshAll" OnClick="imbRefresh_Click"></asp:ImageButton>
+                                    </li>
+                                    <li>
+                                        <asp:ImageButton runat="server" ToolTip="<%$ Resources:Captions, Inbox %>" ID="ImageButton3"
+                                            SkinID="imgbtnWorkflowInbox" CausesValidation="false" OnClick="WorkflowInbox_Click" />
+                                    </li>
+                                    <li style="display: none;">
+                                        <asp:ImageButton runat="server" ToolTip="<%$ Resources:Captions, Inbox %>" ID="ImageButton2"
+                                            SkinID="imgbtnInbox" CausesValidation="false" OnClick="Inbox_Click" />
+                                    </li>
+                                    <li id="Div2">
+                                        <asp:ImageButton runat="server" ToolTip="<%$ Resources:Captions, Home %>" ID="ImageButton1"
+                                            SkinID="imgbtnHome" CausesValidation="false" OnClick="Home_Click" />
+                                    </li>
+                                    <li>
+                                        <asp:ImageButton runat="server" ID="imgbtnChangePwd" Visible="true" SkinID="imgbtnChangePswd"
+                                            OnClick="imgbtnChangePwd_Click"></asp:ImageButton></li>
+                                    <li>
+                                        <asp:ImageButton runat="server" ID="imgBtnHelp" SkinID="imgbtnHelp2" CausesValidation="false"
+                                            OnClick="imgbtnHelp_Click" />
+                                    </li>
+                                    <li>
+                                        <asp:ImageButton runat="server" ID="imbLogout" SkinID="imgbtnLogout" CausesValidation="false"
+                                            OnClientClick="javascript:ResetFormValidation();" OnClick="Logout_Click" /></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="Div1" class="hidden">
+            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="content-container">
+            <asp:HiddenField ID="UserPk" runat="server" />
+            <asp:HiddenField ID="AbsolutePath" runat="server" />
+            <asp:HiddenField ID="BizUnitPk" runat="server" />
+            <asp:HiddenField ID="LAST_MOD_DT" runat="server" />
+            <asp:HiddenField ID="hdnPageID" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfAmtDecimal" runat="server" />
+            <asp:HiddenField ID="hdfQtyDecimal" runat="server" />
+            <asp:HiddenField ID="hdfQtyDecimalP2P" runat="server" />
+            <%--Qty Decimal Digit for Purchase--%>
+            <asp:HiddenField ID="hdfRateDecimal" runat="server" />
+            <asp:HiddenField ID="hdfWeightDecimalDigit" runat="server" />
+            <asp:HiddenField ID="hdfRateDecimalDigitP2P" runat="server" />
+            <asp:HiddenField ID="hdfExcRateDecimal" runat="server" />
+            <asp:HiddenField ID="hdfAbsolutePath" runat="server" />
+            <asp:HiddenField ID="hdfCompoundingDecimal" runat="server" />
+            <asp:HiddenField ID="hdfIsAlertSound" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfIsCompanyShow" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfIsCompanyPlantShow" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfMiscRateDecimalDigit" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfNumberDecimalDigitBin" runat="server" Value="0" />
+            <asp:HiddenField ID="hdfWaitForServerResponse" runat="server" Value="0" />
+            <asp:HiddenField runat="server" ID="hdfCurrencyGroup1"  />
+            <asp:HiddenField runat="server" ID="hdfCurrencyGroup2"  /> 
+            <asp:HiddenField runat="server" ID="hdfNumberGroup1"  />
+            <asp:HiddenField runat="server" ID="hdfNumberGroup2"  /> 
+            <asp:HiddenField runat="server" ID="hdfCurrentDepartment" Value="-1" />
+            <asp:HiddenField runat="server" ID="hdfAuthValue" Value="" />
+            
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div id="divMenu" style="display: none">
+            <div id="divMenuContent">
+                <uc3:menucontrol id="MenuControl1" runat="server" />
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div id="footer-wrap">
+        <asp:UpdatePanel runat="server" ID="udpFooter">
+            <ContentTemplate>
+                <table id="tblAppFooter" runat="server" style="width: 100%; border-color: transparent"
+                    align="center">
+                    <tr>
+                        <td style="width: 200px" class="version">
+                        <a href="http://g-erp.com/" target="_blank">
+                            <asp:Label ID="lblVersion" AssociatedControlID="lblVersion" runat="server" ></asp:Label></a>
+                            <%--  <label>Ver 1.1</label>--%>
+                            <%--<img id="Img1" src="~/Images/ERP-Blue/erp-production-logo.png" runat="server" />--%>
+                            <%-- <span>Developed by team gti</span>--%>
+                        </td>
+                        <td style="width: 290px">
+                            <div class="logwrap">
+                                <b>
+                                    <asp:Literal runat="server" ID="litSBU" Text=""></asp:Literal></b>
+                            </div>
+                        </td>
+                        <td style="width: 290px">
+                            <div class="logwrap">
+                             <b>
+                                    <asp:Literal runat="server" ID="litDeptCaption" Text=""></asp:Literal></b>
+                                <b class="highlite2">
+                                    <asp:Literal runat="server" ID="litDept" Text=""></asp:Literal></b>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="welcome-user floatRight">
+                                <span runat="server" id="WelcomeNote"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+    <div class="clear">
+    </div>
+    <div id="divmodel" class="ui-widget-overlay" style="display: none; z-index: 1000">
+    </div>
+    <div id="divConfirmation">
+    </div>
+    <div id="MSGBox" title="Status" style="width: 700px">
+    </div>
+    <div id="popupHolderMenu">
+    </div>
+    <%--   <div id="divAjaxLoading">
+    </div>--%>
+    <div id="errMsgContainer" title="<%=Resources.Captions.Information%>">
+        <ul>
+        </ul>
+    </div>
+    <asp:UpdatePanel runat="server" ID="aupdpnlPopupHolder">
+        <ContentTemplate>
+            <div id="popupHolder">
+            </div>
+            <div class="error" style="display: none">
+            </div>
+            <div class="msgbox max-200" style="display: none">
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    </form>
+    <script type="text/javascript" language="javascript">
+        //For Fixed Overlay
+        function SetWrapper() {
+            $("#wrapper").css({ "height": $(window).height() + "px", "width": $(window).width() + "px" });
+        }
+        $(document).ready(function () {
+
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+            Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+            //Set Textbox Selected on Focus
+            $('input:text').focus(function () {
+                $(this).select();
+            });
+            // For Setting Overlay Style
+            $("#wrapper").css({ "height": $(window).height() + "px", "width": $(window).width() + "px" });
+            if (navigator.appName == "Microsoft Internet Explorer") {
+                $(".fixed_overlay_img").css({ "position": "absolute!important" });
+            }
+            else {
+                $(".fixed_overlay_img").addClass("fixed_overlay_img_pos");
+            }
+            $("#divmodel").css({ "height": $('html').height() });
+        });
+        function encodeInput() {
+            $("input[type='text'],textarea").each(function () {
+                var oldValue = $(this).val();
+                $("#popupHolder").html(oldValue);
+                var newValue = $("#popupHolder").html();
+                newValue = newValue.replace("<", "&lt;");
+                newValue = newValue.replace(">", "&gt;");
+                $(this).val(newValue);
+                $("#popupHolder").html("");
+            });
+        }
+        function BeginRequestHandler(sender, args) {
+
+            $("#updateProgress").show();
+            if (typeof BeginRequest == "function") {
+                //                BeginRequest();
+                SetWrapper();
+            }
+        }
+
+        function ClosePopup() {
+            $('html').css('overflow', 'auto');
+            $('body').css('overflow', 'visible');
+            if ($('#divmodel').length > 0) {
+                $('#divmodel').hide();
+            }
+        }
+        //        // Validate the input text controls to prevent XSS
+        //        function EndRequestHandler(sender, args) {
+        //            if (typeof EndRequest == "function") {
+        //                EndRequest();
+        //            }
+
+        //            //To add tooltip to dropdown
+        //            $("#updateProgress").hide();
+        //            if ($.browser.msie) {
+        //                $("select").each(function () {
+        //                    var drp = $(this);
+        //                    $(drp).attr("id");
+        //                    $(drp).find("option").each(function () {
+        //                        $(this).attr("title", $(this).text());
+        //                    });
+        //                });
+        //            }
+
+        //            //To add tooltip to autocomplete
+        //            $("input:text.ui-autocomplete-input").each(function () {
+        //                $(this).attr("title", $(this).val());
+        //            });
+        function EndRequestHandler(sender, args) {
+            $('input:text').focus(function () {
+                $(this).select();
+            });
+            if (typeof EndRequest == "function") {
+                EndRequest();
+            }
+
+            //            if (args.get_error() != undefined && args.get_error().httpStatusCode == '500') {
+            //                var errorMessage;
+            //                var errorResponse = args.get_response();
+            //                args.set_errorHandled(true);
+
+            //                if (errorResponse._xmlHttpRequest) {
+            //                    errorMessage = errorResponse._xmlHttpRequest.responseText;
+            //                    //errorMessage = $(errorMessage).find("title").text();
+            //                    //XSS Attack..
+            //                    if (errorMessage.indexOf('A potentially dangerous Request.Form value') >= 0) {
+            //                        ShowErrorMessage("Potentially Dangerous input found! Please refine your input");
+            //                    }
+            //                }
+            //            }
+
+            //To add tooltip to dropdown
+            $("#updateProgress").hide();
+            if ($.browser.msie) {
+                $("select").each(function () {
+                    var drp = $(this);
+                    $(drp).attr("id");
+                    $(drp).find("option").each(function () {
+                        $(this).attr("title", $(this).text());
+                    });
+                });
+            }
+
+            //To add tooltip to autocomplete
+            $("input:text.ui-autocomplete-input").each(function () {
+                $(this).attr("title", $(this).val());
+            });
+
+            //To remove unnecessary space between controls
+            $(document).ready(function () {
+                $('.divcolmiddle-S,.input-inlinediv,.small-input-width,.div2col-S').contents().filter(function () {
+                    return this.nodeType === 3;
+                }).remove();
+            });
+
+            $("input:text,input:file,select").live("keydown", function (event) {
+                // track enter key
+                var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+                if (keycode == 13) { // keycode for enter key
+                    // force prevent Default
+                    event.preventDefault();
+                }
+            });        // end of function
+            if (typeof EndRequestHandlerPage == 'function') {
+                $("#wrapper").css({ "height": $(document).height() + "px", "width": $(document).width() + "px" });
+                //$("#divmodel").css({ "height": $('html').height() });
+                EndRequestHandlerPage();
+            }
+            if ($('#popupHolder div.ui-dialog').is(':visible')) {
+                var heightDiff = ($('html').height() - $('#popupHolder div.ui-dialog').height()) / 2;
+                $('#divmodel').height(heightDiff > 0 ? $('html').height() : $('#popupHolder div.ui-dialog').height());
+                $('html').scrollTop(0);
+                $('html,body').animate({ scrollTop: 0 });
+                $('#popupHolder div.ui-dialog').css('top', heightDiff > 0 ? heightDiff : 0);
+            }
+        }
+        //To remove unnecessary space between controls
+        $(document).ready(function () {
+            $('.divcolmiddle-S,.input-inlinediv,.small-input-width,.div2col-S').contents().filter(function () {
+                return this.nodeType === 3;
+            }).remove();
+        });
+        $(document).ready(function () {
+            if ($.browser.msie) {
+                $("select").each(function () {
+                    var drp = $(this);
+                    $(drp).attr("id");
+                    $(drp).find("option").each(function () {
+                        $(this).attr("title", $(this).text());
+                    });
+                });
+            }
+            $("input:text.ui-autocomplete-input").each(function () {
+                $(this).attr("title", $(this).val());
+            });
+            $("input:text,input:file,select").live("keydown", function (event) {
+                // track enter key
+                var keycode = (event.keyCode ? event.keyCode : (event.which ? event.which : event.charCode));
+                if (keycode == 13) { // keycode for enter key
+                    // force prevent Default
+                    event.preventDefault();
+                }
+            });    // end of function 
+        });
+
+
+        function ShowDeleteConfirm(btn, message) {
+            var msgTitle;
+            var msg;
+            msgTitle = '<%= Resources.ErpRes.Title_Information %>';
+            msg = message ? message : '<%= Resources.ErpRes.MsgDeleteConfirm %>';
+            $("#divConfirmation").html(msg).dialog({
+                modal: true,
+                height: 150,
+                width: 350,
+                title: msgTitle,
+                resizable: false,
+                buttons: {
+                    OK: function (e) {
+                        $(this).dialog("close");
+                        __doPostBack(btn.name, '');
+                    },
+                    Cancel: function (e) {
+                        $(this).dialog("close");
+                        if (typeof AfterDeleteConfirmationCancel == "function") {
+                            AfterDeleteConfirmationCancel(btn.id);
+                        }
+                        return false;
+                    }
+                }
+            });
+            return false;
+        }
+
+        function compareDate(dateStrig1, dateString2) {
+            var date1 = new moment(dateStrig1, "DD-MMM-YYYY");
+            var date2 = new moment(dateString2, "DD-MMM-YYYY");
+            if (isNaN(date2)) {
+                return false;
+            }
+            return date1 > date2;
+        }
+
+    </script>
+</body>
+</html>

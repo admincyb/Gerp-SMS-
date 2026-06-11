@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{678E1AC7-C52F-4E53-9A5F-E509B1F8D65B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERP.Utilities</RootNamespace>
+    <AssemblyName>ERP.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+<TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="MailSendManager">
+      <HintPath>..\..\Refference DLL\MailSendManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\TelDll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectoryManager.cs" />
+    <Compile Include="CommonConstants.cs" />
+    <Compile Include="CommonFunctions.cs" />
+    <Compile Include="Constants\BrandRates\BrandRates.cs" />
+    <Compile Include="Constants\CommonConstants.cs" />
+    <Compile Include="Constants\CustomerManagement\CustomerOrderCreation.cs" />
+    <Compile Include="Constants\DA\AccountManagement\ChangePwd.cs" />
+    <Compile Include="Constants\DA\Administration\CostCenters.cs" />
+    <Compile Include="Constants\DA\Administration\Locations.cs" />
+    <Compile Include="Constants\DA\Administration\MailSend.cs" />
+    <Compile Include="Constants\DA\Administration\NewsManagements.cs" />
+    <Compile Include="Constants\DA\Administration\UserDetail.cs" />
+    <Compile Include="Constants\DA\Administration\ViewMail.cs" />
+    <Compile Include="Constants\DA\PO\PoGenerate.cs" />
+    <Compile Include="Constants\Mailer\Mailer.cs" />
+    <Compile Include="Constants\OrderPlanning\OrderPlanning.cs" />
+    <Compile Include="Constants\SaleOrder\Allocation.cs" />
+    <Compile Include="Constants\SaleOrder\CustomerOrderTracker.cs" />
+    <Compile Include="Constants\SaleOrder\PackingTransactionDA.cs" />
+    <Compile Include="Constants\SaleOrder\SaleOrder.cs" />
+    <Compile Include="Constants\SaleOrder\ShiftReport.cs" />
+    <Compile Include="Constants\Shipping\ContainerRelease.cs" />
+    <Compile Include="Constants\Shipping\LoadingPlan.cs" />
+    <Compile Include="Constants\Shipping\ShippingPlan.cs" />
+    <Compile Include="Constants\Shipping\ShippingUploads.cs" />
+    <Compile Include="ConstantTableSettings.cs" />
+    <Compile Include="CryptoServices.cs" />
+    <Compile Include="Dashboard\ChartData.cs" />
+    <Compile Include="Dashboard\DashboardConstants.cs" />
+    <Compile Include="DateTimeSpan.cs" />
+    <Compile Include="EnumHelpers.cs" />
+    <Compile Include="ERPUtilityResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ERPUtilityResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Extension.cs" />
+    <Compile Include="GridDataPropertyBinder.cs" />
+    <Compile Include="HRMS\FilterParameters.cs" />
+    <Compile Include="HRMS\EmpDocumentFilterParameterBinder.cs" />
+    <Compile Include="HRMS\Employee.cs" />
+    <Compile Include="HTMLReportBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyServerSettings.cs" />
+    <Compile Include="SqlServerBackUpResoteUtilityManager.cs" />
+    <Compile Include="Validations\AdvancedValidations.cs" />
+    <Compile Include="WebClientProxyManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ERPUtilityResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ERPUtilityResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

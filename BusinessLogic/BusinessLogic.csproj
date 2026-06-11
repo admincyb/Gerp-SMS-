@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{18B3DA4D-A5BB-486D-BAF8-F48ED6411E03}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BusinessLogic</RootNamespace>
+    <AssemblyName>BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+<TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\Refference DLL\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\TelDll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\Refference DLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WorkflowCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Refference DLL\WorkflowCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountManagement\ChangePasswordBL.cs" />
+    <Compile Include="AccountManagement\InboxManagement.cs" />
+    <Compile Include="AccountManagement\UserAuthBL.cs" />
+    <Compile Include="AccountManagement\WorkflowInboxBL.cs" />
+    <Compile Include="Administration\Configurations\CompanyBL.cs" />
+    <Compile Include="Administration\Configurations\CompanyListBL.cs" />
+    <Compile Include="Administration\Configurations\CostCenterBL.cs" />
+    <Compile Include="Administration\Configurations\DefaultValueConfig.cs" />
+    <Compile Include="Administration\Configurations\DepartmentConfig.cs" />
+    <Compile Include="Administration\Configurations\DepartmentSettings.cs" />
+    <Compile Include="Administration\Configurations\EmployeesBL.cs" />
+    <Compile Include="Administration\Configurations\LocationBL.cs" />
+    <Compile Include="Administration\Configurations\MailSendBL.cs" />
+    <Compile Include="Administration\Configurations\MarginSetupBL.cs" />
+    <Compile Include="Administration\Configurations\MenuManagement.cs" />
+    <Compile Include="Administration\Configurations\NewsManagementBL.cs" />
+    <Compile Include="Administration\Configurations\PageActionBL.cs" />
+    <Compile Include="Administration\Configurations\ProjectSiteBL.cs" />
+    <Compile Include="Administration\Configurations\RoleActionBL.cs" />
+    <Compile Include="Administration\Configurations\SBUConfiguartion.cs" />
+    <Compile Include="Administration\Configurations\UserGroupDepartment.cs" />
+    <Compile Include="Administration\Configurations\UserManagement.cs" />
+    <Compile Include="Administration\Configurations\ViewMailsBL.cs" />
+    <Compile Include="Administration\Masters\AccountMapingBL.cs" />
+    <Compile Include="Administration\Masters\CompanyMasterBL.cs" />
+    <Compile Include="Administration\Masters\BrandGroupMasterBL.cs" />
+    <Compile Include="Administration\Masters\CostCenterMasterBL.cs" />
+    <Compile Include="Administration\Masters\CurrencyMaster.cs" />
+    <Compile Include="Administration\Masters\DashboardSetupBL.cs" />
+    <Compile Include="Administration\Masters\DashletUserMappingBL.cs" />
+    <Compile Include="Administration\Masters\DispersionMaster.cs" />
+    <Compile Include="Administration\Masters\ProductionBatchBL.cs" />
+    <Compile Include="Administration\Masters\DocumentRevisionBL.cs" />
+    <Compile Include="Administration\Masters\FundRequisitionDeptBL.cs" />
+    <Compile Include="Administration\Masters\GeneralTemplateMasterBL.cs" />
+    <Compile Include="Administration\Masters\GSTClassificationBL.cs" />
+    <Compile Include="Administration\Masters\InventoryLocationMasterBL.cs" />
+    <Compile Include="Administration\Masters\PortMasterBL.cs" />
+    <Compile Include="Administration\Masters\PushNotificationBL.cs" />
+    <Compile Include="Administration\Masters\RelatedLinkBL.cs" />
+    <Compile Include="Administration\Masters\SendSMSBL.cs" />
+    <Compile Include="Administration\Masters\ShiftMasterBL.cs" />
+    <Compile Include="Administration\Masters\StoreLocationMaster.cs" />
+    <Compile Include="Administration\Masters\StoreMaterialMapping.cs" />
+    <Compile Include="Administration\Masters\TankMaster.cs" />
+    <Compile Include="Administration\Masters\TaxSettingsMaster.cs" />
+    <Compile Include="AlertManagement\Alerts.cs" />
+    <Compile Include="AssetService\ServiceOrderBL.cs" />
+    <Compile Include="AssetService\ServiceOrderReceiptBL.cs" />
+    <Compile Include="AssetService\ServiceRequestBL.cs" />
+    <Compile Include="BrandRates\BrandRatesBL.cs" />
+    <Compile Include="CommonManagement\CommonBL.cs" />
+    <Compile Include="CommonManagement\CommonManagement.cs" />
+    <Compile Include="CommonManagement\ProductDetailsBO.cs" />
+    <Compile Include="CompoundManagement\CompoundManagement.cs" />
+    <Compile Include="DashboardBL.cs" />
+    <Compile Include="DashBoard\DashBoardDataService.cs" />
+    <Compile Include="DesignationManagement\DesignationMaster.cs" />
+    <Compile Include="Finance\Administration\Masters\BankGuaranteeBL.cs" />
+    <Compile Include="Finance\Administration\Masters\FinReportCfgBL.cs" />
+    <Compile Include="Finance\Administration\Masters\InvoiceTypeBL.cs" />
+    <Compile Include="Finance\AuditTrialsBL.cs" />
+    <Compile Include="Finance\BadDebitsBL.cs" />
+    <Compile Include="Finance\BudgetBL.cs" />
+    <Compile Include="Finance\CNDNBL.cs" />
+    <Compile Include="Finance\COAFinGrpMapBL.cs" />
+    <Compile Include="Finance\CommSetupBL.cs" />
+    <Compile Include="Finance\ClosingStockBL.cs" />
+    <Compile Include="Finance\FinancialYearMasterBL.cs" />
+    <Compile Include="Finance\MonthlyProductionBL.cs" />
+    <Compile Include="Finance\VoucherLockingBL.cs" />
+    <Compile Include="Finance\YearEndVoucherBL.cs" />
+    <Compile Include="Finance\DepreciationBL.cs" />
+    <Compile Include="Finance\GstFileManagerBL.cs" />
+    <Compile Include="Finance\GSTReportBL.cs" />
+    <Compile Include="Finance\FCReverseBL.cs" />
+    <Compile Include="Finance\GSTReturnBL.cs" />
+    <Compile Include="Finance\VatSaleExportBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\BonusTypeMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\DesignationMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\HolidayMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\SalaryReportTemplateBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\SlabDefinitionMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\EmployeeLeaveMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\EmployeeTypeBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\LeaveTemplateBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\LeaveTypeMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\OTTemplateBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\PayElementsMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\PayrollTypeMasterBL.cs" />
+    <Compile Include="HRMS\Admin\Masters\SalaryTemplateBL.cs" />
+    <Compile Include="HRMS\Common\HRMSCommonBL.cs" />
+    <Compile Include="HRMS\eDocs\EDocManagementBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeTransferBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeLeaveTypeBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeBasicInfoBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeDocBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeExperienceBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeePayDetailsBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeePerformanceBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeQualificationBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeSalaryBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeSalaryRevisionBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeSkillsBL.cs" />
+    <Compile Include="HRMS\Employee\EmployeeTrainingBL.cs" />
+    <Compile Include="HRMS\ESS\EmpLeaveRequestBL.cs" />
+    <Compile Include="HRMS\ManageMails\EmployeeMailBL.cs" />
+    <Compile Include="HRMS\Payroll\AppraisalDetailsBL.cs" />
+    <Compile Include="HRMS\Payroll\AttendanceBL.cs" />
+    <Compile Include="HRMS\Payroll\AttendanceInfoBL.cs" />
+    <Compile Include="HRMS\Payroll\BonusEntryBL.cs" />
+    <Compile Include="HRMS\Payroll\EmployeeAppraisalDetailsBL.cs" />
+    <Compile Include="HRMS\Payroll\Income_Tax_01BL.cs" />
+    <Compile Include="HRMS\Payroll\LoansAndAdvancesBL.cs" />
+    <Compile Include="HRMS\Payroll\MonthlyLeaveBL.cs" />
+    <Compile Include="HRMS\Payroll\OtherAdditionDeductionBL.cs" />
+    <Compile Include="HRMS\Payroll\OvertimeCalculatorBL.cs" />
+    <Compile Include="HRMS\Payroll\FullandFinalSettlementBL.cs" />
+    <Compile Include="HRMS\Payroll\PayrollProcessBL.cs" />
+    <Compile Include="HRMS\Payroll\BulkAppraisalBL.cs" />
+    <Compile Include="HRMS\Payroll\SalaryPaymentBL.cs" />
+    <Compile Include="HRMS\Payroll\HRYearCloseBL.cs" />
+    <Compile Include="HRMS\TaskTracker\TaskHome.cs" />
+    <Compile Include="Inventory\FormerMasterBL.cs" />
+    <Compile Include="Inventory\PackingMasterBL.cs" />
+    <Compile Include="Inventory\ProductsBL.cs" />
+    <Compile Include="Inventory\VendorItemDocBL.cs" />
+    <Compile Include="Jouralize\JournalizeBL.cs" />
+    <Compile Include="Jouralize\PettyCashRefillBL.cs" />
+    <Compile Include="Login.cs" />
+    <Compile Include="MachineryManagement\MachineryMaster.cs" />
+    <Compile Include="Mailer\MailerBL.cs" />
+    <Compile Include="Mailer\SaleForecastBL.cs" />
+    <Compile Include="MaterialManagement\MaterialCategoryMaster.cs" />
+    <Compile Include="MaterialManagement\MaterialMaster.cs" />
+    <Compile Include="MenuManager.cs" />
+    <Compile Include="OrderPlanning\OrderPlanningBL.cs" />
+    <Compile Include="OrderToCash\BrandCopyBL.cs" />
+    <Compile Include="OutStandingDue\OutStandingDueBL.cs" />
+    <Compile Include="POInvoicing\DebitCreditTradingBL.cs" />
+    <Compile Include="POInvoicing\POInvoiceBL.cs" />
+    <Compile Include="POInvoicing\POPaymentTradingBL.cs" />
+    <Compile Include="Production\BinCardGeneration.cs" />
+    <Compile Include="Production\CompoundPreparationBL.cs" />
+    <Compile Include="Production\DispersionPreparation.cs" />
+    <Compile Include="Production\TopUpRecord.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderGenerateBL.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderGeneration.cs" />
+    <Compile Include="PurchaseOrderManagement\RequestForQuote.cs" />
+    <Compile Include="PurchaseRequestManagement\PurchaseRequestCreation.cs" />
+    <Compile Include="PurchaseRequestManagement\PurchaseRequestListing.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderCreation.cs" />
+    <Compile Include="PurchaseRequestManagement\PurchaseRequestTrading.cs" />
+    <Compile Include="PurchaseRequestManagement\PurchaseRequestTradingList.cs" />
+    <Compile Include="ReportsManagement\CashFlowBL.cs" />
+    <Compile Include="ReportsManagement\DeliveryOrderBL.cs" />
+    <Compile Include="ReportsManagement\GenerateReportBL.cs" />
+    <Compile Include="ReportsManagement\PurchaseRequestReport.cs" />
+    <Compile Include="Sales\ContainerInspectionBL.cs" />
+    <Compile Include="Sales\CustomerProduct.cs" />
+    <Compile Include="Sales\DirectSaleOrderBL.cs" />
+    <Compile Include="Sales\Enquiry.cs" />
+    <Compile Include="Sales\OrderTracker.cs" />
+    <Compile Include="Sales\QuotationBL.cs" />
+    <Compile Include="Sales\ReceiptBL.cs" />
+    <Compile Include="Sales\SaleOrderBL.cs" />
+    <Compile Include="Sales\SaleOrderForAgtCommBL.cs" />
+    <Compile Include="Sales\DebitCreditBL.cs" />
+    <Compile Include="Sales\SalesInvoiceBL.cs" />
+    <Compile Include="Shipping\ContainerReleaseBL.cs" />
+    <Compile Include="Shipping\DirectDeliveryOrderBL.cs" />
+    <Compile Include="Shipping\LoadingPlanBL.cs" />
+    <Compile Include="Shipping\ShippingPlanBL.cs" />
+    <Compile Include="Shipping\ShippingUploadsBL.cs" />
+    <Compile Include="SSISProject\SSISPackageBL.cs" />
+    <Compile Include="Stock\StockBL.cs" />
+    <Compile Include="StoreManagement\DirectStockAdmissoinBL.cs" />
+    <Compile Include="StoreManagement\ExternalMaterialIssueBL.cs" />
+    <Compile Include="StoreManagement\MaterialConsumption.cs" />
+    <Compile Include="StoreManagement\NewItemRequestBL.cs" />
+    <Compile Include="StoreManagement\GoodsInspectionNote.cs" />
+    <Compile Include="StoreManagement\GRNDailyReport.cs" />
+    <Compile Include="StoreManagement\MaterialAccept.cs" />
+    <Compile Include="StoreManagement\MaterialIssue.cs" />
+    <Compile Include="StoreManagement\GoodsIssueNote.cs" />
+    <Compile Include="StoreManagement\GoodsReceiptNote.cs" />
+    <Compile Include="StoreManagement\StockAdjustment.cs" />
+    <Compile Include="StoreManagement\StockDetailsReport.cs" />
+    <Compile Include="StoreManagement\StockTransferBL.cs" />
+    <Compile Include="StoreManagement\StoreAdjustment.cs" />
+    <Compile Include="StoreManagement\StoreAudit.cs" />
+    <Compile Include="StoreManagement\StoreAuditList.cs" />
+    <Compile Include="StoreManagement\StoreMaster.cs" />
+    <Compile Include="StoreManagement\StoreRequisitionSlipCreation.cs" />
+    <Compile Include="StoreManagement\StoreRequisitionSlipList.cs" />
+    <Compile Include="UOMManagement\SubDepartmentManagement\SubDepartmentMaster.cs" />
+    <Compile Include="UOMManagement\UOMMaster.cs" />
+    <Compile Include="UserControl\AdvanceSearch.cs" />
+    <Compile Include="UserControl\FolderExplorerBL.cs" />
+    <Compile Include="VendorManagement\AgentRegistration.cs" />
+    <Compile Include="VendorManagement\VendorRegistration.cs" />
+    <Compile Include="Administration\Masters\VendorTermsMaster.cs" />
+    <Compile Include="VendorManagement\VendorEvaluation.cs" />
+    <Compile Include="VendorManagement\VendorMaster.cs" />
+    <Compile Include="WorkOrder\WorkOrderBL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DispersionManagement\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+      <Project>{FACEBA43-69BF-4414-865A-E00919B020CA}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{0D68489B-0CB2-4173-BCB0-3CD0CEAB0EB1}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Utilities\ERP.Utilities.csproj">
+      <Project>{678E1AC7-C52F-4E53-9A5F-E509B1F8D65B}</Project>
+      <Name>ERP.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GTIService\GTIService.csproj">
+      <Project>{2BA61394-A98F-4158-9351-AE5D6D5797F9}</Project>
+      <Name>GTIService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

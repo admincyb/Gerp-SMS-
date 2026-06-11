@@ -1,0 +1,974 @@
+﻿
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! GrandTrust InfoTech Pvt. Ltd. CSS for Gen.PrototypeV01 Project by vk !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+1.Block Structered CSS
+2.Last Cleanup on 10 Feb 2011 
+
+
+App main structure
+_____________________________________________________MasterPage
+
+          #maincontainer
+                |
+        .roundedbox-outer 
+        |               |
+.roundedbox-left   .roundedbox-right  
+
+
+-----------------------------------------------------ContentPlaceHolder(InnerPage)
+
+.roundedbox-right 
+
+Inner page main styles starts here
+
+    <div id="webwizard-wrap">
+
+    </div>
+
+    <div id="grdTable-wrap">
+
+        Inner main content goes her refer Modelpage.aspx in V2
+
+    </div>
+
+Inner page styles ends here
+
+_____________________________________________________
+
+
+14/04/11/3.30PM FF TblWidth + Calendar Alignment+ validatore + ..retrived versn1 
+ 
+_______________Common HTML Elements Reset_____________________________________________________________________________________________________________________________*/
+
+body {padding:0;margin:0;border: 0;font-size:12px;  line-height:18px; color:#506c92; background:#597cad; font-family:Arial!important;}
+
+a {padding-right:4px;color:#003366;text-decoration:none; }
+
+* {padding: 0;margin: 0;}
+
+h1 {font-size:13px; color:#2B4E82; padding:0 0 3px 0; margin:12px 0px 20px 0px; border-bottom:solid 1px #dce2ea;/**/ font-family:Arial}
+h2 {font-size:12px; color:#2B4E82; padding:0 0 3px 0; margin:5px 0px 20px 0px;border-bottom:solid 1px #dce2ea; /**/ font-weight:bold}
+h3 {font-size:11px; color:#2B4E82; padding:0 0 3px 0; margin:0px 0px 15px 0px; border-bottom:solid 1px #dce2ea; font:Arial; font-weight:bold}
+hr {margin:10px 0px; padding:0; border-top:solid 1px #fff;border-bottom:solid 1px #e0e0e0; border-left:none; border-right:none; height:1px}
+.h1bg {padding:5px 7px 5px 7px}
+.h1bg img {padding:5px 0 0 0}
+
+
+.inner-contentbx h1 {font-size:16px; color:#6197c3; padding:0; margin:5px 0px 15px 0px; border-bottom:solid 1px #e0e0e0;  font-weight:bolder}
+.inner-contentbx h2 {font-size:12px; color:#d0a13c; padding:0; margin:5px 0px 15px 0px; border-bottom:solid 1px #e0e0e0; font-weight:bold;  padding-right:5px}
+
+fieldset{padding:5px; border:none; }
+legend {color:Red; margin:0; padding:0; margin-left:-3px}
+radio {margin-top:5px;}
+textarea {height:70px; border:solid 1px #7f9db9 !important;background:#f5f8fa;}
+input.datepicker{width:160px}
+input.numeric {text-align:right;padding: 0 2px 0 0;}
+img {border: none; outline:none}
+
+span, input, textarea, select, img, a {float:left; margin: 0 2px 10px 0;}
+label {letter-spacing:0px; font-family:Verdana;padding:0; font-size:12px; color:#506c92; text-align:right; float:left; padding: 0; margin:1px 10px 10px 0;}  
+span {letter-spacing:0px; font-family:Verdana;}
+
+.inputbtn, .inputbtn-adj {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x top left;border:solid 1px #abcae8;height:23px;text-align:center;float:right;padding:1px 10px;color:#374c68;}
+.inputbtn-adj {position:absolute; margin-left:3px;}
+
+.loginbtn {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x top left;border:solid 1px #7f9db9;height:15px;text-align:center;float:right;padding:0px 15px 3px 15px;color:#003366!important; font-weight:bold; font-family:Arial!important; margin-left:2px}
+
+.inputbtnNoFloat {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x top left;border:solid 1px #7f9db9;height:25px;text-align:center;padding:1px 10px;color:#374c68; position:absolute}
+
+.clear {clear: both; height:0}
+.floatRight {float:right!important}
+.floatLeft {float:left!important}
+
+div.nodata{background:#f1f4f8; border:solid 1px #cbd5e2; padding:2px 0; color:#beccda; text-align:center}
+
+
+/*_______________Styles linked with Cotrol Skin______________________________________________________________________________________________________________*/
+
+
+#outerbox{margin:30px; background:#3c577c; border:solid 1px #fff; padding:10px; min-height:300px}
+#leftbox {float:left; width:20%; min-height:300px; background:#aec2df}
+#rightbox {float:left; width:80%; min-height:300px; background:#cddaec}
+#boxwrap{border:solid 1px #fff; overflow:auto}
+
+
+
+/*_______________Main Layout Styles__________________________________________________________________________________________________________________________*/
+
+#maincontainer {margin:10px;padding:0px;}
+
+	.roundedbox, .roundedbox-left{padding:10px;} 
+	.roundedbox h1{background:url('../../images/ERP-Blue/erp-quickview-h1BG.png') repeat-x top left; color:#7388a4; border-bottom:1px solid #cfd9e4; margin:0px 0px 5px 0px; padding:7px 0px 7px 0px; letter-spacing:-1px; width:100%; text-indent:10px; height:14px; font-size:15px;}
+	.roundedbox {padding:5px 0px 10px 0px; background:#e1eaf4; border:solid 1px #93a9c5;}
+
+    .roundedbox-outer { background:#e7eef8;border:solid 1px #eaf0f6;}
+	.roundedbox-left { background:#afc6e4;position:relative;margin:5px 0px 0px 0px; }
+	.roundedbox-right {position:relative;}
+
+/*_______________Content Area Styles(ContentPlaceHolder)________________________________________________________________________________________________________________*/	
+	
+#contentarea-container {background:#eaf0f6; padding:0px 10px 30px 10px; min-height:510px;}
+	
+#contentarea-container .left-side, .right-side {}
+#contentarea-container .left-side {width:22%;overflow:hidden;float:left}
+	#contentarea-container .left-side-menuwrap {overflow:hidden;}
+	#contentarea-container .left-side-menuwrap img {margin-right:5px;}
+	
+#contentarea-container .right-side {width:77.2%;float:right;}
+    #contentarea-container .right-side-contentwrap {padding:7px;margin:1px;background:#dfe9f5 url(../../images/ERP-Blue/grandtrustERP-left-menu-strip.gif) repeat-x bottom left;border:solid 1px #9ebfdb;}
+    #contentarea-container .right-side-expanded {padding:7px; margin:0; border:solid 10px #bfd3ee}
+
+/*_______________Left Side Vert Menu Styles__________________________________________________________________________________________________________*/
+
+	.linkwrap {background:#eef3f7;padding:0px;width:auto;margin-bottom:0px;}
+    .linkheader {height:20px;color:#5c84bb;font-weight:bold;font-size:12px;padding:10px 12px 2px 10px;margin:0;background:#cfdff3;border-bottom:solid 1px #a1badb;}
+    .linkheader img{ margin:0px;}
+	.mainlink {height:14px;color:#5c84bb;padding:6px 9px 9px 9px;border-top:solid 1px #d5e2f3;border-bottom:solid 1px #a1badb;background:#c4d6ed;overflow:hidden; width:300px; margin-left:0px;}
+	.sublink {height:25px;color:#5c84bb;padding:5px 0;}
+	.linkwrap table {margin:0!important;}
+	.linkwrap, .linkheader, .mainlink, .sublink {letter-spacing:-1px; font-family:Verdana} 
+
+
+/*_______________Header Styles_____________________________________________________________________________________________________________________*/	
+
+
+#topheader-wrap{background:#e7eef8 url(../../images/ERP-Blue/workflow-bgstrip.gif) repeat-x left top;padding:0px 10px; height:40px; margin-bottom:5px;}
+#topheader-wrap .welcomeuser-wrap {float:right;margin-top:15px;overflow:hidden;}
+#topheader-wrap .welcomeuser-wrap a, #topheader-wrap .welcomeuser-wrap span {font-size:11px; margin-left:5px; text-decoration:none; font-weight:bold; float:right}
+#topheader-wrap .welcomeuser-wrap a {text-decoration:none;margin-top:0px;padding:0!important}
+#topheader-wrap .welcomeuser-wrap span {font-style:italic;font-size:11px; color:#5f81b0; letter-spacing:-1px}
+
+#topheader-wrap span.logo {font-size:14px; color:#5f81b0; letter-spacing:-1px; float:left!important; text-align:left;margin-top:0px; font-style:normal; font-family:Verdana; font-weight:bold}
+
+#topheader-wrap .fisheyemenu-wrap {width:25%;float:left; margin-top:5px; height:38px;}
+#topheader-wrap .fisheyemenu-wrap a, img{}
+/*_______________Footer Styles_____________________________________________________________________________________________________________________*/	
+
+#footer-wrap .logwrap{color:#495872; background:#d0d7e2; border:solid 1px #e8ecf3; padding:0px 5px;}
+#footer-wrap .logwrap b{color:#384c6e} 
+#footer-wrap a, #footer-wrap p, #footer-wrap span{color:#999;}
+#footer-wrap {background:#94a6c6;} /*url(../../images/Classic/layoutgbudget-footer-bg.png) no-repeat left top*/
+
+/*_______________Textbox Drill Menu Styles(AutoComplete)______________________________________________________________________________________________*/
+
+
+#MenuSearch-wrap .ac_results {background:#fff;overflow: hidden;z-index: 99999; color:#000; font:Arial;}
+#MenuSearch-wrap .ac_results ul {width: 100%;list-style-position: outside;list-style: none;padding: 0;margin: 0;color:#000;}
+#MenuSearch-wrap .ac_results li {margin: 0px;padding: 2px 5px;cursor: default;display: block;font: menu;font-size: 12px;line-height: 16px;overflow: hidden;}
+#MenuSearch-wrap .ac_loading {background:#fff;color:#000}
+#MenuSearch-wrap .ac_odd {color:#000;}
+#MenuSearch-wrap .ac_even{color:#000;}
+#MenuSearch-wrap .ac_over{color:#000;}
+
+#MenuSearch {padding:0; margin:15px 10px 0 0; float:left; width:45%;height:20px;}
+#MenuSearch input{font-size:12px;font-weight:bold; height:20px; border:solid 1px #c5dbec; background:#d9e4f4; position:absolute;}
+#MenuSearch a {width:70px; float:left; padding:0 15px;}
+#MenuSearch .fg-button{margin-left:0;}
+
+/*_______________Comment Box Styles_________________________________________________________________________________________________________________*/	
+
+.comments-container{background:#e5ecf4; padding:10px; border:solid 1px #d6dfea}
+.comments-container .commentswrap label{width:19%;}
+.comments-container .commentswrap textarea{width:78.6%;}
+.comments-container .commentswrap select{width:78.8%;}
+
+/*_______________Grid page wrap styles_________________________________________________________________________________________________________________*/	
+
+.gridpagingWrapper {}
+.pagelisting {overflow:auto; float:left;padding-right:10px; margin-top :-5px;}/*done by rijoy for paging inbox padding-right:10px; margin-top :-5px; */
+.pagelisting span, .pagelisting select{margin:5px 1px 0 4px; float:left; padding-top:0!important}
+.pagelisting select{margin:5px 2px 0 3px!important; float:left;}
+.pagenav {float:right;}
+.pagenav ul{ margin:0; padding:0; }
+.pagenav li {display:inline;float:left; margin:0; padding:0;}
+.pagenav input[type=image]{padding:3px; border:solid 1px #c8d6e4!important; width:12px}
+
+
+/*_______________Manadatory Alert Popup Styles_________________________________________________________________________________________________________________*/
+/*div.error{color:#cc0000; font-family:Arial}
+.grdTable div.error{padding:5px 10px 0 10px;color:#cc0000;height:22px;background:#f4daad url('../../images/ERP-Blue/alerticon.png') no-repeat top left; cursor:pointer; text-indent:25px; white-space:pre; position:absolute; display:inline; margin-top:-2px}	
+
+div.error{padding:2px 10px 0 10px;color:#cc0000;height:22px;background:#f4daad url('../../images/ERP-Blue/alerticon.png') no-repeat top left; cursor:pointer; text-indent:25px; white-space:pre;display:inline-block; position:absolute; min-width:160px;z-index:1000;}
+.grdTable div.error{padding:5px 10px 0 10px;color:#cc0000;height:22px;background:#f4daad url('../../images/ERP-Blue/alerticon.png') no-repeat top left; cursor:pointer; text-indent:25px; white-space:pre; position:absolute; display:inline; margin-top:-10px;}*/
+div.error{padding:2px 10px 0 10px;color:#cc0000;height:22px;background:#f4daad url('../../images/ERP-Blue/alerticon.png') no-repeat top left; cursor:pointer; text-indent:25px; white-space:pre;display:inline-block; position:absolute; min-width:160px;z-index:1000; right:-80px; }/*right:15px;*/
+.grdTable div.error{padding:5px 10px 0 10px;color:#cc0000;height:22px;background:#f4daad url('../../images/ERP-Blue/alerticon.png') no-repeat top left; cursor:pointer; text-indent:25px; white-space:pre; position:absolute; display:inline; margin-top:-2px; right:auto!important; right:inherit!important;}
+
+/*_______________Collapse Image Button Wrap Styles___________________________________________________________________________________________________*/
+   
+.collapse-button-collapse {height:43px;width:10px;margin-top:10px;right:0;position:absolute;cursor:e-resize;}	
+.collapse-button-expand {height:43px;width:10px;margin-top:10px;left:0;position:absolute;cursor:e-resize; left:-17px}
+
+/*_______________Footer Styles__________________________________________________________________________________________________________*/
+
+#mcbottom {width:100%;background:url('../../images/ERP-Blue/opaq-img.png') repeat top left;border-top:solid 1px #6889b8; padding:5px 0px 1px 0px; position:fixed; bottom:0}
+#mcbottom img {margin:-2px 0 0 15px; float:left}
+#mcbottom span {margin:2px 15px 0 0px; float:left; color:#D2D9E5; font-size:12px; font-weight:bold; letter-spacing:-1px}
+
+/*___________Menu Control Styles__________*/
+
+/*ul.regfloat li{list-style-type:none; margin-bottom:5px; display:inline}
+ul.regfloat li span,  ul.regfloat li select {width:auto!important; line-height:24px;}*/
+
+
+ul.regfloat li{list-style-type:none;  display:inline}
+ul.regfloat li label{width:auto!important;padding:0;float:none!important; display:inline-block}
+ul.regfloat li select {width:240px!important; line-height:24px; font-size:11px!important;text-align:left}
+ul.regfloat li input[type=text]{text-align:left}
+/* Master Menu control float adj */
+
+ul.hrzlayout li{ min-height: 250px;display:-moz-inline-stack;display: inline-block;vertical-align: top;margin: 5px;/*zoom: 1;**/display: inline;}
+/*__________Master Menu Boxtype_________*/
+
+#mastermenu-wrap {padding:0 5px 10px 5px;height:330px;margin:0 20px 30px 20px!important; overflow-y:auto;overflow-x:hidden;margin:0 auto!important}
+#mastermenu-wrap ul{margin:0; padding:0;}
+#mastermenu-wrap ul li{margin:0 10px 12px 0; padding:0; min-height:100px}
+
+.mastermenu-boxtype-wrap {width:300px;  margin:0; padding:0;}
+
+.mastermenu-boxtype-wrap .header{ font-family:Arial;font-size:12px!important; font-weight:bold;color:#424242;text-align:left; text-indent:0px; margin:0 0 0 0; padding:7px 10px 3px 10px; background:url('../../images/ERP-Blue/menu-top-bg.png') repeat-x top left; }
+.mastermenu-boxtype-wrap .header img{ margin-bottom:0;}
+#mastermenu-wrap table {margin-right:10px; width:100%}
+#mastermenu-wrap table tr td{margin:0; padding:0;}
+#mastermenu-wrap table tr td div{margin:0 auto;}
+#mastermenu-wrap li{margin:0; padding:0;}
+
+.mastermenu-boxtype-wrap .LFT img {margin:0; padding:0px}
+.mastermenu-boxtype-wrap h3{padding:1px 5px;font-size:11px; font-weight:bold;font-family:Arial; text-align:left}
+.mastermenu-boxtype-wrap table{margin:0px; border:solid 1px #c8d9f1}
+
+.mastermenu-boxtype-wrap .btnWrap {padding:5px}
+.mastermenu-boxtype-wrap .linksWrap {padding:5px; overflow-y:auto;overflow-x:hidden; margin:0 5px;height:235px}/*height:200px;*/
+
+.linksWrap span {font-size:14px;font-weight:bold;padding: 2px 2px 3px 2px;} 
+.linksWrap a, .linksWrap a {padding:2px 3px;display:block; font-size:11px; text-decoration:none; font-family:Arial; text-indent:2px} 
+.linksWrap a {margin:0px 2px 0px 2px;margin:0 0 0 0px; border-bottom:dotted 1px #ccc}
+.linksWrap a {text-align:left; float:none}
+/*_______________Checkbox__________________________________________________________________________________________________________________*/
+
+    .checkbx{float:left;margin-bottom:5px; display:inline;}
+    .checkbx input {float:left;width:auto!important; vertical-align:bottom; height:20px}
+    .checkbx label {float:left;font-size:11px;width:auto!important;} 
+    
+    /*____________15-11-11____*/
+
+    .tdCheckbx { width:16.5%; display : inline; float : left; }
+    .tdCheckbx label{ max-width:80% !important; text-align:left !important}
+
+/*--------------Dummy Dropdown Arrow Img for AutoComplete------------------------------------------*/
+
+.ddlwrap{padding:0px; margin:0;}
+.ddlSelect{background:url(../../Images/ERP-Blue/Buttons/dropdwn-img.png) no-repeat 0 0;width:15px; height:16px; position:absolute;  margin-top:7px;margin-left:-20px; float:none!important} 
+
+.ddlSelectDiv3{background:url(../../Images/ERP-Blue/Buttons/dropdwn-img.png) no-repeat 0 0;width:15px; height:16px;  margin-top:3px;margin-left:-20px; z-index:501;} 
+.ddltxtbx{margin-right:-17px;}
+
+/*_______________main layout style ends here__________________________________________________________________________________________________________*/
+
+.divcol-S .reducer, .divcol-M .reducer {width:100%; clear:right; margin-bottom:0px}
+
+        .divcol-S .reducer span {width:16%;float:left; margin-right:4px}
+        .divcol-M .reducer span {width:26%;float:left; margin-right:4px;}
+
+        .divcol-S .reducer input {width:36%;float:left; margin-right:200px;}
+        .divcol-S .reducer textarea {width:36%;float:left; margin-right:200px}
+        .divcol-S .reducer select {width:36.3%;float:left; margin-right:200px}
+
+        .divcol-M .reducer input {width:36%;float:left; margin-right:200px;}
+        .divcol-M .reducer textarea {width:36%;float:left; margin-right:200px}
+        .divcol-M .reducer select {width:36.3%;float:left; margin-right:200px}
+
+
+	
+	.highlightsbx-2col { background:#e6ecf5;padding:2%; border:solid 1px #d1dde6; margin:0 0 10px 0; width:45%; float:left}
+	.highlightsbx-2col h1{color:#00b3fe; padding:0 0 5px 0; font-size:14px; border-bottom:solid 1px #d1dde6; margin:0; text-align:left; text-indent:o; font-style:italic}
+	.highlightsbx-2col span, .highlightsbx-2col label{width:45%;}
+	.highlightsbx-2col label{color:red}
+
+
+.content {margin-right: 0px;padding:10px;}
+/*__________________________________________25-10-11_________________________________________________________________________*/
+
+input[type=text].small{ width:60px!important;}
+input[type=text].medium{width:250px!important;}
+input[type=text].large{width:300px!important;}
+
+span.small{width:60px!important;}
+span.medium{width:250px!important;}
+span.large{width:300px!important;}
+
+select.small{width:60px!important;}
+select.medium{width:250px!important;}
+span.large{width:300px!important;}
+
+/*__________________________________________25-10-11____________________________________________________________________________*/
+
+
+.divcol-S, .divcol-M, .divcol-L,.divcol-LPp, .div2col-S,.div2col-M,.div2col-L, .div3col-S, .div4col-S,  .div4col-RT, .div3col-M {float: left; margin:0px 14px 5px 0;padding:1%; position:relative;}
+
+        .divcol-S, .divcol-M, .divcol-L,.divcol-LPp {width:93%; float:inherit;}
+        .div2col-S, .div2col-M, .div2col-L {width:46%;}
+        .div3col-S, .div3col-M {width:29.6%;}
+        .div4col-S {width:23.1%;} 
+        .div4col-RT {width:76%; float:right}
+
+/*_________divcol-S___________Single Column Styles___________________________*/
+
+        .divcol-S label {width:19%;}
+        .divcol-S span, .divcol-S input, .divcol-S textarea, .divcol-S select {width:78.6%;}
+        .divcol-S select {width:75.5%}
+        .divcol-S span {font-weight:bold}
+        .divcol-S textarea {height:60px;padding-top:1px;}
+
+
+/*_________divcol-M___________Single Column Styles___________________________*/
+
+        .divcol-M label {width:30%;}
+        .divcol-M span, .divcol-M input, .divcol-M textarea, .divcol-M select {width:65%;}
+        .divcol-M select {width:65.5%}
+        .divcol-M span {font-weight:bold}
+        .divcol-M textarea {height:60px;padding-top:1px;}
+        
+/*_________divcol-L___________Single Column Styles___________________________*/
+
+        .divcol-L label {width:40%;}
+        .divcol-L span, .divcol-L input, .divcol-L textarea, .divcol-L select {width:45%;}
+        .divcol-L select {width:45.5%}
+        .divcol-L span {font-weight:bold;}
+        .divcol-L textarea {height:60px;padding-top:1px;}
+        
+/*_________divcol-LPp___________Single Column Styles___________________________*/  
+      
+        .divcol-LPp label {width:40%!important;}
+        .divcol-LPp span, .divcol-LPp input, .divcol-LPp textarea, .divcol-LPp select {width:55%!important;}
+        .divcol-LPp select {width:55.5%!important}
+        .divcol-LPp span {font-weight:bold;}
+        .divcol-LPp textarea {height:60px;padding-top:1px;}
+        
+        
+/*_________divcol-actiowrap___________Single Column Styles___________________________*/
+        
+        .divcol-actiowrap {background:#d7e2ee; padding:10px 0; border:solid 1px #c8d6e4; margin:10px 0;overflow:auto}
+        .divcol-actiowrap span, .divcol-actiowrap label {width:70px;float:left;margin:0 0 0 10px}
+        .divcol-actiowrap input{float:right;margin:0 10px 0 0}
+        .divcol-actiowrap h2{float:left; margin:0 -25px 0 10px; width:96%}
+        .divcol-actiowrap select, .divcol-actiowrap textarea {width:250px; float:left;margin:0 10px 5px 10px}
+        
+/*_________divcol-FileuplWrap___________Single Column Styles___________________________*/
+
+        .divcol-FileuplWrap {padding:0; margin:0 0 5px 0}
+        .divcol-FileuplWrap label {width:19.5%;}
+        .divcol-FileuplWrap input {float:left!important;}
+
+
+/*____________________Two Column Styles___________________________*/
+
+        
+        .div2col-S label {width:40%;}
+        .div2col-S input, .div2col-S textarea, .div2col-S select {width:55%; float:left;}
+        .div2col-S span{width:45%; float:left;}
+        .div2col-S select {width:55.5%}
+        .div2col-S span {font-weight:bold}
+        .div2col-S textarea {height:60px;padding-top:1px;}
+        
+        .div2col-M label {width:45%;}
+        .div2col-M span, .div2col-S input, .div2col-S textarea, .div2col-S select {width:45%;}
+        .div2col-M select {width:45.5%}
+        .div2col-M span {font-weight:bold}
+        .div2col-M textarea {height:60px;padding-top:1px;}
+        
+        .div2col-S span, .div2col-S span {background:#e3e9f0;  color:#8c9bac!important; font-weight:normal; font-size:12px!important}/*border:solid 1px #d8dfe5; padding:0 0 2px 5px;*/
+
+
+/*____________________Three Column Styles___________________________*/
+
+
+        .div3col-S label {width:40%;}
+        .div3col-S span, .div3col-S input, .div3col-S textarea, .div3col-S select {width:54%;}
+        .div3col-S select {width:54.5%;float:left;}/*+float:left;*/
+        .div3col-S span {font-weight:bold}
+        .div3col-S textarea {height:60px;padding-top:1px;}
+  
+        .div3col-M label {width:40%;}
+        .div3col-M span, .div3col-M input, .div3col-M textarea, .div3col-M select {width:54%;}
+        .div3col-M select {width:54.5%}
+        .div3col-M span {font-weight:bold}
+        .div3col-M textarea {height:60px;padding-top:1px;}
+        
+        .div3col-VMappingListing {padding:11px 0 10px 0px; background:#e5ecf4;border:solid 1px #d6dfea;overflow:auto;/**/ margin:5px 0px 0px 0px; }
+        .div3col-VMappingListing label {float:left; background:#e5ecf4; color:#52759b; font-weight:bold;width:125px; text-align:right;}
+        .div3col-VMappingListing span{font-weight:bold;float:left;background:#e5ecf4; color:#90abcb!important; margin-left:115px; min-width:150px;}
+        .div3col-VMappingListing select, .div3col-VMappingListing input{font-weight:bold;float:left;background:#d3dce7;width:160px; }
+ 
+        .div3col-VMappingListing label, .div3col-VMappingListing span, .div3col-VMappingListing select, .div3col-VMappingListing input {margin:0 5px 0 0!important}
+        
+        .div3col-Hi-Lbx {padding:5px 1%; background:#e5ecf4;border:solid 1px #d6dfea;margin:.3% .6% .3% 0;float:left; height:200px; overflow-y:auto;overflow-x:hidden; display:table; width:30.71%}
+        .div3col-Hi-Lbx label {float:left; width:40%;}
+        .div3col-Hi-Lbx span, .div3col-Hi-Lbx select, .div3col-Hi-Lbx input{float:left;width:52%;}
+        .div3col-Hi-Lbx P {float:left; width:52%; font-size:11px; font-family:Verdana; clear:right; margin-bottom:5px}
+        .div3col-Hi-Lbx h1{margin-top:5px; padding-top:0;}
+
+
+
+/*____________________Four Column Styles___________________________*/
+
+
+        .div4col-S span {width:34%;float:left;}
+        .div4col-S input {width:65%;}
+        .div4col-S textarea {width:64.5%;height:60px;padding-top:1px;}
+        .div4col-S select {width:65.4%;border:solid 1px #999;}
+        
+        .div4col-S span,.div4col-S input,.div4col-S textarea,.div4col-S select{margin-bottom:10px;}
+
+        
+/*_________divcol-L___________Single Column Styles___________________________*/
+
+        .divcol-L span {width:75%;float:left;}
+        .divcol-L input {width:20%;}
+        .divcol-L textarea {width:20%;height:60px;border:solid 1px #9cb3c8; background:#dee9f4;padding-top:1px;}
+        .divcol-L select {width:20%;border:solid 1px #999;}
+        
+        .divcol-L span,.divcol-L input,.divcol-L textarea,.divcol-L select{margin-bottom:10px;}
+        
+        
+/*_________divcol-fluid___________Single Column Styles___________________________*/
+
+        .divcol-F span {float:left; margin-right:10px}
+        .divcol-F input {width:20%;}
+        .divcol-F textarea {width:20%;height:60px;border:solid 1px #9cb3c8; background:#dee9f4;padding-top:1px;}
+        .divcol-F select {width:20%;border:solid 1px #999;}
+        
+        .divcol-F span,.divcol-F input,.divcol-F textarea,.divcol-F select{margin-bottom:10px;}
+        
+/*_________divcol-inline___________Single Column Styles___________________________*/
+
+
+        .divcol-inline textarea {height:60px;border:solid 1px #9cb3c8; background:#dee9f4;padding-top:1px;}
+        .divcol-inline span, .divcol-inline input, .divcol-inline textarea, .divcol-inline select{margin-bottom:10px; float:left}
+        
+/*________Element Wrap____________All HTML Element will arrange in a line and wrap to next line when it exceeds its width___________________________*/
+
+        .elementwrap{padding:10px;}
+        .elementwrap span, .elementwrap label {width:100px;float:left; padding:1px 0 0 0}  
+        .elementwrap select {width:204px;float:left;} 
+        .elementwrap input {width:200px;float:left;} 
+        .elementwrap input, .elementwrap select, .elementwrap span {margin:0 10px 10px 0;} 
+        .elementwrap input.imgbtn{ float:right; margin-bottom:-25px; width:20px; height:20px} 
+
+/*____________________Single Column Styles for Declaration___________________________*/
+
+
+        .divcol-Decla span {width:500px;float:left; font-size:12px}
+        .divcol-Decla input {width:18px;float:left;}
+        
+/*____________________Upload File Listing table___________________________*/
+
+        .divcol-upld-FileNameListing-table span{padding:1px 10px; border:solid 1px #cbd5e2; background:#f2f7fd;float:left; margin-left:-1px!important; height:20px!important; margin:0!important;width:250px; overflow:hidden}
+        .divcol-upld-FileNameListing-table a {float:left;border:solid 1px #cbd5e2;margin-left:-1px!important;}        
+
+/*____________________Print Styles___________________________*/
+
+        .divcol-Print{/*white-space:pre-wrap; */background:#fff url(../../images/tpmslogo-watermark.png) no-repeat top right; padding:100px 25px 25px 25px; border:solid 1px #333;color:#000; }
+        .divcol-Print p {text-align:center;clear:both; margin:10px 0 5px 0; padding:0; line-height:16px; text-align:left}
+        
+        .divcol-Print h3 {color:#000; border-bottom:solid 1px #000}
+        
+        .divcol-Print ul {list-style:none; margin-left:0px}
+        .divcol-Print ul {list-style:disc; margin-left:0px; list-style-position:inside; line-height:16px}
+
+/*________Ref No____________Single Column Styles for Declaration___________________________*/
+
+        .divcol-RefNo {margin:5px 0px 0px 5px; float:right; width:100%;} 
+        .divcol-RefNo span {float:right; font-size:12px; color:#b32a00; clear:none; text-align:right; margin-left:10px; margin-right:5px; letter-spacing:0px; font-weight:bold;}
+        .divcol-RefNo select {float:right; font-size:12px; clear:none; text-align:right; margin-left:10px}
+        .divcol-RefNo input {float:right; font-size:12px; clear:none; text-align:right; margin-left:10px}
+               
+/*________Text Editor____________Two Column Styles___________________________*/
+
+        .texteditor-wrap {float:left; background:#fff; border:solid 4px #d6d6d6}
+        .texteditor-wrap span, input, textarea, select {text-align:inherit; float:none;}
+        .texteditor-wrap select {float:none;}  
+        .texteditor-wrap img {margin-top:-5px} 
+        .texteditor-wrap table td {padding:0px}           
+        
+/*________Literal Wrap____________Two Column Styles___________________________*/
+
+        .literal-wrap {border:solid 1px #9cb3c8; background:#fff; padding:35px 25px 20px 25px}
+        .literal-wrap p {padding:0px; text-align:justify}
+        .literal-wrap span, input, textarea, select {text-align:inherit; float:none;}
+        
+        .literal-wrap ol li {list-style-type:decimal; margin-left:25px}
+        .literal-wrap h1 {font-size:16px;}
+
+/*________Add or Remove____________ADD or REMOVE BOX Styles___________________________*/
+
+.addorremovebox {width:30%;float: left;padding:10px;margin:5px 0px 5px 0px;border:solid 1px SteelBlue;background:#eff5fb url('../../images/ERP-Blue/table-th-bg1.gif') repeat-x top left;font-size:12px;line-height:21px;font-weight:bold;}
+.addorremovebox-btnwrap{width:30px;height:94px;float: left;padding:95px 5px 5px 5px;margin:5px 0px 5px 0px;border-top:solid 1px SteelBlue; border-bottom:solid 1px SteelBlue;background:#e7eef8 url(../../images/ERP-Blue/workflow-bgstrip.gif) repeat-x top left;}
+.addorremovebox .chkwrap {width:100%;height:12px; float:left;padding:0 0 5px 0;}
+.addorremovebox .chkwrap input{float:left; padding:0; margin:0; width:13px; height:13px;}
+.addorremovebox .chkwrap label{float:left; padding:0 0 0 3px; margin:0; margin-top:-5px}
+
+/*_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________*/
+          
+.scroll-h150 {max-height:150px; overflow-x:hidden; overflow-y:auto;margin:0 0 10px 0; padding:0px; color:#999}
+.scroll-h150 span{font-weight:bold}
+.scroll-h150 p{color:#888; font-size:11px; letter-spacing:-1px; line-height:16px}       
+
+/*_______________Horz Tab Styles_____________________________________________________________________________________________________________________*/
+
+#tab-container{background:#dfe9f6;border:solid 1px #c0cddf;border-top:none;height:30px;padding:2px 12px 0px 12px;}
+
+.tab-active{padding:3px 15px;background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x top left;border:solid 1px #c2d4e3;float:left;color:#576f90;font-size:14px;font-weight:bolder;margin-top:5px;margin-left:-1px; font-family:Century Gothic;}  
+.tab-active:hover{color:#346bb6;border-bottom:none;background:#efe2ae url(../../images/ERP-Blue/horzglow.png) repeat-y top left;}
+    
+.tab-inactive{padding:3px 15px;background:url(../../images/ERP-Blue/table-th-bg1.gif) repeat-x bottom left;border:solid 1px #c0cddf;float:left;color:#889bb6;font-size:12px;font-weight:normal;margin-top:5px;margin-left:-1px;font-family:Century Gothic; }  
+.tab-inactive:hover{background:#efe2ae url(../../images/ERP-Blue/horzglow.png) repeat-y top left;color:#346bb6;border-bottom:none;}
+   
+/*_______________Inner Label & Textbox Styles________________________________________________________________________________________________________*/
+
+.normalwrap {margin:1px 5px 1px 2px;float:left;width:100px;}
+.textbox-inactive {height:18px;width:100%;background:#f1f1f1;border:solid 1px #ccc;}
+/*_______________Text align Styles________________________________________________________________________________________________________*/
+.txt-left{ text-align:left;}
+.txt-right{text-align:right;}
+/*_______________Login Styles_________________________________________________________________________________________________________________________*/
+
+#login-container {margin:100px auto;padding:70px 120px 25px 60px;background:#e4effd url(../../images/ERP-Blue/erp-production-login.gif) no-repeat center top;width:400px;height:225px;}
+      
+    #login-container input, #login-container select {float:left; background:#6285b6; border:none; color:#22426e; height:20px; margin:0 0 3px 0; padding:0}
+    #login-container label {color:#4f71a0; font-size:12px; margin:0 0 3px 0; padding:0; font-weight:bold; float:left;}
+    #login-container span {color:#8ba8d1; font-size:12px; margin:0 0 3px 0; padding:0; margin-left:1px; float:left;}
+    #login-container .login-validator {color:Orange; font-size:10px; padding:0; margin:0; float:right;}
+    #login-container select {padding:0!important; margin-bottom:10px!important}
+    #login-container input.check {background:none!important}
+    #login-container input.inputbtn {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x bottom left;height:20px;text-align:center;float:left;padding:1px 10px;color:#003366;}
+    #login-container a.inputbtn {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x bottom left;height:16px;text-align:center;float:left;padding:0px 20px 2px 20px;color:#2867b6; margin-left:5px}
+    #login-container .bgclear input{background:none!important}
+    #login-container a {font-size:11px;float:left; text-decoration:none}
+      
+#login-container .header {height:40px;width:150px;background:url(../../images/ERP-Blue/grandtrustERP-logo.gif) no-repeat 0 0;text-align:center;margin-bottom:10px;margin-left:170px;}
+
+#login-container table td{margin:2px 3px}  
+
+ 
+      
+#login-container .header {height:40px;width:150px;background:url(../../images/ERP-Blue/grandtrustERP-logo.gif) no-repeat 0 0;text-align:center;margin-bottom:10px;margin-left:170px;}
+
+#login-container table td{margin:2px 3px} 
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TABLE STYLES STARTS HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/*_______________Common table reset_______________________________________________________________________________________________________________*/
+
+#grdTable-wrap table {border-collapse:collapse;border-spacing:0; width:100%!important; display:block;/*!important*/}
+#contentarea-container table {border:solid 1px #d5dee9; margin:5px 0; border-collapse:collapse;}
+/*_______________grdtable Styles (Anywhere in the Inner Page)_____________________________________________________________________________________*/
+
+.reportviewer {padding:10px 0 20px 17px; background:#fff;border:solid 1px #f7fbff;overflow:hidden}
+.reportviewer table{width:auto!important; overflow:auto}
+.reportviewer table td {margin:0px; padding:0; }
+.reportviewer table {border:none!important}
+ 
+#grdTable-wrap {padding:5px 10px 10px 10px;background:#eaf0f6;border:solid 1px #f7fbff;border-color:#f7fbff #c8d7e9 #c8d7e9 #c8d7e9;overflow-x:auto;overflow-y:hidden;min-width:400px;}
+
+
+	.grdTable table{font-family:Verdana;font-size:11px;float:left;border:solid 1px #d5dee9;display:table!important;}
+	.grdTable table a {font-family:Verdana;font-size:11px; text-decoration:underline;}
+    .grdTable table a:hover {color:#738698; text-decoration:none;}
+	.grdTable table td, .grdTable table th {border-bottom:solid 1px #d5dee9;border-top:none;margin:5px 2px;color:#6d86a4;/*TD Border Missing*/;}
+	.grdTable table th a{color:#5d82a5; text-decoration:none}
+	.grdTable table th span {float:none!important}
+    .grdTable table th {padding:9px 3px 7px 7px;border:solid 1px #d5dee9;background:#f0f5fc url(../../images/ERP-Blue/table-th-bg1.gif) repeat-x top left;color:#5d82a5; text-align:center}
+	.grdTable table td {background:#f5f9ff url(../../images/ERP-Blue/table-tr-bg.gif) repeat-x top center;/*border-left:solid 1px #cbd5e2;border-right:solid 1px #cbd5e2;*/border: solid 1px #cbd5e2!important;padding:5px 7px 0px 7px;vertical-align:middle;/*position:relative*/}
+    
+    
+    .listTable table{font-family:Verdana;font-size:11px; width:100%;float:left;border:solid 1px #8392a7;}
+	.listTable table td{border:solid 1px #8392a7;padding:1px 5px;text-align:left;color:#6d86a4; background:#f5f9ff url(../../images/ERP-Blue/table-tr-bg.gif) repeat-x top center;}
+
+    
+    
+	.trodd{background-color:#f0f5fc;}
+    .treven{background-color:#eaf0f9;}
+    .tdheader {text-align:right; padding-right:5px;color:#1a6389}
+    
+.sortableDown{background-image: url('../../Images/ERP-Blue/Buttons/commonFormArrows.png');background-repeat: no-repeat;background-position:-73px 4px;width: 10px;height:10px;float:right;cursor:pointer;}
+.sortableUp{background-image: url('../../Images/ERP-Blue/Buttons/commonFormArrows.png');background-repeat: no-repeat;background-position: -179px 4px;width: 10px;height: 10px;float: right;cursor:pointer;}
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TABLE STYLES ENDS HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/*_______________Web Wizard (Inner Page Top)_____________________________________________________________________________________________________*/
+
+
+#webwizard-wrap {background:#e7eef8 url(../../images/ERP-Blue/workflow-bgstrip.gif) repeat-x top left;height:33px;border:solid 1px #c8d7e9; padding:0px 5px 0px 10px;}
+#webwizard-wrap h1 {font-size:15px; color:#7294c2; padding:0; margin:7px 0px 0px 0px; float:left; letter-spacing:-1px; border-bottom:none; line-height:18px; width:300px;/**/}
+#webwizard-wrap .button-wrap input, .button-wrap img {width:22px; height:22px; float:left; margin:0; padding:0}
+#webwizard-wrap .button-wrap{float:right; margin-top:0px;width: auto; padding:5px; float: right; text-align: right}
+
+/*_______________Inner Content Block Styles__________________________________________________________________________________________________________*/
+
+
+
+    #searchwrap{ 
+                 background: url("../../images/ERP-Blue/table-th-bg1.gif") repeat-x scroll left top #F3F6FB;
+    border: 1px solid #C5D7EF;
+    height: 23px;
+    margin: 0px 0 10px !important;
+    padding: 10px;
+                 }
+
+        #searchwrap span { font-weight:bold;float:left;margin-bottom:0; margin-right:10px; margin-left:5px}
+        #searchwrap input {width:120px;float:left; margin-left:5px;margin-bottom:0}
+        #searchwrap select {width:120px;float:left; margin-left:5px;margin-bottom:0} 
+        #searchwrap span, #searchwrap input.imgbtn {float:left;margin-bottom:0}
+
+        
+        input.imgbtnwrap, img.imgbtnwrap, a.imgbtnwrap, div.imgbtnwrap {display:inline!important}
+.inboxContentWrap {
+    background: none repeat scroll 0 0 #F3F6FB;
+    border: 1px solid #C5D7EF;
+    min-height: 360px;
+}
+
+
+/*_______________main layout style ends here__________________________________________________________________________________________________________*/
+
+
+
+
+/*________Treeview Wrap____________Put this class to wrap, Nodes and sub titles properly___________________________*/
+
+        
+                .edittree {overflow: auto; margin-bottom: 5px; max-height: 300px;border: solid 1px #a5b9d6; background: #cddae7; min-height: 250px; padding:5px}
+    
+                #edittree .treeview-adj,#edittree .treeview-adj ul { padding: 0;margin: 0;list-style: none;}
+             
+                #edittree .treeview li.last {padding:0 10px 0 17px; float:left; background-position: 0 -1766px;}
+                
+                #edittree.treeview, #edittree .treeview-adj{ padding: 0;margin: 0;  list-style:none}
+                #edittree .treeview span{ padding: 0;margin:0px;float:left; width:auto; padding-right:3px; list-style: none;}
+                #edittree .treeview img, #edittree .treeview input{ padding: 0;margin-left:0px;float:left;}
+                #edittree .treeview-adj {width:100%;}
+                #edittree .treeview-adj h3{ padding: 0;margin:0px; margin-bottom:5px; border:none}
+                
+                #edittree .treeview li { margin: 0;padding:0px 0 3px 17px; clear:left;max-width:1000px;}
+                #edittree .treeview ul { margin: 0;padding:4px 0 0 0; clear:left;}
+                
+                #edittree .treeview, #edittree .treeview-adj{ padding: 0;margin: 0;  list-style:none}
+                #edittree .treeview li { background: url(../../images/ui/treeview-default-line.gif) 0 0 no-repeat;}
+                #edittree .treeview li.collapsable, #edittree .treeview li.expandable {list-style-type:none; list-style-position:inside; float:left}
+                
+                
+                
+                
+                #treewrap .treeview-adj,#treewrap .treeview-adj ul { padding: 0;margin: 0;list-style: none;}
+                #treewrap input{width:20px; height:20px; float:left}
+                #treewrap .treeview li.last {padding:0 10px 0 17px; float:left; background-position: 0 -1766px;}
+                
+                #treewrap.treeview,#treewrap .treeview-adj{ padding: 0;margin: 0;  list-style:none}
+                #treewrap .treeview span{ padding: 0;margin:0px;float:left; width:auto; padding-right:3px; list-style: none;}
+                #treewrap .treeview img,#treewrap .treeview input{ padding: 0;margin-left:0px;float:left;}
+                #treewrap .treeview-adj {width:100%;}
+                #treewrap .treeview-adj h3{ padding: 0;margin:0px; margin-bottom:5px; border:none}
+                
+                #treewrap .treeview li { margin: 0;padding:0px 0 3px 17px; clear:left;width:90%;}
+                #treewrap .treeview ul { margin: 0;padding:4px 0 0 0; clear:left;}
+                
+                #treewrap .treeview, #treewrap .treeview-adj{ padding: 0;margin: 0;  list-style:none}
+                #treewrap .treeview li { background: url(../../images/ui/treeview-default-line.gif) 0 0 no-repeat;}
+                #treewrap .treeview li.collapsable,#treewrap .treeview li.expandable {list-style-type:none; list-style-position:inside; float:left}
+                
+                /*_____________________Rjy tree menu _____________________________*/
+                
+                .treeviewRjy table td span, .treeviewRjy table td img, .treeviewRjy table td a,treeviewRjy input, treeviewRjy textarea, treeviewRjy select{margin:0 0 0 0!important; padding:0 0 0 0!important}
+                .treeviewRjy table td a {color:#1970ca; font-weight:normal; text-decoration:underline;}
+                .treeviewRjy table td span {color:#000}
+                /*============== For javascrit support================ */
+                
+                .treeedit, .treeline, .treeplus, .treeminus {display:block; cursor:pointer; margin-top:3px}
+
+                .treeedit {background:url(../../Images/ERP-Blue/Buttons/erp-grid-edit.png) no-repeat 0 0; width:16px; height:16px;}
+                .treeline {background:url(../../Images/ui/line-img.gif) no-repeat 0 0;width:13px; height:18px; margin-top:0px}
+                .treeplus {background:url(../../Images/ui/tree-plus.png) no-repeat 0 0;width:13px; height:13px;}
+                .treeminus {background:url(../../Images/ui/tree-minus.png) no-repeat 0 0;width:13px; height:13px;}
+                
+                .gridview {background:url(../../Images/ERP-Blue/page-btn-search.gif) no-repeat 0 0;width:22px; height:22px;}
+                .gridadd {background:url(../../Images/ERP-Blue/Buttons/add.png) no-repeat 0 0;width:22px; height:22px;}
+
+
+
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TABLE STYLES STARTS HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/*_______________Gridcontrol ______________________________________________________________________________________________________________*/
+
+.GridviewTable td{border:solid 1px #d5dee9;padding:5px 15px;}
+    .grdrow2, .grdheader2 {border-bottom:solid 1px #d5dee9;border-top:none;margin:10px 2px;text-align:left;}
+	.grdrow2{background:#f5f9ff url(../images/ERP-Blue/table-tr-bg.gif) repeat-x top center;border-left:solid 1px #cbd5e2;border-right:solid 1px #cbd5e2;padding:1px 5px;text-align:left;vertical-align:middle;}
+    .grdheader2 {padding: 5px 3px 5px 3px;border:solid 1px #d5dee9;background:url(../images/ERP-Blue/table-th-bg2.gif) repeat-x top right;height:30px;}
+
+.prevnext-wrap{width:16px; float:right; text-align:center; margin:4px 2px;}
+.prevnext-wrap a.prev {background:url(../../images/ERP-Blue/Buttons/prev-paging.png) no-repeat top center; width:16px; height:16px; text-indent:-9999px; position:absolute; right:73px}
+.prevnext-wrap a.next {background:url(../../images/ERP-Blue/Buttons/next-paging.png) no-repeat top center; width:16px; height:16px; text-indent:-9999px; position:absolute; right:23px}
+.select-wrap{width:40px; float:right; text-align:center;  margin-top:3px}
+
+/*____________________________________________Inbox Style Starts Here____________________________________________________________________________________________*/
+
+     
+     #inboxwrap
+     {
+         margin:0px;
+         padding:0;
+                  
+     }
+     
+     #inboxwrap  a.inbox-item{ margin:0 0 0 0!important; display:inline}
+     
+     .inbox-item
+     {
+         width:180px;
+         height:15px;
+         padding:10px 10px 10px 20px; 
+         background:#bdcfe0;
+         float:left;
+         font-size:12px;
+         text-transform:uppercase;
+         font-weight:bold;
+         font-family:Verdana;
+         color:#4373a0;
+     }
+     
+     .inboxSearch {background:#d5dfe9;font-size:87%;}/*font size 87% given for resolution issue*/
+     
+     .inbox-item:hover
+     {
+         background:#bdcfe0 url(../../images/ERP-Blue/inbox-sel-item-bg.gif) no-repeat top left;
+         color:#fff;
+     }
+     
+     .inbox-numerics
+     {
+         float:left;background:#bdcfe0;width:80px;padding:9px 5px 4px 5px;
+     }
+     
+     /* For Selected Tab/Item */
+     .inbox-item-selected
+     {
+         width:195px;
+         height:15px;
+         padding:10px 10px 10px 20px;
+         background:#bdcfe0 url(../../images/ERP-Blue/inbox-sel-item-bg.gif) no-repeat top left;
+         float:left;
+         color:#fff;
+         margin-right:0px;
+         margin-bottom:0;
+     }
+     
+     .inbox-corner-img
+     {
+         width:10px;
+         background:url(../../images/ERP-Blue/inbox-corner-img.gif) no-repeat top left;
+     }
+     
+     .inbox-corner-RGT-img
+     {
+         width:80px;
+         background:url(../../images/ERP-Blue/inbox-corner-RGT-img.gif) no-repeat top left;
+     }
+     
+     .inbox-corner-img, .inbox-corner-RGT-img 
+     {
+         height:35px;
+         padding:0;
+         float:left; 
+     }
+
+/*_______________________________________________Inbox style Ends Here____________________________________________________________________________________________*/
+
+
+.btnDelete-S
+{
+    width: 15px;
+    height: 15px;
+    background: url('../../Images/Redmond/ui-icons_2e83ff_256x240.png') 79px 143px;
+    border: 1px solid #DDD;
+    margin-left: 2px;
+    float: left;
+}
+
+.btnRevert-S
+{
+    width: 15px;
+    height: 15px;
+    background: url('../../Images/Redmond/ui-icons_2e83ff_256x240.png') 79px 174px;
+    border: 1px solid #DDD;
+    margin-left: 2px;
+    float: left;
+}
+
+.btnEdit-S
+{
+    width: 15px;
+    height: 15px;
+    background: url('../../Images/Redmond/ui-icons_2e83ff_256x240.png') 78px 110px;
+    border: 1px solid #DDD;
+    margin-left: 2px;
+    float: left;
+}
+.btnVerified-S
+{
+    width: 15px;
+    height: 15px;
+    background: url('../../Images/Redmond/ui-icons_2e83ff_256x240.png') 191px 94px;
+    border: 1px solid #DDD;
+    margin-left: 2px;
+    float: left;
+}
+
+/*__________________________________________________________________________________________________________________________________________________*/
+
+.linkbtn {padding-right:4px;text-decoration:underline;margin:2px;padding:1px; color:Black!important}
+.linkbtn:hover {text-decoration:none;}
+.inputbtn {background:url(../../images/ERP-Blue/table-th-bg.gif) repeat-x top left;border:solid 1px #abcae8;height:23px;text-align:center;float:right;padding:1px 15px;color:#374c68;}
+
+
+/*_______ To place Dropdwn and ImgBtn Side by side ________*/
+
+input.srchbtn {margin:0px 0px 5px 5px;width:16px; height:16px; position:absolute}
+select.drpdwnreduced {margin:0px 2px 5px 0px;float:left; width:58%}
+.imgbutton-wrap {position:absolute; padding:2px 3px}	
+label.star {color:red; float:left; margin-right:-5px; height:26px;}
+.passwordstrength-wrap {width:auto; height:auto; text-align:right; color:Red;}
+
+/*_______ App Main Button Wraps  ________*/
+
+.button-wrap {padding:5px;float:right}
+.button-wrap input, .button-wrap img{margin-left:2px !important}
+.button-wrap-LT {padding:0 5px; float:left}
+.button-wrap-RT {padding:0 5px; float:right}
+
+/*___________________________________________________________________________________________________________________________________________________*/
+
+
+
+.col2wrap{background:#f1f1f1; border:solid 1px #ccc; width:50%!important; float:left; margin-top:5px; padding:5px 0!important}
+
+.col1, .col2, .col3, .col4 {height:14px;padding:5px;float: left;}
+.col1{width:43%;border:solid 1px SteelBlue;border-right:none;margin-top:-1px!important;}
+.col2{width:21%;height:14px;padding:2px!important;margin-top:5px;margin-left:5px;font-size:11px; font-weight:bold;}
+.col3, .col4{background:#fff;border:solid 1px SteelBlue;margin-left:-1px;margin-top:-1px;}
+.col3{width:23%;}
+.col4{width:23%;}
+
+/*___________________________________________________________CSS for PrototypeV)1 Ends Here________________________________________________________________________________*/
+
+
+
+
+/*___________________________________________________________________________________Hari_____*/
+input.error
+{
+    border:1px solid #FF0000 !important;
+}
+select.error
+{
+    border:1px solid #FF0000!important;
+}
+#errMsgContainer
+{
+    width: 150px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: auto;
+    padding-left: 5px;
+}
+#errMsgContainer ul
+{
+    margin: 0;
+    padding: 0;
+}
+#errMsgContainer li
+{
+    list-style-position: inside;    
+    margin: 0;
+    padding: 3px;
+    color: #FF0000 !important;
+}
+/*___________________________________________________________________________________Inbox (2012 june 19)_____*/
+
+
+#inbox-header{background:#597cad url(../../images/ERP-Blue/menu-bar.jpg) no-repeat right bottom;padding:0px 10px; height:50px;}
+#inbox-header .logo{ background:url(../../images/ERP-Blue/gerp-logo.gif) no-repeat; width:102px; height:44px; float:left;}
+.inbox-menu{float:right; width:225px; padding-top:16px;}
+.inbox-menu input[type=image]{float:right; margin:0 5px 0 0;}
+.top-spacing{padding-top:10px!important;}
+#inbox-container {background:#eaf0f6; padding:10px 10px 30px 10px; min-height:510px;}
+	
+#inbox-container .left-side, .right-side {}
+#inbox-container .left-side {width:22%;overflow:hidden;float:left}
+#inbox-container .left-side-menuwrap {overflow:hidden;}
+#inbox-container .left-side-menuwrap img {margin-right:5px;}
+	
+#inbox-container .right-side {width:77.2%;float:right;}
+#inbox-container .right-side-contentwrap {padding:7px;margin:1px;background:#dfe9f5 url(../../images/ERP-Blue/grandtrustERP-left-menu-strip.gif) repeat-x bottom left;border:solid 1px #9ebfdb;}
+#inbox-container .right-side-expanded {padding:7px; margin:0; border:solid 10px #bfd3ee}
+
+.welcome-user span{color:#384C6E!important; background:#d0d7e2; border:solid 1px #e8ecf3; padding:0px 5px; margin:0 5px 0 0!important; float:right!important;font-size:11px!important; }
+.reduce-size{font-size:11px!important;}
+
+
+/*___________dashboard___________*/
+.dash-head{border:1px solid #B5B5B5;margin:10px 0 5px 0; border-collapse:collapse;}
+.dash-bottom-border{border-bottom:1px solid #B5B5B5;}
+.dash-bottom-border td{padding:0 5px;}
+/*___________Report Viewer___________*/
+
+div.reportviewer { width:916px!important;overflow:auto!important;}
+div.reportviewer table{width:auto!important;margin:0 auto!important; }
+div.reportviewer table td{ padding:3px 1px 0 2px; }
+div.reportviewer span{text-align:inherit!important;width:auto!important;}
+.report-controll table{overflow:hidden!important;}
+.reportviewer table td input, .reportviewer table td img, .reportviewer table td a, .reportviewer table td select{text-align:inherit!important;width:auto!important;}
+.report-controll{ width:auto!important; height:auto;}
+
+div.dash-reportviewer{max-height:454px!important; width:916px!important; position:relative;}
+
+.filter-btn{background:url(../../Images/ERP-Blue/Buttons/filter.png) no-repeat center center!important;}
+.btnInner-ok{ background:#dee3ed url(../../Images/ERP-Blue/Buttons/ok.png) no-repeat 5px center!important;}
+.btnInner-icon{font-size:10px; border:0;} 
+.btnInner-size{  font-size:11px!importat; height:25px;  width:68px;  border:0; padding-left:20px;  border:solid 1px #d0d7e9;color:#506C92 }
+
+#text {margin:50px auto; width:500px}
+.hotspot {color:#900; padding-bottom:1px; border-bottom:1px dotted #900; cursor:pointer}
+.Button-container-popup{text-align:right;}
+.popup-btn{text-align:right;border-bottom:1px solid #D1D1D1;}
+.popup-btn input{float:none}
+/*_________________________New Css Add From Workflow Date 9/7/2013_______________________*/
+.ModelDialogFE
+{
+	position: absolute;
+    width: 800px;
+    min-height: 200px;
+    z-index: 9999;
+    padding: 20px;
+    margin-top:-100px;
+}
+
+/*_______________________fixed button on top__________________________*/
+   
+.Button-container{background:url(../../Images/ERP-Blue/bredcrum-bg.png) repeat-x left top;height:30px; padding:0;margin-top:-5px;width:100%;}
+.Button-container ul li{ margin:0; padding:0; list-style-type:none; display:inline;}
+.Button-container ul{ display:inline;}
+/*____dash board tables on popup____*/
+.asset-head{background:#c7d0df; padding:5px 0  5px 10px; font-size:12px;}
+.asset-scroll{ padding-left:3px; height:210px; overflow-y:auto;}
+.asset-list{ width:285px;float:left;border:1px #D8D8D8 solid; margin:8px; text-align:left; padding:5px;}
+.asset-list span{ margin:0; padding:0; font-weight:bold; float:none;}
+.asset-list label{float:none;}
+.asset-list input[type="checkbox"],.asset-list input[type="radio"],.asset-list input.radio,.asset-list input.checkbox{pvertical-align:text-top;width:16px;height:13px;padding:0;margin-top:4px; }
+
+/*_______________________input style disable__________________________*/
+input[type=text].input-notheme{color:#6d86a4;font-size:11px;background:none!important; border:0; font-family:Verdana}
+

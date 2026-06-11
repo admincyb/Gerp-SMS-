@@ -1,0 +1,354 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+ 
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />Font-Names="Verdana" GridLines="None" GridLines="Both" Font-Names="Verdana" BorderWidth="1px" BorderStyle="solid" BorderColor="Red"
+--%>
+
+<asp:GridView runat="server" CSSclass="gridwrap" CellSpacing="0" CellPadding="0" Height="10px" BorderWidth="1px"  BorderStyle="solid" BorderColor="#85b3bf" GridLines="Horizontal" >
+    <HeaderStyle Font-Names="Verdana" ForeColor="#005159" Font-Size="10px"  HorizontalAlign="left" CssClass="grdhead" Height="25px" BorderWidth="0" />  
+    <RowStyle BackColor="#ffffff" Font-Names="Verdana" Font-Size="11px" BorderWidth="1px" Height="10px" BorderStyle="solid" BorderColor="#dddddd" ForeColor="#303030"/>
+    <EditRowStyle BackColor="#999999" ForeColor="#333333" /> 
+    <SelectedRowStyle Font-Names="Verdana" Font-Size="11px" BackColor="#ecf0f6" Font-Bold="True" ForeColor="#73819d" />
+    <AlternatingRowStyle BackColor="#f8f8f8" BorderWidth="1px" BorderStyle="solid" BorderColor="#dddddd" ForeColor="#303030" />    
+    <FooterStyle Font-Names="Verdana" Font-Size="10px" BackColor="#72B8BD" Font-Bold="True" ForeColor="#122648" HorizontalAlign="Left" BorderWidth="0" Height="30px"/> 
+    <PagerStyle Font-Names="Verdana" Font-Size="10px" BackColor="#1a86a3" ForeColor="#ffffff" HorizontalAlign="Center" Height="20px" />
+</asp:GridView>
+
+
+<asp:TextBox runat="server" 
+    BorderStyle="solid" BorderColor="#eaf2f5"  Font-Size="11px" Font-Names="Verdana"
+    BackColor="White" ForeColor="#303030" style="padding:3px 2px;margin:0 3px 10px 0;"><%--height:16px;--%>
+</asp:TextBox>
+
+<asp:DropDownList runat="server" 
+  Font-Names="Verdana" Font-Bold="False"  BorderWidth="1px" BorderStyle="solid" Font-Size="12px"
+  ForeColor="#303030"  BackColor="White" style="padding:1px 2px; height:22px; margin:0 3px 10px 0;">
+</asp:DropDownList>
+
+<asp:Label runat="server" Font-Names="Verdana" style="height:12px;margin:0 3px 10px 0;">
+</asp:Label>
+
+<asp:LinkButton runat="server" Font-Underline="false" Font-Names="Verdana"> 
+</asp:LinkButton>
+
+<asp:HyperLink runat="server" Font-Size="11px" Font-Names="Verdana">
+</asp:HyperLink> 
+ 
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all ui-button-text-only" style="margin-right:3px; height:24px; font-size:11px;"/>
+
+
+
+
+<asp:ImageButton SkinID="imgbtnaction" ImageUrl="~/images/BlueExt/Icons/action.png" runat="server"/>
+<asp:ImageButton SkinID="btnsearchgo" tooltip="Go" ImageUrl="~/images/BlueExt/layout/btn-go.jpg" runat="server" style="height:24px;width:46px;"/>
+<asp:ImageButton  SkinID="imgbtnLogout" tooltip="Logout" ImageUrl="~/images/BlueExt/layout/gbudget-btn-logout.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnHelp2" tooltip="Help" ImageUrl="~/images/BlueExt/layout/gbudget-btn-help.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnChangePswd" tooltip="Change Password" ImageUrl="~/images/BlueExt/layout/gbudget-btn-changePswd.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnLanguage" tooltip="Change Language" ImageUrl="~/images/BlueExt/layout/gbudget-btn-language.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnLanguage-eng" tooltip="Change Language" ImageUrl="~/images/BlueExt/layout/gbudget-btn-language-eng.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnTheme" tooltip="Change Theme" ImageUrl="~/images/BlueExt/layout/gbudget-btn-theme.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnInbox" tooltip="Inbox" ImageUrl="~/images/BlueExt/layout/gbudget-btn-inbox.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnDropdown" tooltip="Dropdown" ImageUrl="~/images/BlueExt/layout/dropdown-menu.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnStar" tooltip="Add this page to favourites" ImageUrl="~/images/BlueExt/layout/gbudget-btn-star.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnHome" tooltip="Home" ImageUrl="~/images/BlueExt/layout/gbudget-btn-home.png" runat="server" />
+
+<asp:ImageButton  SkinID="imgbtnmenu1" tooltip="Menu" ImageUrl="~/images/BlueExt/layout/menu-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnlogout1" tooltip="Logout" ImageUrl="~/images/BlueExt/layout/logout-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnsearch" tooltip="Search" ImageUrl="~/images/BlueExt/layout/search-dash.png" runat="server" />
+
+<asp:ImageButton  SkinID="imgbtnProfile" tooltip="Profile" ImageUrl="~/images/BlueExt/layout/profile-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnEnquiries" tooltip="Enquiries" ImageUrl="~/images/BlueExt/layout/enq-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnOrders" tooltip="Orders" ImageUrl="~/images/BlueExt/layout/order-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnInbox1" tooltip="Inbox" ImageUrl="~/images/BlueExt/layout/inbx-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnQuote" tooltip="Quote" ImageUrl="~/images/BlueExt/layout/quote-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnContracts" tooltip="Contracts" ImageUrl="~/images/BlueExt/layout/contracts-dash.png" runat="server" />
+<asp:ImageButton  SkinID="imbSelect" tooltip="Select" ImageUrl="~/images/BlueExt/Icons/status-change.png" runat="server"/> 
+
+
+<asp:ImageButton SkinID="imbGridFirst" tooltip="First" ImageUrl="~/images/BlueExt/Icons/first-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridLast" tooltip="Last" ImageUrl="~/images/BlueExt/Icons/last-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridNext" tooltip="Next" ImageUrl="~/images/BlueExt/Icons/next-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridPrev" tooltip="Prev" ImageUrl="~/images/BlueExt/Icons/prev-paging.png" runat="server"/> 
+
+<asp:ImageButton SkinID="btnactive" ImageUrl="~/images/BlueExt/Icons/active.gif" runat="server"/> 
+<asp:ImageButton SkinID="btninactive" ImageUrl="~/images/BlueExt/Icons/inactive.gif" runat="server"/> 
+
+<asp:ImageButton SkinID="Grid-right-arrow" ImageUrl="~/images/BlueExt/Icons/right-arrow.png" runat="server"/> 
+<asp:ImageButton SkinID="Grid-left-arrow" ImageUrl="~/images/BlueExt/Icons/left-arrow.png" runat="server"/> 
+<asp:ImageButton SkinID="Grid-select" tooltip="Attachment" ImageUrl="~/images/BlueExt/Icons/select.png" runat="server"/> 
+<asp:ImageButton SkinID="edit-row" tooltip="Edit" ImageUrl="~/images/BlueExt/Icons/edit-row.png" runat="server"/> 
+<asp:ImageButton SkinID="ad-inner" ImageUrl="~/images/BlueExt/Icons/ad-inner.png" runat="server"/> 
+<asp:ImageButton SkinID="base" ImageUrl="~/images/BlueExt/Icons/base.png" runat="server"/> 
+<asp:ImageButton SkinID="btnevaluate" ImageUrl="~/images/BlueExt/Icons/evaluate.png" runat="server"/> 
+<asp:ImageButton SkinID="btnattach" ImageUrl="~/images/BlueExt/Icons/attach.png" runat="server"/>
+<asp:ImageButton SkinID="attach-mark" ImageUrl="~/images/BlueExt/Icons/attach-mark.png" runat="server"/>
+<asp:ImageButton SkinID="imbundogrid" ImageUrl="~/images/BlueExt/Icons/status-change.png" runat="server"/>
+<asp:ImageButton SkinID="imgProcPayroll" ImageUrl="~/images/BlueExt/Icons/process-payroll.png" runat="server"/>
+
+
+<%--Skins for ImagesButtons on top fixed--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Revert btnInner-size" SkinID="btnInner-Revert"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-filter btnInner-size" SkinID="btnInner-filter" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-process btnInner-size" SkinID="btnInner-process" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Save btnInner-size" SkinID="btnInner-Save"  />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Delete btnInner-size" SkinID="btnInner-Delete" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Cancel btnInner-size" SkinID="btnInner-Cancel" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-New btnInner-size" SkinID="btnInner-New" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Edit btnInner-size" SkinID="btnInner-Edit" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-View btnInner-size" SkinID="btnInner-View" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-StatChange btnInner-size" SkinID="btnInner-stat-change" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Print btnInner-size" SkinID="btnInner-Print" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Excel btnInner-size" SkinID="btnInner-Excel" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Go btnInner-size-go" SkinID="btnInner-Go"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-contact btnInner-size" SkinID="btnInner-contact"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-rolls btnInner-size" SkinID="btnInner-rolls"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-model btnInner-size" SkinID="btnInner-model"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-copy btnInner-size" SkinID="btnInner-copy"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-show btnInner-med-size" SkinID="btnInner-show"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-hide btnInner-med-size" SkinID="btnInner-hide"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-ok btnInner-size" SkinID="btnInner-ok"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-popup btnInner-med-size" SkinID="btnInner-popup"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-schedule btnInner-med-size" SkinID="btnInner-schedule"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-inward btnInner-med-size" SkinID="btnInner-inward"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-outward btnInner-med-size" SkinID="btnInner-outward"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Print1 btnInner-med-size" SkinID="btnInner-Print1" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-IOPrint btnInner-med-size" SkinID="btnInner-IOPrint" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Delete1 btnInner-med-size" SkinID="btnInner-Delete1"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Edit1 btnInner-med-size" SkinID="btnInner-Edit1" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Save1 btnInner-med-size" SkinID="btnInner-Save1"  />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-add-dsd btnInner-med-size" SkinID="btnInner-add-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-generate-dsd btnInner-med-size" SkinID="btnInner-generate-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-edit-dsd btnInner-med-size" SkinID="btnInner-edit-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-cancel-dsd btnInner-med-size" SkinID="btnInner-cancel-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-deactivate btnInner-med-size" SkinID="btnInner-deactivate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-activatate btnInner-med-size" SkinID="btnInner-activatate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-reset btnInner-med-size" SkinID="btnInner-reset"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-reset-2 btnInner-med-size" SkinID="btnInner-reset-2"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-submit btnInner-med-size" SkinID="btnInner-submit"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-email btnInner-med-size" SkinID="btnInner-email "/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-search btnInner-med-size" SkinID="btnInner-search"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-refresh btnInner-med-size" SkinID="btnInner-refresh"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-respond btnInner-med-size" SkinID="btnInner-respond"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-available btnInner-med-size" SkinID="btnInner-available"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-sale btnInner-med-size" SkinID="btnInner-sale"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-journalize btnInner-med-size" SkinID="btnInner-journalize"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-moneycredit btnInner-med-size" SkinID="btnInner-moneycredit"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-moneydebit btnInner-med-size" SkinID="btnInner-moneydebit"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-receipt btnInner-med-size" SkinID="btnInner-receipt"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-money btnInner-med-size" SkinID="btnInner-money"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-set btnInner-med-size" SkinID="btnInner-set"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-add btnInner-med-size" SkinID="btnInner-add"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-alert btnInner-med-size" SkinID="btnInner-alert"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-allocation btnInner-med-size" SkinID="btnInner-allocation"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-amend btnInner-med-size" SkinID="btnInner-amend"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-cancel1 btnInner-med-size" SkinID="btnInner-cancel1"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-subtask btnInner-size" SkinID="btnInner-subtask"  />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-CheckIn btnInner-size-checkin" SkinID="btnInner-checkin" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-CheckOut btnInner-size-checkout" SkinID="btnInner-checkout" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-addInv btnInner-med-size" SkinID="btnInner-addInv"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-return btnInner-med-size" SkinID="btnInner-return"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-shortclose btnInner-med-size" SkinID="btnInner-shortclose"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-dwn btnInner-med-size" SkinID="btnInner-dwn"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-smsSend btnInner-med-size" SkinID="btnInner-smsSend"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-smsResend btnInner-med-size" SkinID="btnInner-smsResend"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="delete-icon icon-small" SkinID="delete-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-attach icon-small" SkinID="btnInner-attach"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnSelectSp icon-small" SkinID="btnSelectSp"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="new-icon icon-small" SkinID="new-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btncansel-icon icon-small" SkinID="btncansel-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="save-icon icon-small" SkinID="save-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="edit-icon icon-small" SkinID="edit-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="continue-icon icon-small" SkinID="continue-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="available-icon icon-small" SkinID="available-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="search-icon icon-small" SkinID="search-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="allocation-icon icon-small" SkinID="allocation-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="information-icon icon-small" SkinID="information-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="refresh-invoice icon-small" SkinID="refresh-invoice"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-associate btnInner-large-size" SkinID="btnInner-associate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-deassociate btnInner-large-size" SkinID="btnInner-deassociate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-lopoff btnInner-large-size" SkinID="btnInner-lopoff"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-extend btnInner-large-size" SkinID="btnInner-extend"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-charge btnInner-large-size" SkinID="btnInner-charge"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-backup btnInner-med-size" SkinID="btnInner-backup"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-restore btnInner-med-size" SkinID="btnInner-restore"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="amount_split icon-small" SkinID="amount_split-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="debitnote icon-small" SkinID="debitnote-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="creditnote icon-small" SkinID="creditnote-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-stopStock btnInner-size" SkinID="stop-stock" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-template btnInner-med-size" SkinID="btnInner-template"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btn-filter btnInner-size" SkinID="btn-filter"/>
+
+
+<%--styled like ImagesButtons--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-searchAsset btnInner-icon" width="22px" height="22px" SkinID="btnInner-searchAsset"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-associateAssets  btnInner-icon" width="22px" height="22px" SkinID="btnInner-associateAssets"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-cancela btnInner-icon" width="22px" height="22px" SkinID="btnInner-cancela"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-allocate btnInner-med-size" SkinID="btnInner-allocate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-deallocate btnInner-med-size" SkinID="btnInner-deallocate"/>
+ 
+<%--Skins for recurring--%>
+<asp:Image SkinID="recurring" ImageUrl="~/images/BlueExt/Icons/recurring.png" runat="server"/> 
+<asp:Image SkinID="return" ImageUrl="~/images/BlueExt/Icons/return.png" runat="server"/> 
+<asp:ImageButton SkinID="recurring" ImageUrl="~/images/BlueExt/Icons/recurring.png" runat="server"/> 
+<asp:ImageButton SkinID="employees" ImageUrl="~/images/BlueExt/Icons/employees.png" runat="server"/> 
+<asp:ImageButton SkinID="asset" ImageUrl="~/images/BlueExt/Icons/asset.png" runat="server"/>
+<asp:ImageButton SkinID="expense" ImageUrl="~/images/BlueExt/Icons/expense.png" runat="server"/>
+<asp:ImageButton SkinID="maintenance" ImageUrl="~/images/BlueExt/Icons/maintenance.png" runat="server"/>
+<asp:ImageButton SkinID="task" ImageUrl="~/images/BlueExt/Icons/task.png" runat="server"/>
+<asp:ImageButton SkinID="utilization" ImageUrl="~/images/BlueExt/Icons/utilization.png" runat="server"/>
+<asp:ImageButton SkinID="reback" ImageUrl="~/images/BlueExt/Icons/reback.png" runat="server"/>
+<asp:ImageButton SkinID="history" ImageUrl="~/images/BlueExt/Icons/history.png" runat="server"/>
+<asp:ImageButton SkinID="plus" ImageUrl="~/images/BlueExt/Icons/plus.png" runat="server"/>
+<asp:ImageButton SkinID="minus" ImageUrl="~/images/BlueExt/Icons/minus.png" runat="server"/>
+<asp:ImageButton SkinID="formula" ImageUrl="~/images/BlueExt/Icons/formula.png" runat="server"/>
+<asp:ImageButton SkinID="information" ImageUrl="~/images/BlueExt/Icons/info.png" runat="server"/>
+<asp:ImageButton SkinID="cancel" ImageUrl="~/images/BlueExt/Icons/canceld.png" runat="server"/>
+<asp:ImageButton SkinID="arrived" ImageUrl="~/images/BlueExt/Icons/arrived.png" runat="server"/>
+<asp:ImageButton SkinID="diverting" ImageUrl="~/images/BlueExt/Icons/diverting.png" runat="server"/>
+<asp:ImageButton SkinID="schedule" ImageUrl="~/images/BlueExt/Icons/schedule-icon.png" runat="server"/>
+<asp:ImageButton SkinID="search" tooltip="Go" ImageUrl="~/images/BlueExt/Icons/search.png" runat="server"/>
+<asp:ImageButton SkinID="respond" ImageUrl="~/images/BlueExt/Icons/draft.png" runat="server"/>
+<asp:ImageButton SkinID="shipping" ImageUrl="~/images/BlueExt/Icons/shipping.png" runat="server"/>
+<asp:ImageButton SkinID="tax" ImageUrl="~/images/BlueExt/Icons/tax.png" runat="server"/>
+<asp:ImageButton SkinID="equal" ImageUrl="~/images/BlueExt/Icons/equal.png" runat="server"/>
+<asp:ImageButton SkinID="user-map" ImageUrl="~/images/BlueExt/Icons/user-mapping.png" runat="server"/>
+<asp:ImageButton SkinID="conversion" ImageUrl="~/images/BlueExt/Icons/conversion.png" runat="server"/>
+<asp:ImageButton SkinID="discount" ImageUrl="~/images/BlueExt/Icons/discount.png" runat="server"/>
+<asp:ImageButton SkinID="popup" ImageUrl="~/images/BlueExt/Icons/popup-window.png" runat="server"/>
+<asp:ImageButton SkinID="popup-green" ImageUrl="~/images/BlueExt/Icons/popup-green.png" runat="server"/>
+<asp:ImageButton SkinID="post" ImageUrl="~/images/BlueExt/Icons/mail.png" runat="server"/>
+<asp:ImageButton SkinID="mark" ImageUrl="~/images/BlueExt/Icons/arrived.png" runat="server"/>
+<asp:ImageButton SkinID="close" ImageUrl="~/images/BlueExt/Icons/cancel-icon.png" runat="server"/>
+<asp:ImageButton SkinID="unposted" ImageUrl="~/images/BlueExt/Icons/unposted.png" runat="server"/>
+<asp:ImageButton SkinID="posted" ImageUrl="~/images/BlueExt/Icons/posted.png" runat="server"/>
+<asp:ImageButton SkinID="imbactiongrid"  ImageUrl="~/images/BlueExt/Icons/action.png" runat="server"/>
+<asp:ImageButton SkinID="imbeditgrid" ImageUrl="~/images/BlueExt/Icons/edit-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="imbdeletegrid" ImageUrl="~/images/BlueExt/Icons/grid-delete.png" runat="server"/>
+<asp:ImageButton SkinID="imbsplitup" ImageUrl="~/images/RedExt/Icons/add.png" runat="server"/>
+<asp:ImageButton SkinID="btnview" ImageUrl="~/images/BlueExt/Icons/view-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="btnPrint" ImageUrl="~/images/BlueExt/Icons/print-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="return2" ImageUrl="~/images/BlueExt/Icons/return.png" runat="server"/>
+<asp:ImageButton SkinID="imbamendgrid" ImageUrl="~/images/BlueExt/Icons/arrow-top.png" runat="server"/>
+
+<asp:ImageButton SkinID="btnConvert" ImageUrl="~/images/BlueExt/Icons/reback-green.png" runat="server"/>
+<asp:ImageButton SkinID="btnNotConvert" ImageUrl="~/images/BlueExt/Icons/not-converted.png" runat="server"/>
+
+
+
+<asp:ImageButton SkinID="btnclose" ImageUrl="~/images/BlueExt/Icons/cancel-icon.png" runat="server"/>
+<asp:ImageButton SkinID="imbaddnew" tooltip="Add" ImageUrl="~/images/BlueExt/Icons/add.png" runat="server"/>
+<asp:ImageButton SkinID="btnrefresh" tooltip="Refresh" ImageUrl="~/images/BlueExt/Icons/refresh.png" runat="server"/>
+<asp:ImageButton SkinID="btnselect-arrow" ImageUrl="~/images/BlueExt/Icons/select-arrow.png" runat="server"/>
+<asp:ImageButton SkinID="view-icon" ImageUrl="~/images/BlueExt/Icons/view-icon.png" runat="server"/>
+<asp:ImageButton SkinID="zoom-icon" ImageUrl="~/images/BlueExt/Icons/zoom-icon.png" runat="server"/>
+<asp:ImageButton SkinID="group-icon" ImageUrl="~/images/BlueExt/Icons/group-icon.png" runat="server"/>
+<asp:ImageButton SkinID="show-popup" ImageUrl="~/images/BlueExt/Icons/show-popup.png" runat="server"/>
+<asp:ImageButton SkinID="save" ImageUrl="~/images/BlueExt/Icons/save-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-right" ImageUrl="~/images/BlueExt/Icons/single-arrow-right.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-left" ImageUrl="~/images/BlueExt/Icons/single-arrow-left.png" runat="server"/>
+<asp:ImageButton SkinID="double-arrow-right" ImageUrl="~/images/BlueExt/Icons/double-arrow-right.png" runat="server"/>
+<asp:ImageButton SkinID="double-arrow-left" ImageUrl="~/images/BlueExt/Icons/double-arrow-left.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-top" ImageUrl="~/images/BlueExt/Icons/single-arrow-top.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-bottom" ImageUrl="~/images/BlueExt/Icons/single-arrow-bottom.png" runat="server"/>
+<asp:ImageButton SkinID="pro-normal" ImageUrl="~/images/BlueExt/Icons/pro-normal.png" runat="server"/>
+<asp:ImageButton SkinID="allocation" ImageUrl="~/images/BlueExt/Icons/allocation.png" runat="server"/>
+<asp:ImageButton SkinID="gene-number" ImageUrl="~/images/BlueExt/Icons/generate-number.png" runat="server"/>
+<asp:ImageButton SkinID="g&l" ImageUrl="~/images/BlueExt/Icons/gl.png" runat="server"/>
+<asp:ImageButton SkinID="up" ImageUrl="~/images/BlueExt/Icons/arrow-top.png" runat="server"/>
+<asp:ImageButton SkinID="down" ImageUrl="~/images/BlueExt/Icons/arrow-bottom.png" runat="server"/> 
+<asp:ImageButton SkinID="move-up" ImageUrl="~/images/BlueExt/Icons/move-up.png" runat="server"/>
+<asp:ImageButton SkinID="move-down" ImageUrl="~/images/BlueExt/Icons/move-dwn.png" runat="server"/> 
+<asp:ImageButton SkinID="btnInner-Qa" ImageUrl="~/images/BlueExt/Icons/QAgrid.png" runat="server"  />
+<asp:ImageButton SkinID="percent" ImageUrl="~/images/BlueExt/Icons/percent.png" runat="server"/>
+<asp:ImageButton SkinID="btnCommissionRate" ImageUrl="~/images/BlueExt/Icons/commission-rate.png" runat="server"/>
+<asp:ImageButton SkinID="add_small-icon" ImageUrl="~/images/BlueExt/Icons/add_small-icon.png" runat="server"/>
+<asp:ImageButton SkinID="imbUpdate" ImageUrl="~/images/BlueExt/Icons/available.png" runat="server"/>
+<asp:ImageButton SkinID="imbPayment" ImageUrl="~/images/BlueExt/Icons/dat.png" runat="server"/>
+<asp:ImageButton SkinID="activeIcon" ImageUrl="~/images/BlueExt/Icons/active-icon.png" runat="server"/> 
+<asp:ImageButton SkinID="inactiveIcon" ImageUrl="~/images/BlueExt/Icons/inactive-icon.png" runat="server"/>
+<asp:ImageButton SkinID="imbSif" ImageUrl="~/images/BlueExt/Icons/sif.png" runat="server"/> 
+<asp:ImageButton SkinID="excel" ImageUrl="~/images/BlueExt/Icons/excelPrint.png" runat="server"/> 
+<asp:ImageButton SkinID="add-batches" ImageUrl="~/images/BlueExt/Icons/addbtn-grid.png" runat="server"/>
+<asp:ImageButton SkinID="clear-batches" ImageUrl="~/images/BlueExt/Icons/clearbtn-grid.png" runat="server"/> 
+<asp:ImageButton SkinID="view-batches" ImageUrl="~/images/BlueExt/Icons/viewbtn-grid.png" runat="server"/>
+<asp:ImageButton SkinID="download" ImageUrl="~/images/BlueExt/Icons/dwn.png" runat="server"/>
+<asp:ImageButton SkinID="reference" ImageUrl="~/images/Classic/Icons/reference.png" runat="server"/>
+<asp:ImageButton SkinID="reference-detail" ImageUrl="~/images/Classic/Icons/reference-detail.png" runat="server"/>
+
+<%--color icons--%>
+<asp:ImageButton SkinID="approve-cl" ImageUrl="~/images/BlueExt/Icons/approve-cl.png" runat="server"/>
+<asp:ImageButton SkinID="draft-cl" ImageUrl="~/images/BlueExt/Icons/draft-cl.png" runat="server"/>
+<asp:ImageButton SkinID="notposted-cl" ImageUrl="~/images/BlueExt/Icons/notposted-cl.png" runat="server"/>
+<asp:ImageButton SkinID="posted-cl" ImageUrl="~/images/BlueExt/Icons/posted-cl.png" runat="server"/>
+<asp:ImageButton SkinID="submit-cl" ImageUrl="~/images/BlueExt/Icons/submit-cl.png" runat="server"/>
+
+<%--Skins for dashboard--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="filter-btn btnInner-icon" width="18px" height="18px" SkinID="filter-btn"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="zoom-btn btnInner-icon" width="18px" height="18px" SkinID="zoom-btn"/>
+
+<%--Skins for Advance search arrow button--%>
+<asp:ImageButton SkinID="imbArrowInactive" tooltip="Show Filter" ImageUrl="~/images/BlueExt/Icons/arrow-colapse-inactive.png" runat="server"/> 
+<asp:ImageButton SkinID="imbArrowActive" tooltip="Hide Filter" ImageUrl="~/images/BlueExt/Icons/arrow-colapse-active.png" runat="server"/> 
+
+<%--Skin for Workflow Inbox--%>
+<asp:ImageButton  SkinID="imgbtnMenu" tooltip="Menu" ImageUrl="~/images/BlueExt/layout/menu.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnWorkflowInbox" tooltip="Inbox" ImageUrl="~/images/BlueExt/layout/gbudget-btn-inbox1.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnRefreshAll" tooltip="Refresh" ImageUrl="~/images/BlueExt/layout/gbudget-btn-refresh.png" runat="server" />
+<asp:ImageButton SkinID="workflowapprove" ImageUrl="~/images/BlueExt/Icons/approve-inbox.png" runat="server"/>
+<asp:ImageButton SkinID="workflowactiongrid"  ImageUrl="~/images/BlueExt/Icons/action-inbox.png" runat="server"/>
+<asp:ImageButton SkinID="workflowsummary" ImageUrl="~/images/BlueExt/Icons/summary.png" runat="server"/>
+
+<%--Skin for saleReceipt AdjustAllocation button--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="adjustallocation-icon icon-small" SkinID="adjustallocation-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="costallocation-icon margntop2 icon-small" SkinID="costcenter-icon"/>
+
+<%--Skin for PO Item List
+<asp:ImageButton SkinID="ItemDetailsgrid" runat="server"/>--%>
+
+<%--For Task Tracker List--%>
+<asp:Image SkinID="SubTask" ImageUrl="~/images/BlueExt/layout/grd-subtask.png" runat="server"/> 
+<asp:Image SkinID="DateFlag" ImageUrl="~/images/BlueExt/layout/flag.png" runat="server" width="12px" height="12px"/> 
+
+<%--Skins for expand/collapse arrow button--%>
+<asp:ImageButton SkinID="imbArrowShow" ImageUrl="~/images/BlueExt/Icons/arrow-colapse-inactive.png" runat="server"/> 
+<asp:ImageButton SkinID="imbArrowHide" ImageUrl="~/images/BlueExt/Icons/arrow-colapse-active.png" runat="server"/> 
+
+<%--Skins for Expense invoice party arrow button--%>
+<asp:ImageButton SkinID="imbArrowInactiveParty" ImageUrl="~/images/BlueExt/Icons/hide.png" runat="server"/> 
+<asp:ImageButton SkinID="imbArrowActiveParty" ImageUrl="~/images/BlueExt/Icons/show.png" runat="server"/> 
+
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-validate-dsd btnInner-med-size"  SkinID="btnInner-validate-dsd"/>
+
+<asp:ImageButton SkinID="grn-icon" ImageUrl="~/images/BlueExt/Icons/grn-icon.png" runat="server"/>
+<asp:ImageButton SkinID="estimate-icon" ImageUrl="~/images/BlueExt/Icons/est-icon.png" runat="server"/>
+
+<%--Search buttons for extendend layout--%>
+ <asp:ImageButton  runat="server" SkinID="search-ext" ImageUrl="~/images/BlueExt/Icons/search.png"/>
+ <asp:ImageButton  runat="server" SkinID="clear-ext" ImageUrl="~/images/BlueExt/Icons/canceld.png"/>
+
+<asp:ImageButton SkinID="salary-formula" runat="server" ImageUrl="~/images/BlueExt/Icons/asset.png"/>
+<asp:ImageButton SkinID="salary-reload" ImageUrl="~/images/BlueExt/Icons/diverting.png" runat="server"/>
+
+<asp:ImageButton SkinID="show-carton" ImageUrl="~/images/BlueExt/Icons/allocate.png" runat="server"/>
+
+<%--Payroll Process--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-payroll btnInner-size" SkinID="btnInner-payroll" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-ReProcess btnInner-size" SkinID="btnInner-ReProcess" />
+<asp:ImageButton SkinID="show-workingdays" ImageUrl="~/images/BlueExt/Icons/working-days.png" runat="server"/>
+<asp:ImageButton  SkinID="imbArchive" ImageUrl="~/images/Classic/Icons/archive.png" runat="server"/> 

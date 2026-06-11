@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3CA74508-BF36-426E-BE13-33AB19C88AD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Handlers</RootNamespace>
+    <AssemblyName>Handlers</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+<TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\TelDll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\Refference DLL\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WorkflowCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\RefereceDLL\WorkflowCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountManagement\InboxManagement.cs" />
+    <Compile Include="Administration\Configurations\DefaultValueConfig.cs" />
+    <Compile Include="Administration\Configurations\DepartmentConfig.cs" />
+    <Compile Include="Administration\Configurations\DepartmentSettings.cs" />
+    <Compile Include="Administration\Configurations\MenuManagement.cs" />
+    <Compile Include="Administration\Configurations\ProjectSite.cs" />
+    <Compile Include="Administration\Configurations\SBUConfiguration.cs" />
+    <Compile Include="Administration\Configurations\UserGroupDepartment.cs" />
+    <Compile Include="Administration\Configurations\UserManagement.cs" />
+    <Compile Include="Administration\Masters\CurrencyMaster.cs" />
+    <Compile Include="Administration\Masters\DispersionManagement.cs" />
+    <Compile Include="Administration\Masters\GeneralTemplateMaster.cs" />
+    <Compile Include="Administration\Masters\StoreLocationMaster.cs" />
+    <Compile Include="Administration\Masters\StoreMaterialMapping.cs" />
+    <Compile Include="Administration\Masters\TankMaster.cs" />
+    <Compile Include="Administration\Masters\TaxSettings.cs" />
+    <Compile Include="CommonManagement\CommonManagement.cs" />
+    <Compile Include="CompoundManagement\CompoundMaster.cs" />
+    <Compile Include="DataFeeder.cs" />
+    <Compile Include="HandlerClass.cs" />
+    <Compile Include="Handlers.cs" />
+    <Compile Include="MachineryManagement\MachineryManagement.cs" />
+    <Compile Include="MaterialManagement\MaterialCategoryManagement.cs" />
+    <Compile Include="MaterialManagement\MaterialManagement.cs" />
+    <Compile Include="Production\BincardGeneration.cs" />
+    <Compile Include="Production\CompoundPreparation.cs" />
+    <Compile Include="Production\DispersionPreparation.cs" />
+    <Compile Include="Production\TopUpRecord.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderGenerate.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderGeneration.cs" />
+    <Compile Include="PurchaseOrderManagement\PurchaseOrderCreation.cs" />
+    <Compile Include="PurchaseRequestManagement\PurchaseRequestManagement.cs" />
+    <Compile Include="StoreManagement\DirectStockTransfer.cs" />
+    <Compile Include="StoreManagement\MaterialConsumption.cs" />
+    <Compile Include="StoreManagement\ExternalMaterialIssue.cs" />
+    <Compile Include="StoreManagement\NewItemRequest.cs" />
+    <Compile Include="StoreManagement\GoodsInspectionNote.cs" />
+    <Compile Include="StoreManagement\MaterialAccept.cs" />
+    <Compile Include="StoreManagement\MaterialIssue.cs" />
+    <Compile Include="StoreManagement\GoodsReceiptNote.cs" />
+    <Compile Include="StoreManagement\StockAdjustment.cs" />
+    <Compile Include="StoreManagement\StockTransfer.cs" />
+    <Compile Include="StoreManagement\StoreAdjustment.cs" />
+    <Compile Include="StoreManagement\StoreAudit.cs" />
+    <Compile Include="StoreManagement\StoreManagement.cs" />
+    <Compile Include="StoreManagement\StoreRequisitionSlipCreation.cs" />
+    <Compile Include="SubDepartmentManagement\SubDepartmentManagement.cs" />
+    <Compile Include="UOMManagement\UOMMaster.cs" />
+    <Compile Include="UserControl\AdvanceSearch.cs" />
+    <Compile Include="Utilities\FileUploadManagement.cs" />
+    <Compile Include="VendorManagement\AgentRegistration.cs" />
+    <Compile Include="VendorManagement\VendorEvaluationManagement.cs" />
+    <Compile Include="VendorManagement\VendorManagement.cs" />
+    <Compile Include="VendorManagement\VendorRegistration.cs" />
+    <Compile Include="Administration\Masters\VendorTerms.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NLog.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{18B3DA4D-A5BB-486D-BAF8-F48ED6411E03}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+      <Project>{FACEBA43-69BF-4414-865A-E00919B020CA}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GTIService\GTIService.csproj">
+      <Project>{2BA61394-A98F-4158-9351-AE5D6D5797F9}</Project>
+      <Name>GTIService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DispersionManagement\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

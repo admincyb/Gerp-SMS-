@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2BA61394-A98F-4158-9351-AE5D6D5797F9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GTIService</RootNamespace>
+    <AssemblyName>GTIService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+<TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.SmartTag, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\RefDlls\ReferanceDLLs\Microsoft.Office.Interop.SmartTag.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\TelDll\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationModule.cs" />
+    <Compile Include="CommonFunctions.cs" />
+    <Compile Include="Constants\Accounts\ConstUserAuth.cs" />
+    <Compile Include="Constants\Accounts\Fields.cs" />
+    <Compile Include="Constants\Accounts\Parameters.cs" />
+    <Compile Include="Constants\Accounts\Procedures.cs" />
+    <Compile Include="Constants\Accounts\WorkflowInbox\Parameters.cs" />
+    <Compile Include="Constants\Accounts\WorkflowInbox\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\CompanyList\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\CompanyList\Procedure.cs" />
+    <Compile Include="Constants\Administration\Configurations\Company\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\Company\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\Config\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\Config\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\Config\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\DefaultConfig\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\DefaultConfig\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\DefaultConfig\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\Departments.cs" />
+    <Compile Include="Constants\Administration\Configurations\DeptConfig\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\DeptConfig\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\DeptConfig\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\Employees\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\Employees\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\Employees\Procedure.cs" />
+    <Compile Include="Constants\Administration\Configurations\GroupDept\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\GroupDept\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\MarginSetup\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\MarginSetup\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\Menu\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\Menu\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\Menu\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\NewsManagements.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Constants\Administration\Configurations\PageActions.cs" />
+    <Compile Include="Constants\Administration\Configurations\ProjectSite\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\ProjectSite\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\ProjectSite\Procedure.cs" />
+    <Compile Include="Constants\Administration\Configurations\RoleActions.cs" />
+    <Compile Include="Constants\Administration\Configurations\SBUConfig\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\SBUConfig\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\SBUConfig\Procedures.cs" />
+    <Compile Include="Constants\Administration\Configurations\UserManagement\Fields.cs" />
+    <Compile Include="Constants\Administration\Configurations\UserManagement\Parameters.cs" />
+    <Compile Include="Constants\Administration\Configurations\UserManagement\Procedure.cs" />
+    <Compile Include="Constants\Administration\Masters\AccountMaping\Fields.cs" />
+    <Compile Include="Constants\Administration\Masters\AccountMaping\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\AccountMaping\Procedures.cs" />
+    <Compile Include="Constants\Administration\Masters\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\Procedures.cs" />
+    <Compile Include="Constants\Administration\Masters\RelatedLink\Fields.cs" />
+    <Compile Include="Constants\Administration\Masters\RelatedLink\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\RelatedLink\Procedures.cs" />
+    <Compile Include="Constants\Administration\Masters\StoreMaterialMapping\Fields.cs" />
+    <Compile Include="Constants\Administration\Masters\StoreMaterialMapping\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\StoreMaterialMapping\Procedures.cs" />
+    <Compile Include="Constants\Administration\Masters\GeneralTemplate\Fields.cs" />
+    <Compile Include="Constants\Administration\Masters\GeneralTemplate\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\GeneralTemplate\Procedures.cs" />
+    <Compile Include="Constants\Administration\Masters\TaxSettings\Fields.cs" />
+    <Compile Include="Constants\Administration\Masters\TaxSettings\Parameters.cs" />
+    <Compile Include="Constants\Administration\Masters\TaxSettings\Procedures.cs" />
+    <Compile Include="Constants\Agent\Fields.cs" />
+    <Compile Include="Constants\Agent\Parameters.cs" />
+    <Compile Include="Constants\Agent\Procedures.cs" />
+    <Compile Include="Constants\Alert\Parameters.cs" />
+    <Compile Include="Constants\Alert\Procedures.cs" />
+    <Compile Include="Constants\AssetService\Fields.cs" />
+    <Compile Include="Constants\AssetService\Parameters.cs" />
+    <Compile Include="Constants\AssetService\Procedures.cs" />
+    <Compile Include="Constants\Common\Common.cs" />
+    <Compile Include="Constants\Common\CommonConstants.cs" />
+    <Compile Include="Constants\Common\Fields.cs" />
+    <Compile Include="Constants\Common\Parameters.cs" />
+    <Compile Include="Constants\Common\Procedures.cs" />
+    <Compile Include="Constants\Compound\Fields.cs" />
+    <Compile Include="Constants\Compound\Parameters.cs" />
+    <Compile Include="Constants\Compound\Procedures.cs" />
+    <Compile Include="Constants\Currency\Fields.cs" />
+    <Compile Include="Constants\Currency\Parameters.cs" />
+    <Compile Include="Constants\Currency\Procedures.cs" />
+    <Compile Include="Constants\Designation\Fields.cs" />
+    <Compile Include="Constants\Designation\Parameters.cs" />
+    <Compile Include="Constants\Designation\Procedures.cs" />
+    <Compile Include="Constants\DirectStockTransfer\Fields.cs" />
+    <Compile Include="Constants\DirectStockTransfer\Parameters.cs" />
+    <Compile Include="Constants\DirectStockTransfer\Procedures.cs" />
+    <Compile Include="Constants\Dispersion\Fields.cs" />
+    <Compile Include="Constants\Dispersion\Parameters.cs" />
+    <Compile Include="Constants\Dispersion\Procedures.cs" />
+    <Compile Include="Constants\Finance\Parameters.cs" />
+    <Compile Include="Constants\Finance\Procedures.cs" />
+    <Compile Include="Constants\HRMS\Admin\Masters\Constants.cs" />
+    <Compile Include="Constants\HRMS\Admin\Masters\Fields.cs" />
+    <Compile Include="Constants\HRMS\Admin\Masters\Parameters.cs" />
+    <Compile Include="Constants\HRMS\Admin\Masters\Procedures.cs" />
+    <Compile Include="Constants\HRMS\eDocs\Constants.cs" />
+    <Compile Include="Constants\HRMS\eDocs\Fields.cs" />
+    <Compile Include="Constants\HRMS\eDocs\Parameters.cs" />
+    <Compile Include="Constants\HRMS\eDocs\Procedures.cs" />
+    <Compile Include="Constants\HRMS\Employee\Constatnts.cs" />
+    <Compile Include="Constants\HRMS\Employee\Fields.cs" />
+    <Compile Include="Constants\HRMS\Employee\Parameters.cs" />
+    <Compile Include="Constants\HRMS\Employee\Procedures.cs" />
+    <Compile Include="Constants\HRMS\ESS\Fields.cs" />
+    <Compile Include="Constants\HRMS\ESS\Parameters.cs" />
+    <Compile Include="Constants\HRMS\ESS\Procedures.cs" />
+    <Compile Include="Constants\HRMS\ManageMails\Fields.cs" />
+    <Compile Include="Constants\HRMS\ManageMails\Parameters.cs" />
+    <Compile Include="Constants\HRMS\ManageMails\Procedures.cs" />
+    <Compile Include="Constants\HRMS\Payroll\Fields.cs" />
+    <Compile Include="Constants\HRMS\Payroll\Parameters.cs" />
+    <Compile Include="Constants\HRMS\Payroll\Procedures.cs" />
+    <Compile Include="Constants\HRMS\TaskTracker\Parameters.cs" />
+    <Compile Include="Constants\HRMS\TaskTracker\Procedures.cs" />
+    <Compile Include="Constants\Inventory\Fields.cs" />
+    <Compile Include="Constants\Inventory\Parameters.cs" />
+    <Compile Include="Constants\Inventory\Procedures.cs" />
+    <Compile Include="Constants\Journalize\Fields.cs" />
+    <Compile Include="Constants\Journalize\Parameter.cs" />
+    <Compile Include="Constants\Journalize\Procedure.cs" />
+    <Compile Include="Constants\Machinery\Fields.cs" />
+    <Compile Include="Constants\Machinery\Parameters.cs" />
+    <Compile Include="Constants\Machinery\Procedures.cs" />
+    <Compile Include="Constants\Material\Fields.cs" />
+    <Compile Include="Constants\Material\Parameters.cs" />
+    <Compile Include="Constants\Material\Procedures.cs" />
+    <Compile Include="Constants\Menus\Fields.cs" />
+    <Compile Include="Constants\Menus\Parameters.cs" />
+    <Compile Include="Constants\Menus\Procedures.cs" />
+    <Compile Include="Constants\OrderToCash\Parameters.cs" />
+    <Compile Include="Constants\OrderToCash\Procedures.cs" />
+    <Compile Include="Constants\OutStandingDue\Parameters.cs" />
+    <Compile Include="Constants\OutStandingDue\Procedures.cs" />
+    <Compile Include="Constants\POInvoicing\Parameters.cs" />
+    <Compile Include="Constants\POInvoicing\Procedures.cs" />
+    <Compile Include="Constants\Production\Fields.cs" />
+    <Compile Include="Constants\Production\Parameters.cs" />
+    <Compile Include="Constants\Production\Procedures.cs" />
+    <Compile Include="Constants\PurchaseOrderGenerates\Fields.cs" />
+    <Compile Include="Constants\PurchaseOrderGenerates\Parameters.cs" />
+    <Compile Include="Constants\PurchaseOrderGenerates\Procedures.cs" />
+    <Compile Include="Constants\PurchaseOrder\Fields.cs" />
+    <Compile Include="Constants\PurchaseOrder\Parameters.cs" />
+    <Compile Include="Constants\PurchaseOrder\Procedures.cs" />
+    <Compile Include="Constants\PurchaseRequest\Fields.cs" />
+    <Compile Include="Constants\PurchaseRequest\Parameters.cs" />
+    <Compile Include="Constants\PurchaseRequest\Procedures.cs" />
+    <Compile Include="Constants\Reports\Fields.cs" />
+    <Compile Include="Constants\Reports\GenerateReport.cs" />
+    <Compile Include="Constants\Reports\Parameters.cs" />
+    <Compile Include="Constants\Reports\Procedures.cs" />
+    <Compile Include="Constants\RequestForQuote\Parameters.cs" />
+    <Compile Include="Constants\RequestForQuote\Procedures.cs" />
+    <Compile Include="Constants\Sales\Parameters.cs" />
+    <Compile Include="Constants\Sales\Procedures.cs" />
+    <Compile Include="Constants\Shipping\Fields.cs" />
+    <Compile Include="Constants\Shipping\Parameters.cs" />
+    <Compile Include="Constants\Shipping\Procedures.cs" />
+    <Compile Include="Constants\StockTransfer\Fields.cs" />
+    <Compile Include="Constants\StockTransfer\Parameters.cs" />
+    <Compile Include="Constants\StockTransfer\Procedures.cs" />
+    <Compile Include="Constants\Stock\Fields.cs" />
+    <Compile Include="Constants\Stock\Parameters.cs" />
+    <Compile Include="Constants\Stock\Procedures.cs" />
+    <Compile Include="Constants\Store\Fields.cs" />
+    <Compile Include="Constants\Store\Parameters.cs" />
+    <Compile Include="Constants\Store\Procedures.cs" />
+    <Compile Include="Constants\SubDepartment\Fields.cs" />
+    <Compile Include="Constants\SubDepartment\Parameters.cs" />
+    <Compile Include="Constants\SubDepartment\Procedures.cs" />
+    <Compile Include="Constants\Tank\Fields.cs" />
+    <Compile Include="Constants\Tank\Parameters.cs" />
+    <Compile Include="Constants\Tank\Procedures.cs" />
+    <Compile Include="Constants\UOM\Fields.cs" />
+    <Compile Include="Constants\UOM\Parameters.cs" />
+    <Compile Include="Constants\UOM\Procedures.cs" />
+    <Compile Include="Constants\Vendor\Fields.cs" />
+    <Compile Include="Constants\Vendor\Parameters.cs" />
+    <Compile Include="Constants\Vendor\Procedures.cs" />
+    <Compile Include="Constants\WorkOrder\Parameters.cs" />
+    <Compile Include="Constants\WorkOrder\Procedures.cs" />
+    <Compile Include="CryptoServices.cs" />
+    <Compile Include="Dashboard\ChartData.cs" />
+    <Compile Include="Dashboard\DashboardConstants.cs" />
+    <Compile Include="Dashboard\DynamicRdlc.cs" />
+    <Compile Include="Dashboard\Procedures.cs" />
+    <Compile Include="DataFeeder.cs" />
+    <Compile Include="Evaluator.cs" />
+    <Compile Include="Infrastructure\GtiResourceHelper.cs" />
+    <Compile Include="Infrastructure\GtiResourceProvider.cs" />
+    <Compile Include="Infrastructure\GtiResourceProviderFactory.cs" />
+    <Compile Include="Infrastructure\GtiResourceReader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControl\AdvanceSearch\Fields.cs" />
+    <Compile Include="UserControl\AdvanceSearch\Parameters.cs" />
+    <Compile Include="UserControl\AdvanceSearch\Procedures.cs" />
+    <Compile Include="UtilityResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UtilityResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+      <Project>{FACEBA43-69BF-4414-865A-E00919B020CA}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Utilities\ERP.Utilities.csproj">
+      <Project>{678E1AC7-C52F-4E53-9A5F-E509B1F8D65B}</Project>
+      <Name>ERP.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UtilityResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UtilityResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

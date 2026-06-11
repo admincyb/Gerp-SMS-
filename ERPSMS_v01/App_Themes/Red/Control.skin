@@ -1,0 +1,206 @@
+﻿<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+ 
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />Font-Names="Verdana" GridLines="None" GridLines="Both" Font-Names="Verdana" BorderWidth="1px" BorderStyle="solid" BorderColor="Red"
+--%>
+
+<asp:GridView runat="server" CSSclass="gridwrap" CellSpacing="0" CellPadding="0" Height="10px" BorderWidth="1px" BorderStyle="solid" BorderColor="#c6d3e7">
+    <HeaderStyle Font-Names="Verdana" ForeColor="#2a2a2a" Font-Size="10px"  HorizontalAlign="left" CssClass="grdhead" Height="25px" />  
+    <RowStyle BackColor="#ffffff" Font-Names="Verdana" Font-Size="11px" BorderWidth="1px" Height="10px" BorderStyle="solid" BorderColor="#c6d3e7" ForeColor="#263d62"/>
+    <EditRowStyle BackColor="#999999" ForeColor="#333333" /> 
+    <SelectedRowStyle Font-Names="Verdana" Font-Size="11px" BackColor="#ecf0f6" Font-Bold="True" ForeColor="#73819d" />
+    <AlternatingRowStyle BackColor="#ffffff" BorderWidth="1px" BorderStyle="solid" BorderColor="#c6d3e7" ForeColor="#263d62" />    
+    <FooterStyle Font-Names="Verdana" Font-Size="10px" BackColor="#DFDCDD" Font-Bold="True" ForeColor="#122648" HorizontalAlign="Left" Height="30px"/> 
+    <PagerStyle Font-Names="Verdana" Font-Size="10px" BackColor="#DFDCDD" ForeColor="#122648" HorizontalAlign="Center" Height="20px" />
+</asp:GridView>
+
+<asp:TextBox runat="server" 
+    BorderStyle="solid" BorderColor="#eaf2f5"  Font-Size="12px" Font-Names="Verdana"
+    BackColor="White" ForeColor="#2a2a2a" style="padding:3px 2px;margin:0 3px 10px 0;"><%--height:16px;--%>
+</asp:TextBox>
+
+<asp:DropDownList runat="server" 
+  Font-Names="Verdana" Font-Bold="False"  BorderWidth="1px" BorderStyle="solid" Font-Size="12px"
+  ForeColor="#2a2a2a"  BackColor="White" style="padding:3px 2px; height:22px; margin:0 3px 10px 0;">
+</asp:DropDownList>
+
+<asp:Label runat="server" Font-Names="Verdana" style="height:12px;margin:0 3px 10px 0;">
+</asp:Label>
+
+<asp:LinkButton runat="server" Font-Underline="false" Font-Names="Verdana"> 
+</asp:LinkButton>
+
+<asp:HyperLink runat="server" Font-Size="11px" Font-Names="Verdana">
+</asp:HyperLink> 
+ 
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all ui-button-text-only" style="margin-right:3px; height:24px; font-size:11px;"/>
+
+<%--Skins for ImagesButtons
+    <asp:ImageButton SkinID="imgbtnAdd" tooltip="Add" ImageUrl="~/images/Classic/Icons/add.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnDelete" tooltip="Delete" ImageUrl="~/images/Classic/Icons/grid-delete.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnDependend" tooltip="Dependend" ImageUrl="~/images/Classic/Icons/Dependend.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnEdit" tooltip="Edit" ImageUrl="~/images/Classic/Icons/grid-edit.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnSave" tooltip="Save" ImageUrl="~/images/Classic/Icons/gbudget-save.png" runat="server"/>
+
+    <asp:ImageButton SkinID="imgbtnGlobal" tooltip="Global" ImageUrl="~/images/Classic/mastermenu-imgbtn-global.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnHelp" tooltip="Help" ImageUrl="~/images/Classic/mastermenu-imgbtn-help.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnLinks" tooltip="Links" ImageUrl="~/images/Classic/mastermenu-imgbtn-links.png" runat="server"/>
+    <asp:ImageButton SkinID="imgbtnVideo" tooltip="Video" ImageUrl="~/images/Classic/mastermenu-imgbtn-video.png" runat="server"/>
+
+    <asp:ImageButton runat="Server" SkinID="imgbtnComment" ImageUrl="~/images/Classic/Icons/gbudget-comments.png" runat="server" style="width:20px; height:20px;"/>
+
+    <asp:ImageButton SkinID="imbeditgrid" tooltip="Edit" ImageUrl="~/images/Classic/Icons/gb-edit-btn.png" runat="server"/>
+    <asp:ImageButton SkinID="imbdeletegrid" tooltip="Delete" ImageUrl="~/images/Classic/Icons/gb-delete-btn.png" runat="server"/>
+
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_Save" SkinID="btnInnerSave"/>
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_Edit" SkinID="btnInnerEdit"/>
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_View" SkinID="btnInnerView"/>
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_Delete" SkinID="btnInnerDelete" />
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_New" SkinID="btnInnerNew"/>
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-corner-all combtn_Print" SkinID="btnInnerPrint"/>
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-icon ui-icon-check ui-corner-all" SkinID="btnInnerJustify" style="width:20px; height:20px; padding:2px; text-align:inherit" />
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="ui-button ui-state-default ui-icon ui-icon-document ui-corner-all" SkinID="btnInnerAttach" style="width:20px; height:20px; padding:2px; text-align:inherit" />
+    <asp:Button  runat="server" Font-Names="Verdana" CssClass="uui-button ui-state-default ui-corner-all combtn_Compare" SkinID="btnInnerCompare"/>
+
+    --%>
+<asp:ImageButton SkinID="imgbtnaction" ImageUrl="~/images/Red/Icons/action.png" runat="server"/>
+<asp:ImageButton SkinID="btnsearchgo" tooltip="Go" ImageUrl="~/images/Red/layout/btn-go.jpg" runat="server" style="height:24px;width:46px;"/>
+<asp:ImageButton  SkinID="imgbtnLogout" tooltip="Logout" ImageUrl="~/images/Red/layout/gbudget-btn-logout.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnHelp2" tooltip="Help" ImageUrl="~/images/Red/layout/gbudget-btn-help.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnChangePswd" tooltip="Change Password" ImageUrl="~/images/Red/layout/gbudget-btn-changePswd.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnLanguage" tooltip="Change Language" ImageUrl="~/images/Red/layout/gbudget-btn-language.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnLanguage-eng" tooltip="Change Language" ImageUrl="~/images/Red/layout/gbudget-btn-language-eng.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnTheme" tooltip="Change Theme" ImageUrl="~/images/Red/layout/gbudget-btn-theme.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnInbox" tooltip="Inbox" ImageUrl="~/images/Red/layout/gbudget-btn-inbox.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnDropdown" tooltip="Dropdown" ImageUrl="~/images/Red/layout/dropdown-menu.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnStar" tooltip="Add this page to favourites" ImageUrl="~/images/Red/layout/gbudget-btn-star.png" runat="server" />
+<asp:ImageButton  SkinID="imgbtnHome" tooltip="Dropdown" ImageUrl="~/images/Red/layout/gbudget-btn-home.png" runat="server" />
+
+<asp:ImageButton SkinID="imbGridFirst" tooltip="First" ImageUrl="~/images/Red/Icons/first-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridLast" tooltip="Last" ImageUrl="~/images/Red/Icons/last-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridNext" tooltip="Next" ImageUrl="~/images/Red/Icons/next-paging.png" runat="server"/> 
+<asp:ImageButton SkinID="imbGridPrev" tooltip="Prev" ImageUrl="~/images/Red/Icons/prev-paging.png" runat="server"/> 
+
+<asp:ImageButton SkinID="Grid-right-arrow" ImageUrl="~/images/Red/Icons/right-arrow.png" runat="server"/> 
+<asp:ImageButton SkinID="Grid-left-arrow" ImageUrl="~/images/Red/Icons/left-arrow.png" runat="server"/> 
+<asp:ImageButton SkinID="Grid-select" tooltip="Attachment" ImageUrl="~/images/Red/Icons/select.png" runat="server"/> 
+<asp:ImageButton SkinID="edit-row" tooltip="Edit" ImageUrl="~/images/Red/Icons/edit-row.png" runat="server"/> 
+<asp:ImageButton SkinID="ad-inner" ImageUrl="~/images/Red/Icons/ad-inner.png" runat="server"/>
+<asp:ImageButton SkinID="base" ImageUrl="~/images/Red/Icons/base.png" runat="server"/>  
+
+
+<%--Skins for ImagesButtons on top fixed--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Save btnInner-size" SkinID="btnInner-Save"  />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Delete btnInner-size" SkinID="btnInner-Delete" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Cancel btnInner-size" SkinID="btnInner-Cancel" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-New btnInner-size" SkinID="btnInner-New" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Edit btnInner-size" SkinID="btnInner-Edit" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-View btnInner-size" SkinID="btnInner-View" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Print btnInner-size" SkinID="btnInner-Print" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Go btnInner-size-go" SkinID="btnInner-Go"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-contact btnInner-size" SkinID="btnInner-contact"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-rolls btnInner-size" SkinID="btnInner-rolls"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-model btnInner-size" SkinID="btnInner-model"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-copy btnInner-size" SkinID="btnInner-copy"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-show btnInner-med-size" SkinID="btnInner-show"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-hide btnInner-med-size" SkinID="btnInner-hide"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-ok btnInner-size" SkinID="btnInner-ok"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-popup btnInner-med-size" SkinID="btnInner-popup"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-schedule btnInner-med-size" SkinID="btnInner-schedule"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-inward btnInner-med-size" SkinID="btnInner-inward"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-outward btnInner-med-size" SkinID="btnInner-outward"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Print1 btnInner-med-size" SkinID="btnInner-Print1" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Delete1 btnInner-med-size" SkinID="btnInner-Delete1"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Edit1 btnInner-med-size" SkinID="btnInner-Edit1" />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-Save1 btnInner-med-size" SkinID="btnInner-Save1"  />
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-add-dsd btnInner-med-size" SkinID="btnInner-add-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-generate-dsd btnInner-med-size" SkinID="btnInner-generate-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-edit-dsd btnInner-med-size" SkinID="btnInner-edit-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-cancel-dsd btnInner-med-size" SkinID="btnInner-cancel-dsd"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-deactivate btnInner-med-size" SkinID="btnInner-deactivate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-reset btnInner-med-size" SkinID="btnInner-reset"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-submit btnInner-med-size" SkinID="btnInner-submit"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-email btnInner-med-size" SkinID="btnInner-email "/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-search btnInner-med-size" SkinID="btnInner-search"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-refresh btnInner-med-size" SkinID="btnInner-refresh"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="delete-icon icon-small" SkinID="delete-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-attach icon-small" SkinID="btnInner-attach"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnSelectSp icon-small" SkinID="btnSelectSp"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="new-icon icon-small" SkinID="new-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btncansel-icon icon-small" SkinID="btncansel-icon"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="save-icon icon-small" SkinID="save-icon"/>
+
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-associate btnInner-large-size" SkinID="btnInner-associate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-deassociate btnInner-large-size" SkinID="btnInner-deassociate"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-lopoff btnInner-large-size" SkinID="btnInner-lopoff"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-extend btnInner-large-size" SkinID="btnInner-extend"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-charge btnInner-large-size" SkinID="btnInner-charge"/>
+
+<%--Skins for ImagesButtons on asset--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-searchAsset btnInner-icon" width="22px" height="22px" SkinID="btnInner-searchAsset"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-associateAssets  btnInner-icon" width="22px" height="22px" SkinID="btnInner-associateAssets"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="btnInner-cancela btnInner-icon" width="22px" height="22px" SkinID="btnInner-cancela"/>
+
+
+<%--Skins for recurring--%>
+<asp:ImageButton SkinID="task" ImageUrl="~/images/Red/Icons/task.png" runat="server"/> 
+<asp:Image SkinID="recurring" ImageUrl="~/images/Red/Icons/recurring.png" runat="server"/> 
+<asp:ImageButton SkinID="recurring" ImageUrl="~/images/Red/Icons/recurring.png" runat="server"/> 
+<asp:ImageButton SkinID="employees" ImageUrl="~/images/Red/Icons/employees.png" runat="server"/> 
+<asp:ImageButton SkinID="asset" ImageUrl="~/images/Red/Icons/asset.png" runat="server"/>
+<asp:ImageButton SkinID="expense" ImageUrl="~/images/Red/Icons/expense.png" runat="server"/>
+<asp:ImageButton SkinID="maintenance" ImageUrl="~/images/Red/Icons/maintenance.png" runat="server"/>
+<asp:Image SkinID="task" ImageUrl="~/images/Red/Icons/task.png" runat="server"/>
+<asp:ImageButton SkinID="utilization" ImageUrl="~/images/Red/Icons/utilization.png" runat="server"/>
+<asp:ImageButton SkinID="reback" ImageUrl="~/images/Red/Icons/reback.png" runat="server"/>
+<asp:ImageButton SkinID="history" ImageUrl="~/images/Red/Icons/history.png" runat="server"/>
+<asp:ImageButton SkinID="plus" ImageUrl="~/images/Red/Icons/plus.png" runat="server"/>
+<asp:ImageButton SkinID="minus" ImageUrl="~/images/Red/Icons/minus.png" runat="server"/>
+<asp:ImageButton SkinID="formula" ImageUrl="~/images/Red/Icons/formula.png" runat="server"/>
+<asp:ImageButton SkinID="information" ImageUrl="~/images/Red/Icons/info.png" runat="server"/>
+<asp:ImageButton SkinID="cancel" ImageUrl="~/images/Red/Icons/canceld.png" runat="server"/>
+<asp:ImageButton SkinID="arrived" ImageUrl="~/images/Red/Icons/arrived.png" runat="server"/>
+<asp:ImageButton SkinID="diverting" ImageUrl="~/images/Red/Icons/diverting.png" runat="server"/>
+<asp:ImageButton SkinID="schedule" ImageUrl="~/images/Red/Icons/schedule-icon.png" runat="server"/>
+<asp:ImageButton SkinID="search" tooltip="Go" ImageUrl="~/images/Red/Icons/search.png" runat="server"/>
+
+<asp:ImageButton SkinID="imbactiongrid"  ImageUrl="~/images/Red/Icons/action.png" runat="server"/>
+<asp:ImageButton SkinID="imbeditgrid" ImageUrl="~/images/Red/Icons/edit-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="imbdeletegrid" ImageUrl="~/images/Red/Icons/grid-delete.png" runat="server"/>
+<asp:ImageButton SkinID="btnview" ImageUrl="~/images/Red/Icons/view-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="btnPrint" ImageUrl="~/images/Red/Icons/print-top-menu.png" runat="server"/>
+<asp:ImageButton SkinID="btnclose" ImageUrl="~/images/Red/Icons/cancel-icon.png" runat="server"/>
+<asp:ImageButton SkinID="imbaddnew" tooltip="Add" ImageUrl="~/images/Red/Icons/add.png" runat="server"/>
+<asp:ImageButton SkinID="btnrefresh" tooltip="Refresh" ImageUrl="~/images/Red/Icons/refresh.png" runat="server"/>
+<asp:ImageButton SkinID="btnselect-arrow"  ImageUrl="~/images/Red/Icons/select-arrow.png" runat="server"/>
+
+<asp:ImageButton SkinID="view-icon" ImageUrl="~/images/Red/Icons/view-icon.png" runat="server"/>
+<asp:ImageButton SkinID="zoom-icon" ImageUrl="~/images/Red/Icons/zoom-icon.png" runat="server"/>
+<asp:ImageButton SkinID="group-icon" ImageUrl="~/images/Red/Icons/group-icon.png" runat="server"/>
+<asp:ImageButton SkinID="show-popup" ImageUrl="~/images/Red/Icons/show-popup.png" runat="server"/>
+
+<asp:ImageButton SkinID="single-arrow-right" ImageUrl="~/images/Red/Icons/single-arrow-right.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-left" ImageUrl="~/images/Red/Icons/single-arrow-left.png" runat="server"/>
+<asp:ImageButton SkinID="double-arrow-right" ImageUrl="~/images/Red/Icons/double-arrow-right.png" runat="server"/>
+<asp:ImageButton SkinID="double-arrow-left" ImageUrl="~/images/Red/Icons/double-arrow-left.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-top" ImageUrl="~/images/Red/Icons/single-arrow-top.png" runat="server"/>
+<asp:ImageButton SkinID="single-arrow-bottom" ImageUrl="~/images/Red/Icons/single-arrow-bottom.png" runat="server"/>
+
+<%--Skins for dashboard--%>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="filter-btn btnInner-icon" width="18px" height="18px" SkinID="filter-btn"/>
+<asp:Button  runat="server" Font-Names="Verdana" CssClass="zoom-btn btnInner-icon" width="18px" height="18px" SkinID="zoom-btn"/>
+
+<%--Skins for Advance search arrow button--%>
+<asp:ImageButton SkinID="imbArrowInactive" tooltip="Show Filter" ImageUrl="~/images/Red/Icons/arrow-colapse-inactive.png" runat="server"/> 
+<asp:ImageButton SkinID="imbArrowActive" tooltip="Hide Filter" ImageUrl="~/images/Red/Icons/arrow-colapse-active.png" runat="server"/> 

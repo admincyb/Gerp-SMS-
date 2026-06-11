@@ -1,0 +1,181 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Inbox.master.cs" Inherits="ERPSMS_v01.Inbox" %>
+
+<%@ Register Src="UserControls/MenuControl.ascx" TagName="MenuControl" TagPrefix="uc3" %>
+<%@ Register Src="UserControls/FavouritesControl.ascx" TagName="FavouritesControl"
+    TagPrefix="uc1" %>
+<%@ Register Src="UserControls/RelatedItemWidget.ascx" TagName="RelatedItemWidget"
+    TagPrefix="uc2" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>gERP – STORE MANAGEMENT</title>
+    <asp:Literal ID="scriptSrc" Text="" runat="server"></asp:Literal>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="scrMenu" runat="server">
+    </asp:ScriptManager>
+    <div id="maincontainer">
+        <div id="inbox-header">
+            <div class="logo">
+            </div>
+            <div class="inbox-menu">
+                <asp:ImageButton runat="server" ID="imbLogout" SkinID="imgbtn-logout" CausesValidation="false"
+                    OnClientClick="javascript:ResetFormValidation();" OnClick="Logout_Click" />
+                <div class="dock" id="Div2">
+                    <asp:ImageButton runat="server" ID="ImageButton1" SkinID="imgbtn-home" CausesValidation="false"
+                        OnClick="Home_Click" />
+                    <asp:ImageButton runat="server" ID="ImageButton2" SkinID="imgbtnWorkflowInbox" CausesValidation="false"
+                        OnClick="Inbox_Click" />
+                    <uc1:FavouritesControl ID="FavouritesControl2" runat="server" />
+                </div>
+                <div id="Div1" class="hidden">
+                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                </div>
+                <asp:ImageButton runat="server" ID="imgMenu" SkinID="imgbtn-menu" CausesValidation="false"
+                    OnClientClick="javascript:ShowMenu();return false;" />
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div class="roundedbox-outer">
+            <div id="inbox-container">
+                <div class="left-side" id="divLeftSide">
+                    <div class="roundedbox-left" style="margin-top: 0;">
+                        <div class="collapse-button-collapse">
+                            <img runat="server" id="imgHideDiv" src="~/Images/ERP-Blue/Buttons/grandtrustERP-collapse.gif"
+                                onclick="javascript:WindowExpand();" />
+                        </div>
+                        <div class="left-side-menuwrap">
+                            <div class="linkwrap">
+                                <div class="linkheader">
+                                    <div style="float: left; width: 12px; margin: 0px;">
+                                        <asp:Image ID="imgFavColl" runat="server" SkinID="imgCollapse" onclick="javascript:Favcol()" />
+                                    </div>
+                                    <div style="float: left; margin-left: 5px; margin-top: -2px;">
+                                        Favourites</div>
+                                </div>
+                                <div id="favourates" style="float: left;">
+                                    <asp:DataList ID="DtlstFavourates" runat="server" Width="100%">
+                                        <ItemTemplate>
+                                            <div class="mainlink">
+                                                <%--<asp:Image ID="imbManu" ImageUrl='<%# Bind("FVM_PAGE_TEXT") %>' runat="server" />--%>
+                                                <asp:Image ID="imbManu" runat="server" ImageUrl="~/Images/ERP-Blue/Buttons/lnk-img.png" />
+                                                <asp:HyperLink ID="hlinkMenu" runat="server" Text='<%# Bind("FVM_PAGE_TEXT") %>'
+                                                    NavigateUrl='<%# Bind("FVM_PAG_URL") %>'></asp:HyperLink>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                            <div class="linkwrap">
+                                <div class="linkheader">
+                                    <div style="float: left; width: 12px; margin-top: 2px">
+                                        <asp:Image ID="imgRecentColl" runat="server" SkinID="imgCollapse" onclick="javascript:Recentcol()" />
+                                    </div>
+                                    <div style="float: left; margin-left: 5px">
+                                        Related Links</div>
+                                </div>
+                                <div id="divRecent">
+                                    <asp:DataList ID="dtlstRecent" runat="server" Width="100%">
+                                        <ItemTemplate>
+                                            <div class="mainlink">
+                                                <asp:Image ID="imbManu" ImageUrl="~/Images/ERP-Blue/Buttons/lnk-img.png" runat="server" />
+                                                <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Bind("PAG_TITLE") %>' NavigateUrl='<%# Bind("PAG_URL") %>'></asp:HyperLink>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </div>
+                            </div>
+                            <div id="divRelatedWidget">
+                                <div class="clear">
+                                </div>
+                                <uc2:RelatedItemWidget ID="RelatedItemWidget1" runat="server" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-side" id="divRightSide">
+                    <div class="roundedbox-right">
+                        <div class="collapse-button-expand">
+                            <img runat="server" id="imgShowDiv" src="~/Images/ERP-Blue/Buttons/grandtrustERP-expand.gif"
+                                onclick="javascript:WindowCollapse();" />
+                        </div>
+                        <asp:HiddenField ID="UserPk" runat="server" />
+                        <asp:HiddenField ID="AbsolutePath" runat="server" />
+                        <asp:HiddenField ID="BizUnitPk" runat="server" />
+                        <asp:HiddenField ID="LAST_MOD_DT" runat="server" />
+                        <asp:HiddenField ID="hdnPageID" runat="server" Value="0" />
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        <div id="popupHolder">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    <div id="divMenu" style="display: none">
+        <div id="divMenuContent">
+            <uc3:MenuControl ID="MenuControl1" runat="server" />
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    <div id="mcbottom" class="reduce-size">
+        <div id="footer-wrap">
+            <asp:UpdatePanel runat="server" ID="udpFooter">
+                <ContentTemplate>
+                    <table id="tblAppFooter" runat="server" style="width: 100%; border-color: transparent"
+                        align="center">
+                        <tr>
+                            <td style="width: 350px">
+                                <img id="Img1" src="~/Images/ERP-Blue/erp-production-logo.png" runat="server" />
+                                <span>Developed by team gti</span>
+                            </td>
+                            <td style="width: 300px">
+                                <div class="logwrap">
+                                    <b>
+                                        <asp:Literal runat="server" ID="litSBU" Text=""></asp:Literal></b>
+                                </div>
+                            </td>
+                            <td style="width: 300px">
+                                <div class="logwrap">
+                                    <b>
+                                        <asp:Literal runat="server" ID="litDept" Text=""></asp:Literal></b>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="welcome-user">
+                                    <span runat="server" id="WelcomeNote"></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div id="MSGBox" title="Status" style="width: 700px">
+    </div>
+    <div id="divAjaxLoading">
+    </div>
+    <div id="errMsgContainer" title="<%=Resources.Captions.Information%>">
+        <ul>
+        </ul>
+    </div>
+    </form>
+</body>
+</html>

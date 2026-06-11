@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
+  <DataSources>
+    <DataSource Name="ReportDataSet">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>e3312363-891f-4a44-9834-518dc4718df4</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="ReportDtls">
+      <Fields>
+        <Field Name="ATL_PK">
+          <DataField>ATL_PK</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_APP_TYPE">
+          <DataField>ATL_APP_TYPE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_APP_TYPE_TEXT">
+          <DataField>ATL_APP_TYPE_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_APP_TRX_PK">
+          <DataField>ATL_APP_TRX_PK</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_APP_TRX_CODE">
+          <DataField>ATL_APP_TRX_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_ACTION">
+          <DataField>ATL_ACTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_ACTION_TEXT">
+          <DataField>ATL_ACTION_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_DESC">
+          <DataField>ATL_DESC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_MOD_BY">
+          <DataField>ATL_MOD_BY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_MOD_BY_TEXT">
+          <DataField>ATL_MOD_BY_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_MOD_DT">
+          <DataField>ATL_MOD_DT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATL_APP_SUB_TYPE_TEXT">
+          <DataField>ATL_APP_SUB_TYPE_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ReportDataSet</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>D:\Projects\TFS Projects\TFSProjectsNew\ERPSMS_v01\ERPSMS_v01\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>DOProductDtls</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix2">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>1.0535in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.8875in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.882in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.74725in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.40625in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.20975in</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.2in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Date</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox8">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>User</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <TextDecoration>None</TextDecoration>
+                                <Color>#000000</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox8</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox10">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Operation</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <TextDecoration>None</TextDecoration>
+                                <Color>#000000</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox12">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Transaction</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox9">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Transaction SubType</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox9</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Transaction No</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <TextDecoration>None</TextDecoration>
+                                <Color>#000000</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.1875in</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ATL_MOD_DT1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Format(Fields!ATL_MOD_DT.Value,"dd-MMM-yy-hh:mm:ss")</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ATL_MOD_DT1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ATL_MOD_BY_TEXT1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ATL_MOD_BY_TEXT.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ATL_MOD_BY_TEXT1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ATL_ACTION_TEXT1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ATL_ACTION_TEXT.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ATL_ACTION_TEXT1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ATL_APP_TYPE_TEXT">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ATL_APP_TYPE_TEXT.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ATL_APP_TYPE_TEXT</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox11">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ATL_APP_SUB_TYPE_TEXT.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox11</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="ATL_APP_TRX_CODE">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!ATL_APP_TRX_CODE.Value</Value>
+                              <Style>
+                                <FontFamily>Verdana</FontFamily>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>ATL_APP_TRX_CODE</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <RepeatRowHeaders>true</RepeatRowHeaders>
+        <DataSetName>ReportDtls</DataSetName>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!ATL_MOD_DT.Value</Value>
+            <Direction>Descending</Direction>
+          </SortExpression>
+        </SortExpressions>
+        <Top>0.0375in</Top>
+        <Left>0.02292in</Left>
+        <Height>0.3875in</Height>
+        <Width>8.18625in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>0.75001in</Height>
+    <Style>
+      <Border>
+        <Style>Solid</Style>
+      </Border>
+      <TopBorder>
+        <Style>None</Style>
+      </TopBorder>
+      <BottomBorder>
+        <Style>None</Style>
+      </BottomBorder>
+    </Style>
+  </Body>
+  <ReportParameters>
+    <ReportParameter Name="FromDate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ToDate">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="GSTLogo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Logo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HeadTitle">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SubTitle">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HideLogo">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HideHeadTitle">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HideSubTitle">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HideFooterText">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HidePageNo">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HideQMSRef">
+      <DataType>Boolean</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FooterText">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="QMSRef">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CurrencyFormat">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DateFormat">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NumberFormat">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ExchangeRate">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RateFormat">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>
+
+'Convert to word- New
+Function NumToWordsInMln(ByVal MyNumber)
+    Dim rupees, Paises, Temp
+
+    Dim DecimalPlace, Count
+    Dim CurrName, FracName  As String
+
+
+    Dim place(9) As String
+
+
+   
+
+    If CurrName = "" Then CurrName = ""
+
+    If FracName = "" Then FracName = "Paise"
+
+   
+
+    place(2) = " Thousand "
+
+    place(3) = " Million "
+
+    place(4) = " Billion "
+
+    place(5) = " Trillion "
+
+ ' String representation of amount.
+
+    MyNumber = Trim(Str(MyNumber))
+
+    ' Position of decimal place 0 if none.
+
+    DecimalPlace = InStr(MyNumber, ".")
+
+   
+
+    ' Convert Paises and set MyNumber to Rupee amount.
+    If DecimalPlace &gt; 0 Then
+
+        Paises = GetTens(Left(Mid(MyNumber, DecimalPlace + 1) &amp; "00", 2))
+
+        MyNumber = Trim(Left(MyNumber, DecimalPlace - 1))
+
+    End If
+Count = 1
+
+    Do While MyNumber &lt;&gt; ""
+
+        Temp = GetHundreds(Right(MyNumber, 3))
+
+        If Temp &lt;&gt; "" Then rupees = Temp &amp; place(Count) &amp; rupees
+
+            If Len(MyNumber) &gt; 3 Then
+
+                MyNumber = Left(MyNumber, Len(MyNumber) - 3)
+
+            Else
+
+                MyNumber = ""
+
+            End If
+
+        Count = Count + 1
+
+    Loop
+ Select Case rupees
+
+    Case ""
+
+        rupees = CurrName &amp; " Zero"            '"No Rupees"
+
+    Case "One"
+
+        rupees = CurrName &amp; " One"           '"One Rupee"
+
+    Case Else
+
+        rupees = CurrName &amp; " " &amp; rupees     '" Rupees"
+
+    End Select
+Select Case Paises
+
+    Case ""
+
+        Paises = " Only " '" and No Paises"
+
+    Case "One"
+
+        Paises = " and " &amp; FracName &amp; " One "   '" and One Paise"
+
+    Case Else
+
+        Paises = " and " &amp; FracName &amp; " " &amp; Paises    '" and " &amp; Paises &amp; " Paises"
+
+    End Select
+    
+
+    NumToWordsInMln = rupees &amp; Paises
+
+  End Function
+  
+
+
+
+' Converts a number from 100-999 into text
+
+Function GetHundreds(ByVal MyNumber)
+
+    Dim Result As String
+
+    If Val(MyNumber) = 0 Then Exit Function
+
+    MyNumber = Right("000" &amp; MyNumber, 3)
+
+    ' Convert the hundreds place.
+
+    If Mid(MyNumber, 1, 1) &lt;&gt; "0" Then
+
+    Result = GetDigit(Mid(MyNumber, 1, 1)) &amp; " Hundred "
+
+    End If
+
+    ' Convert the tens and ones place.
+
+    If Mid(MyNumber, 2, 1) &lt;&gt; "0" Then
+
+    Result = Result &amp; GetTens(Mid(MyNumber, 2))
+
+    Else
+
+    Result = Result &amp; GetDigit(Mid(MyNumber, 3))
+
+    End If
+
+    GetHundreds = Result
+
+End Function
+
+
+
+' Converts a number from 10 to 99 into text.
+
+Function GetTens(TensText)
+
+    Dim Result As String
+
+    Result = "" ' Null out the temporary function value.
+If Val(Left(TensText, 1)) = 1 Then ' If value between 10-19...
+
+        Select Case Val(TensText)
+
+            Case 10: Result = "Ten"
+
+            Case 11: Result = "Eleven"
+
+            Case 12: Result = "Twelve"
+
+            Case 13: Result = "Thirteen"
+
+            Case 14: Result = "Fourteen"
+
+            Case 15: Result = "Fifteen"
+
+            Case 16: Result = "Sixteen"
+
+            Case 17: Result = "Seventeen"
+
+            Case 18: Result = "Eighteen"
+
+            Case 19: Result = "Nineteen"
+
+            Case Else
+
+        End Select
+Else ' If value between 20-99...
+
+        Select Case Val(Left(TensText, 1))
+
+            Case 2: Result = "Twenty "
+
+            Case 3: Result = "Thirty "
+
+            Case 4: Result = "Forty "
+
+            Case 5: Result = "Fifty "
+
+            Case 6: Result = "Sixty "
+
+            Case 7: Result = "Seventy "
+
+            Case 8: Result = "Eighty "
+
+            Case 9: Result = "Ninety "
+
+            Case Else
+
+        End Select
+
+   
+
+        Result = Result &amp; GetDigit(Right(TensText, 1)) ' Retrieve ones place.
+
+    End If
+    
+
+    GetTens = Result
+
+End Function
+
+
+Function GetDigit(Digit)
+
+    Select Case Val(Digit)
+
+        Case 1: GetDigit = "One"
+
+        Case 2: GetDigit = "Two"
+
+        Case 3: GetDigit = "Three"
+
+        Case 4: GetDigit = "Four"
+
+        Case 5: GetDigit = "Five"
+
+        Case 6: GetDigit = "Six"
+
+        Case 7: GetDigit = "Seven"
+
+        Case 8: GetDigit = "Eight"
+
+        Case 9: GetDigit = "Nine"
+
+        Case Else: GetDigit = ""
+
+    End Select
+
+End Function
+
+</Code>
+  <Width>8.20918in</Width>
+  <Page>
+    <PageHeader>
+      <Height>0.60083in</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!HeadTitle.Value</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>11pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox6</rd:DefaultName>
+          <Left>2.12167in</Left>
+          <Height>0.32292in</Height>
+          <Width>3.53125in</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="Image1">
+          <Source>External</Source>
+          <Value>=Parameters!GSTLogo.Value</Value>
+          <Sizing>FitProportional</Sizing>
+          <Left>0.14931in</Left>
+          <Height>0.57652in</Height>
+          <Width>1.49666in</Width>
+          <ZIndex>1</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>Solid</Style>
+        </Border>
+      </Style>
+    </PageHeader>
+    <PageFooter>
+      <Height>0.1757in</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox5">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>="Page "+Globals!PageNumber.ToString()+" of "+Globals!TotalPages.ToString()</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Right</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox5</rd:DefaultName>
+          <Top>0.00625in</Top>
+          <Left>6.48363in</Left>
+          <Height>0.15903in</Height>
+          <Width>1.28387in</Width>
+          <Visibility>
+            <Hidden>=Parameters!HidePageNo.Value</Hidden>
+          </Visibility>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox3">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!FooterText.Value</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox3</rd:DefaultName>
+          <Top>0.01667in</Top>
+          <Height>0.15903in</Height>
+          <Width>5.02685in</Width>
+          <ZIndex>1</ZIndex>
+          <Visibility>
+            <Hidden>=Parameters!HideFooterText.Value</Hidden>
+          </Visibility>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+          </Style>
+        </Textbox>
+      </ReportItems>
+      <Style>
+        <Border>
+          <Style>Solid</Style>
+        </Border>
+      </Style>
+    </PageFooter>
+    <PageHeight>11.69in</PageHeight>
+    <PageWidth>8.27in</PageWidth>
+    <LeftMargin>0.25in</LeftMargin>
+    <RightMargin>0.25in</RightMargin>
+    <TopMargin>0.25in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
+    <Style />
+  </Page>
+  <EmbeddedImages>
+    <EmbeddedImage Name="malysiacustoms">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAD4AAAA+CAMAAABEH1h2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUE5NDMzQUQyRjc1MTFFNEI2RUFBRDQyM0I2MzI4QUQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUE5NDMzQUUyRjc1MTFFNEI2RUFBRDQyM0I2MzI4QUQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxQTk0MzNBQjJGNzUxMUU0QjZFQUFENDIzQjYz
+MjhBRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxQTk0MzNBQzJGNzUxMUU0QjZFQUFENDIzQjYzMjhBRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Ph8xCHcAAAMAUExURdrYtevr60xOTv/1KHl3JsK9WKy6zm9vcHN0TrjF1cbHxsjGp5mUI9TT0/n5+WiGqQ06bmlnJS8uEdTKJoF9JoujvYqHJLq5p+fgFlxaJbu4hvHthv//iqCbJsvIli0tLf7+/unt8rmzJpiVG7e1nJKPS/zvJfvzG3h0GcC8i0tvmMrU4P/6V1ZUGYScuaOkptzSJH2XtfX19be3t8TP3qehGuPj3OziJEdFG8rCJqelhwcHB5esxcO7I+XZHdrSEru2GRBEfGhlH9TMO/74G+vq5M7O0dHRzsvEGMvHdPLsHKqnOomFH2+LrIeHitzd3KqjJJKOJr+7cuXl5cvEapmZmcvKvPnsKCxPbMW9Mfz8/NbSmtzZq/b2+PHx8eXbI9Tc5qShTFV4oNLLTvDvsZeVZ2x7jNLMEpybe6iiPy1GT9LMXrOuKGloNnJuI9rUbcrHikZFJNTTwhpLf/fqKfXpINHOpN/VK+Li4eHh1Nvi6snDTNzbwYeHaK2sktHMmJ+dbtva0OjdJdzayvLrE5OShqGdGu3x9fHlJPLy89TOaZ+bOaeldM7Ns5GMHKqoZ+Dm7MTDsKWgI8jAOsG7Y9nRX9rQNd/WI6CfjbKtG9PNjOTZKoeEO6qoWmFfHGNgEOXl4bGuaaqkLfnsH/HlHLKrMvz2Ffr6+9HQumFgLYGBgNzXe8DAwK6pKOrq3U9MGj08HqyoIVhnNj9nk1RSLl6BpnuQqr+5R6ShLdbRiLezW//8GPf4+endLOLXMOPj5PT08llXDoqLkejo4q2tr9bX2LKvfPPnKF1lYW9sGN/Z
+EP39/YSCEu/v7/bvHH58U/v8/DNciPLy7tfWw0FBQ26MtPj4+OTp7z89DP3+/vPz9BwbENLQxrGwpK+xtPb1yHOPsO/v6+LcWaWfQNfX1r+9n8/LeGB/o+jjEfvyD5CNDpeTEOPiz/f4811eTPf399fWz8C4Nujo6d/f39/XTuLgpvL1+NDQyufo51JQIe7mQP7+/fv8+/v7/OTgcP///5X5tBYAAAEAdFJOU////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wBT9wclAAAI+0lEQVR42uyXfTzU2RrAB8M0DM2bsaOYn7cxuMZLzGDMZsZ4fx2v0XqJ2/aCiVJUSiQpm432plbLLWpoaUi2WkqliAlbWWSqa7uku1pc3a0sOvf3+6FPn8+t29a9f+75Y2bOc873PM95znOe8wwG/E8N8wf+1gaBKKXpGx+Naw2Na2TdH3j5cbgUVJqpntfXbYI+BoeUhjUobW3FupUekR+ORz6DAv6ZGh7OpAxHPrP9YDz4mbquKzM1NfxykM7Q/Q/GCychDqw9lUkJk/YOT/8+HGpWmv+lG61krE9pC48JMguYCRqfH538b7iW7uqUpD0tqKeDzkBAw+z8ITMz+Xjn+ShYIn/Rfe5cq8Y78UjcrQq+ci1OE+kkrwRRQ1c0NM4EKIGM7XJY9cOx2qQYa8uH78Ah3ChfLGbg
+1NE4eUq5A0B0Zy/cGXddiUg0lynXnqTGXK1+O26lKBZKWMev+cvRjbjGd87Jx0M+/Qn5NsBZrSNViRN5zW/DoxlYEp0ku+g+5yawNftwpS0E9WbF52yZkzRPqJJpKb6WuB/exJWcEDW2ylNTNWKsgvVt9PxQRnH54YT9rhUV+vNR6/Gon0Gg1dU6XEPs09w5i+IeZTvgqMRZJtElVEnSMrfXS7c8vrS5nJvwdCHmpUNH6FQsnUQiewCwz1I4juJa3WXBAFIW0gl1F6ZuBi/TmFjgZwLU1W9I5zs/hA2razIkdYkSSb8VAA/aH8zv/ZmlDpAyWDRFUaNIIivr8DSeRXRZ2MQ1/OjX0MCORfba+WWHZ7+lUWOjkFHkcBrc666SzuNyyVpgoCAnimt9HcUFevZH60w2QnjzQTsDOYC0DOz8zC2kxmIX+xpagZ6LMCWxQHETRMHMPK4kcwLpCkN6saGEJnl0bHU36Srd3MYAHumN3YdM6vO7bUmvWt3ts10oJnH1JLmMSKlkbEG701VNcJ1HpyaW/vbV1930c2M3lVfYIVaFXSDsSEf4abUVY2Nj56q+MHtkKKnB1vKCgT/LYw7P6t8ByRkKCY0g7OlRfiz2LT1HjEV2u2uNSNRhPOc4OyJd4pufzFBOwRKodF4o+MWhyhbBg/uPDYBq3hRNj7UUh3MP/WzD8RUWMPAyP8fUW7Tm8/ljw6/w+vbAtRsMnd+ENVSyYh+YYI1FAox0FSsdePBk1EQxFafoBc3u6t+x4enpeqe6TEWfYFFDkBvhx67W7ATqjB3YOgJV0RMFrEaNAUa9fydI55HpVD3aUhx6G+TmzwGY1BOJcvjY9URB/Xym64xD7JDjjP9EMiwt5fVozSwi22KMbwU0KXgO2aXUqh7/OTOdAbj3zakcwzEicdMmAVFba463Qe1o6unBCgscFTwcOPIzB3OE7I/j1WKNKKQqnhOy/r2RvXAgd3S04gU/brPAG2gT/YNRfNsg
+iifxjpV2SbAKXugY+RkmmkRW8FIiilivruWWIYli7wgcLN8s1wF+eCB9aNUEttlcRzc1G4fkHP9RbPWhdkcxg0cmr57BgOZFZAWWWnDybya+iuvwuIU2AAMurcCCDZrz1yy/oAnUDu5xR3i/g3BGUiYbhS4tEMOHRz8dhZz7rDI5KbD91YPERBTHq8HXycgNMt+rlS8yNW2075y1kS5C7rQzHEuQcj/F5/729hN0hdV81Cn3Y6lpvx4vsOQhk9Rgz8m7r9jdBneXm3p7dz0ZBnGxE6thtzjDC4NlPCzBbMlRrATVBeMDPcI62ZLqLS6s00h+V8bDn+rqt+NA5Sdd3t7eOa3Ar/5lQQu88E04F0gZLj531eNliTIchOL+/Xqsr4aCt7Q7wEmss2A9ogNaLKiHAtYg2jvCwIjgOxc4QTufXQUToVePZRgc+DtVrNBEcCmj3bebA6LM7IWh7je+NLppgyTK2wJB3/SuJ3Ds5EufbxKs72gFoGHRqI6mOs73QiHQqkwqIvsjeBOjlGoGh9mvP9fdKisbVQ2Og5OFs2CTYPH0L041iV9cAWwBkfYPYxA1srvmVmlZ7ujJjFmgtIpKPo3gEM7BMnkWNL9Ycv57VdWLWcAvFuzdBDcBGwJ2agBSIxJppstfwCcKaTxWVf1++5+rm8DkKhnZHd37dYVQdR/8nLtPaA41K0WC2MF7fkQB3Ij1eDVnO3PiWU9RI5YNNfSB2YEADw9NdziKt66b4qWjuHSRfcTWN1+eBvygH9oWj4ysP2u0/JSpyPNzNn7wzTkr6+xDkYMrdJJP2Nu/ippLxX/diKlUio2TL8z6yVMkQm69MZDX97kdwGxsaUKzj9vh3PxerSNhGCe+LhSWm7vOSSpvyYzPLq/gWmeytRfw4Zwu765TLg+moUHnrynczczs+MwW+ctdJ4oKlKZbXYwxd0wCt0T76FWl7NrgSDEKDGTJrMszB7XncowWobFL9CT/BZAPameKCLWE
+IkrbZuv93Zako63yZHuTKxjwNJCwdg/VJ4Jfh2XRsHS6LE3lcjTbBjUSCjN8cnSnLXi+2LnzsoqeTCiTWAvFdXy+D/XBWsIJDuI6TF5emwq/VOxApVl7FqddamNu3g3UzPHo88LRiQZStXo8yChnpnLTKLkEFtaXhKWk5eVxMajnIf0Kpgpfovfpp2kJmXdNHA9FWMPSPrY52y62z+CghY25NpxAPrOOOBRhUrkyocQ6xlciI6lUbJmLeZjnqjDzLnvdnYTj7TiFyeUXIopt8Wz45BZr2z1HesZ8rgoFjlz5ZKVXmrWhfR767qLvO3Qg3qtSac5bKyknCzm9ryuO1xWlLafwJAWtMsB0dMb+hAzojfJA+nra7vJLQRyp/D9qzHFOUHb47oXu9Mw76jo3LpOZ7Rqijymc4HDS3dI5HM7dQkxyiGs2kxnj9t6y8Aw3PDWcySzfHMPlwsdQElMc45hXzmQyYXH2+/E7JXAlmprKdCz1FZOEfGEbX09GUElFZWn73ovf86qANYWr1IglUw4ONLJvYKlMVgKXxkxmRTL0/ppWq9LrcAmX6dleRCAEYhOprEBKcQwzr8Q1pHLmd5XE0EBw1oHMiyEbEuLj/xX/lw0hF/U1sloGoD/+x/0/8X8LMADIYopTWDpFKAAAAABJRU5ErkJggg==</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportID>df4fd15e-3f4d-44ef-8df8-76c9ee5f1aaf</rd:ReportID>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+</Report>

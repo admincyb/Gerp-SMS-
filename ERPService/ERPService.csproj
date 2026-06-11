@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3C7DA684-1158-4433-91C7-7FA3173825D8}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ERPService</RootNamespace>
+    <AssemblyName>ERPService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+<FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SqlServer.Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Server.1.0.0\lib\net46\Microsoft.SqlServer.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.170.1000.7\lib\netstandard2.0\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Administration\AccountMstService.svc" />
+    <Content Include="Administration\AdmCompanyMstService.svc" />
+    <Content Include="Administration\AdmDeptMstService.svc" />
+    <Content Include="Administration\BankMstService.svc" />
+    <Content Include="Administration\ChartOfAccountService.svc" />
+    <Content Include="Administration\CountryService.svc" />
+    <Content Include="Administration\CurrencyMstService.svc" />
+    <Content Include="Administration\EmployeeService.svc" />
+    <Content Include="Common\CommonService.svc" />
+    <Content Include="Customer\CustomerMstService.svc" />
+    <Content Include="Employee\EmployeesService.svc" />
+    <Content Include="Finance\FinCashBankService.svc" />
+    <Content Include="Finance\FinCrDrHdrNoteMpgService.svc" />
+    <Content Include="Finance\FinCrDrHdrNoteService.svc" />
+    <Content Include="Finance\FinTrxService.svc" />
+    <Content Include="Finance\FinVoucherEntryCfgService.svc" />
+    <Content Include="Inventory\AdmProductPropertiesService.svc" />
+    <Content Include="Inventory\AdmCustomerBrandsService.svc" />
+    <Content Include="Inventory\AdmCheckListMstService.svc" />
+    <Content Include="Inventory\InvItemGroupMstService.svc" />
+    <Content Include="Inventory\InvItemMstService.svc" />
+    <Content Include="OrderToCash\CustomerRegistrationService.svc" />
+    <Content Include="OrderToCash\DynamicPageService.svc" />
+    <Content Include="POInvoicing\POInvoiceService.svc" />
+    <Content Include="POInvoicing\POListService.svc" />
+    <Content Include="POInvoicing\POPaymentService.svc" />
+    <Content Include="Reports\ReportService.svc" />
+    <Content Include="Sales\ContainerInspectionService.svc" />
+    <Content Include="Sales\ContainerEvaluationService.svc" />
+    <Content Include="Sales\DeliveryOrderService.svc" />
+    <Content Include="Sales\FinInvoiceCusDetailService.svc" />
+    <Content Include="Sales\SalDespatchDtlService.svc" />
+    <Content Include="Sales\SalDespatchHdrService.svc" />
+    <Content Include="Sales\SaleOrderDO.svc" />
+    <Content Include="Sales\SaleOrderService.svc" />
+    <Content Include="Sales\SalesInvoiceService.svc" />
+    <Content Include="Sales\SalesReceiptService.svc" />
+    <Content Include="Shipping\ShippingPlanHdrService.svc" />
+    <Content Include="Vendor\VendorMstService.svc" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administration\AccountMstService.svc.cs">
+      <DependentUpon>AccountMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\AdmCompanyMstService.svc.cs">
+      <DependentUpon>AdmCompanyMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\AdmDeptMstService.svc.cs">
+      <DependentUpon>AdmDeptMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\BankMstService.svc.cs">
+      <DependentUpon>BankMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\ChartOfAccountService.svc.cs">
+      <DependentUpon>ChartOfAccountService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\CountryService.svc.cs">
+      <DependentUpon>CountryService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\CurrencyMstService.svc.cs">
+      <DependentUpon>CurrencyMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\EmployeeService.svc.cs">
+      <DependentUpon>EmployeeService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\IAccountMstService.cs" />
+    <Compile Include="Administration\IAdmCompanyMstService.cs" />
+    <Compile Include="Administration\IAdmDeptMstService.cs" />
+    <Compile Include="Administration\IBankMstService.cs" />
+    <Compile Include="Administration\IChartOfAccountService.cs" />
+    <Compile Include="Administration\ICountryService.cs" />
+    <Compile Include="Administration\ICurrencyMstService.cs" />
+    <Compile Include="Administration\IEmployeeService.cs" />
+    <Compile Include="Common\CommonService.svc.cs">
+      <DependentUpon>CommonService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ICommonService.cs" />
+    <Compile Include="Customer\CustomerMstService.svc.cs">
+      <DependentUpon>CustomerMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\ICustomerMstService.cs" />
+    <Compile Include="Employee\EmployeesService.svc.cs">
+      <DependentUpon>EmployeesService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\IEmployeesService.cs" />
+    <Compile Include="Finance\FinCashBankService.svc.cs">
+      <DependentUpon>FinCashBankService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\IFinCashBankService.cs" />
+    <Compile Include="Finance\FinCrDrHdrNoteMpgService.svc.cs">
+      <DependentUpon>FinCrDrHdrNoteMpgService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinCrDrHdrNoteService.svc.cs">
+      <DependentUpon>FinCrDrHdrNoteService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinTrxService.svc.cs">
+      <DependentUpon>FinTrxService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\FinVoucherEntryCfgService.svc.cs">
+      <DependentUpon>FinVoucherEntryCfgService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Finance\IFinCrDrHdrNoteMpgService.cs" />
+    <Compile Include="Finance\IFinCrDrHdrNoteService.cs" />
+    <Compile Include="Finance\IFinTrxService.cs" />
+    <Compile Include="Finance\IFinVoucherEntryCfgService.cs" />
+    <Compile Include="Inventory\AdmProductPropertiesService.svc.cs">
+      <DependentUpon>AdmProductPropertiesService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\AdmCustomerBrandsService.svc.cs">
+      <DependentUpon>AdmCustomerBrandsService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\AdmCheckListMstService.svc.cs">
+      <DependentUpon>AdmCheckListMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\InvItemGroupMstService.svc.cs">
+      <DependentUpon>InvItemGroupMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\IInvItemGroupMstService.cs" />
+    <Compile Include="Inventory\IAdmCheckListMstService.cs" />
+    <Compile Include="Inventory\IAdmCustomerBrandsService.cs" />
+    <Compile Include="Inventory\IAdmProductPropertiesService.cs" />
+    <Compile Include="Inventory\IInvItemMstService.cs" />
+    <Compile Include="Inventory\InvItemMstService.svc.cs">
+      <DependentUpon>InvItemMstService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="OrderToCash\CustomerRegistrationService.svc.cs">
+      <DependentUpon>CustomerRegistrationService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="OrderToCash\DynamicPageService.svc.cs">
+      <DependentUpon>DynamicPageService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="OrderToCash\ICustomerRegistrationService.cs" />
+    <Compile Include="OrderToCash\IDynamicPageService.cs" />
+    <Compile Include="POInvoicing\IPOInvoiceService.cs" />
+    <Compile Include="POInvoicing\IPOListService.cs" />
+    <Compile Include="POInvoicing\IPOPaymentService.cs" />
+    <Compile Include="POInvoicing\POInvoiceService.svc.cs">
+      <DependentUpon>POInvoiceService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="POInvoicing\POListService.svc.cs">
+      <DependentUpon>POListService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="POInvoicing\POPaymentService.svc.cs">
+      <DependentUpon>POPaymentService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\IReportService.cs" />
+    <Compile Include="Reports\ReportService.svc.cs">
+      <DependentUpon>ReportService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\ContainerInspectionService.svc.cs">
+      <DependentUpon>ContainerInspectionService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\ContainerEvaluationService.svc.cs">
+      <DependentUpon>ContainerEvaluationService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\DeliveryOrderService.svc.cs">
+      <DependentUpon>DeliveryOrderService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\FinInvoiceCusDetailService.svc.cs">
+      <DependentUpon>FinInvoiceCusDetailService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\IContainerEvaluationService.cs" />
+    <Compile Include="Sales\IContainerInspectionService.cs" />
+    <Compile Include="Sales\IDeliveryOrderService.cs" />
+    <Compile Include="Sales\IFinInvoiceCusDetailService..cs" />
+    <Compile Include="Sales\ISalDespatchDtlService.cs" />
+    <Compile Include="Sales\ISalDespatchHdrService.cs" />
+    <Compile Include="Sales\ISaleOrderDO.cs" />
+    <Compile Include="Sales\ISaleOrderService.cs" />
+    <Compile Include="Sales\ISalesInvoiceService.cs" />
+    <Compile Include="Sales\ISalesReceiptService.cs" />
+    <Compile Include="Sales\SalDespatchDtlService.svc.cs">
+      <DependentUpon>SalDespatchDtlService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\SalDespatchHdrService.svc.cs">
+      <DependentUpon>SalDespatchHdrService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\SaleOrderDO.svc.cs">
+      <DependentUpon>SaleOrderDO.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\SaleOrderService.svc.cs">
+      <DependentUpon>SaleOrderService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\SalesInvoiceService.svc.cs">
+      <DependentUpon>SalesInvoiceService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\SalesReceiptService.svc.cs">
+      <DependentUpon>SalesReceiptService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping\IShippingPlanHdrService.cs" />
+    <Compile Include="Shipping\ShippingPlanHdrService.svc.cs">
+      <DependentUpon>ShippingPlanHdrService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor\IVendorMstService.cs" />
+    <Compile Include="Vendor\VendorMstService.svc.cs">
+      <DependentUpon>VendorMstService.svc</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{18B3DA4D-A5BB-486D-BAF8-F48ED6411E03}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.csproj">
+      <Project>{FACEBA43-69BF-4414-865A-E00919B020CA}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERP.Utilities\ERP.Utilities.csproj">
+      <Project>{678E1AC7-C52F-4E53-9A5F-E509B1F8D65B}</Project>
+      <Name>ERP.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERPData\ERPData.csproj">
+      <Project>{67A6BB87-15EC-481E-B6C0-A2259A36AC03}</Project>
+      <Name>ERPData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ERPManager\ERPManager.csproj">
+      <Project>{12BBD0E6-4BA3-44A1-BFDE-BC35A0EAAD4C}</Project>
+      <Name>ERPManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54303</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

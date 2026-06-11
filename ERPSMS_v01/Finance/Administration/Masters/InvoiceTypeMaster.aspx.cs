@@ -1,0 +1,805 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using BusinessObject;
+using System.Data;
+using ERPSMS_v01.Administration.Masters;
+using BusinessObject.Common;
+using ERP.Utilities;
+using ERPSMS_v01.UserControls;
+using BusinessObject.Finance.Administration.Masters;
+using BusinessLogic.Finance.Administration.Masters;
+using BusinessObject.CommonManagement;
+
+namespace ERPSMS_v01.Finance.Administration.Masters
+{
+    public partial class InvoiceTypeMaster : ERP.Store.UI.MyBasePage
+    {
+        #region Variables & Properties
+
+        #region Properties
+
+        private EntryStatus EntryStatus
+        {
+            get
+            {
+                return this.ViewState[ViewstateStrings.EntryState] == null ? EntryStatus.LISTMODE : (EntryStatus)(this.ViewState[ViewstateStrings.EntryState]);
+            }
+            set
+            {
+                this.ViewState[ViewstateStrings.EntryState] = value;
+            }
+        }
+        private DateTime LastModifiedTime
+        {
+            get
+            {
+                return this.ViewState[ViewstateStrings.LastModifiedTime] == null ? System.DateTime.Now : (DateTime)this.ViewState[ViewstateStrings.LastModifiedTime];
+            }
+            set
+            {
+                this.ViewState[ViewstateStrings.LastModifiedTime] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                return (int)this.ViewState[ViewstateStrings.PageIndex];
+            }
+            set
+            {
+                this.ViewState[ViewstateStrings.PageIndex] = value;
+            }
+        }
+        private int PageSize
+        {
+            get
+            {
+                return Convert.ToInt32(GetLocalResourceObject("PageSize").ToString());
+            }
+        }
+        private int TotalPages
+        {
+            get
+            {
+                return (int)(this.ViewState[ViewstateStrings.TotalPages] ?? 1);
+            }
+            set
+            {
+                this.ViewState[ViewstateStrings.TotalPages] = value;
+            }
+        }
+        private int CurrPK
+        {
+            get
+            {
+                return Convert.ToInt32(this.ViewState[ViewstateStrings.CurrPK]);
+            }
+            set
+            {
+                this.ViewState[ViewstateStrings.CurrPK] = value;
+            }
+        }
+
+        #endregion
+
+        #region Variables
+
+        User currentUser;
+        public DataTable dtInvoiceType;
+        public DataTable dtInvoiceSubType;
+        public DataTable dtInvoiceTypeList;
+        private DataTable dtResult;
+        public int result;
+        private ActionsEnum commonActions;
+        private InvoiceTypeBO objInvoiceType;
+        public string subType;
+        #endregion
+
+        #endregion
+
+        #region Page Page_PreRender
+        protected void Page_PreRender(Object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "InitializeComponents", "$(document).ready(function(){InitComponents();});", true);
+            if (EntryStatus == EntryStatus.EDITMODE)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "HideListing", "ShowListing();", true);
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ViewMode", "ViewMode(3);", true);
+                lnkList.CssClass = GetLocalResourceObject("TabInActive").ToString();
+                lnkDetail.CssClass = GetLocalResourceObject("TabActive").ToString();
+            }
+            else if (EntryStatus == EntryStatus.NEWMODE)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "HideListing", "ShowListing(0);", true);
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ViewMode", "ViewMode(2);", true);
+                lnkList.CssClass = GetLocalResourceObject("TabInActive").ToString();
+                lnkDetail.CssClass = GetLocalResourceObject("TabActive").ToString();
+
+            }
+            else if (EntryStatus == EntryStatus.ENTRYMODE)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "HideListing", "ShowListing();", true);
+                lnkList.CssClass = GetLocalResourceObject("TabInActive").ToString();
+                lnkDetail.CssClass = GetLocalResourceObject("TabActive").ToString();
+            }
+            else if (EntryStatus == EntryStatus.LISTMODE)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowListing", "ShowListing(1);", true);
+                lnkList.CssClass = GetLocalResourceObject("TabActive").ToString();
+                lnkDetail.CssClass = GetLocalResourceObject("TabInActive").ToString();
+            }
+            if (EntryStatus == EntryStatus.VIEWMODE)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "HideListing", "ShowListing();", true);
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ViewMode", "ViewMode(1);", true);
+                lnkList.CssClass = GetLocalResourceObject("TabInActive").ToString();
+                lnkDetail.CssClass = GetLocalResourceObject("TabActive").ToString();
+            }
+        }
+        #endregion
+
+        #region Page Events
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                PageActionHandler();
+            }
+        }
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            InitializeComponent();
+        }
+
+        private void PageActionHandler()
+        {
+            try
+            {
+                PageIndex = Convert.ToInt16(CommonConstants.SELECT_VALUE_ONE);
+                uclPaging.TotalPages = TotalPages;
+                uclPaging.CurrentPage = 1;
+                EntryStatus = EntryStatus.LISTMODE;
+                ResetForm(ControlEnum.CLEAR);
+                GetFieldValues(ControlEnum.INVOICETYPE);
+                SetFieldValues(ControlEnum.INVOICETYPE);
+                //GetFieldValues(ControlEnum.INVOICESUBTYPE);
+                //SetFieldValues(ControlEnum.INVOICESUBTYPE);
+                GetFieldValues(ControlEnum.GRID);
+                SetFieldValues(ControlEnum.GRID);
+                txtCodeFilterList.Focus();
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.ProcessException(ex) + "','" + Resources.Messages.Information + "');", true);
+            }
+            finally { }
+        }
+
+        #endregion
+
+        #region Action Handler
+        protected void ActionHandler(object sender, EventArgs e)
+        {
+            try
+            {
+                int result;
+                result = 0;
+                bool bIsChecked = false;
+                if (sender.GetType().IsEquivalentTo(typeof(Button)))
+                {
+                    commonActions = (ActionsEnum)(Enum.Parse(typeof(ActionsEnum), ((Button)sender).CommandName));
+                }
+                else
+                {
+                    if (sender.GetType().IsEquivalentTo(typeof(LinkButton)))
+                    {
+                        commonActions = (ActionsEnum)(Enum.Parse(typeof(ActionsEnum), ((LinkButton)sender).CommandName));
+                    }
+                    else if (sender.GetType().IsEquivalentTo(typeof(ImageButton)))
+                    {
+                        commonActions = (ActionsEnum)(Enum.Parse(typeof(ActionsEnum), ((ImageButton)sender).CommandName));
+                    }
+                    else if (sender.GetType().IsEquivalentTo(typeof(RadioButton)))
+                    {
+                        if (((RadioButton)sender).ID == "rbtSelect")
+                        {
+                            commonActions = ActionsEnum.EDIT;
+                        }
+                    }
+                    else if (sender.GetType().IsEquivalentTo(typeof(DropDownList)))
+                    {
+                        if (((DropDownList)sender).ID == "ddlInvoiceGroup")
+                        {
+                            commonActions = ActionsEnum.CHANGE;
+                        }
+                    }
+                }
+                switch (commonActions)
+                {
+                    #region NEW
+                    case ActionsEnum.NEW:
+                        CurrPK = 0;
+                        EntryStatus = EntryStatus.NEWMODE;
+                        ResetForm(ControlEnum.CLEAR);
+                        txtInvTypeCode.Focus();
+                        break;
+                    #endregion
+
+                    #region SAVE
+                    case ActionsEnum.SAVE:
+                        objInvoiceType = new InvoiceTypeBO();
+                        objInvoiceType = (InvoiceTypeBO)SetUIValuesToObject(ControlEnum.INVOICETYPEHDR);
+                        if (objInvoiceType != null)
+                        {
+                            result = InvoiceTypeBL.SaveInvoiceType(objInvoiceType);
+                            if (result > 0)
+                            {
+                                litErrorMsg.Text = Resources.Messages.Msg_Save_Success;
+                                litErrorMsg.Text = string.Format(litErrorMsg.Text, GetLocalResourceObject("InvoiceType").ToString());
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text + "','" + Resources.Messages.Information + "');", true);
+                                ResetForm(ControlEnum.CLEAR);
+                                EntryStatus = EntryStatus.LISTMODE;
+                                GetFieldValues(ControlEnum.GRID);
+                                SetFieldValues(ControlEnum.GRID);
+                            }
+
+                            else
+                            {
+                                if (result == (int)BusinessObject.CommonManagement.DbSaveStatus.SQLERROR)
+                                {
+                                    litErrorMsg.Text = Resources.Messages.ActionFailedPleaseTryAgain;
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "');", true);
+                                }
+                                else if (result == (int)BusinessObject.CommonManagement.DbSaveStatus.CONCURRENCY)
+                                {
+                                    litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + Resources.Messages.EditUsedByAnotherUser;
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "');", true);
+                                }
+                                else if (result == (int)BusinessObject.CommonManagement.DbDeleteStatus.DELETECONCURRENCY)
+                                {
+                                    litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + Resources.Messages.AlreadyDeleted;
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "');", true);
+                                    EntryStatus = EntryStatus.LISTMODE;
+                                }
+                                else if (result == (int)BusinessObject.CommonManagement.DbSaveStatus.INCORRECT)
+                                {
+                                    litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + GetLocalResourceObject("CodeAlreadyExist").ToString();
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "','" + "');", true);
+                                }
+                                else if (result == (int)BusinessObject.CommonManagement.DbSaveStatus.CODEEXIST)
+                                {
+                                    litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + GetLocalResourceObject("NameAlreadyExist").ToString();
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "','" + "');", true);
+                                }
+                                else
+                                {
+                                    litErrorMsg.Text = Resources.Messages.ActionFailedPleaseTryAgain;
+                                    litErrorMsg.Text = string.Format(litErrorMsg.Text, GetLocalResourceObject("InvoiceType").ToString());
+                                    ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Captions.Information + "');", true);
+                                }
+                            }
+                        }
+                        break;
+                    #endregion
+
+                    #region EDIT
+                    case ActionsEnum.EDIT:
+                        bIsChecked = false;
+                        foreach (GridViewRow grdrow in grdInvoiceTypeList.Rows)
+                        {
+                            RadioButton rbtn;
+                            rbtn = (RadioButton)grdrow.FindControl("rbtSelect");
+                            if (rbtn.Checked)
+                            {
+                                bIsChecked = true;
+                                ResetForm(ControlEnum.CLEAR);
+                                CurrPK = Convert.ToInt32(((HiddenField)grdrow.FindControl("hdfGstCfnPk")).Value);
+                                EntryStatus = EntryStatus.EDITMODE;
+                                GetFieldValues(ControlEnum.GSTDETAIL);
+                                SetFieldValues(ControlEnum.GSTDETAIL);
+                                break;
+                            }
+                        }
+                        if (!bIsChecked)
+                        {
+                            litErrorMsg.Text = GetLocalResourceObject("Err_SelectRow").ToString();
+                            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(litErrorMsg.Text) + "','" + Resources.Messages.Information + "');", true);
+                        }
+                        break;
+                    #endregion
+
+                    #region SEARCH
+                    case ActionsEnum.SEARCH:
+                        GetFieldValues(ControlEnum.GRID);
+                        SetFieldValues(ControlEnum.GRID);
+                        EntryStatus = EntryStatus.LISTMODE;
+                        break;
+                    #endregion
+
+                    #region CANCEL
+                    case ActionsEnum.CANCEL:
+                    case ActionsEnum.LIST:
+                    case ActionsEnum.CLEAR:
+                        uclPaging.CurrentPage = 0;
+                        this.PageIndex = 1;
+                        this.EntryStatus = EntryStatus.LISTMODE;
+                        this.CurrPK = 0;
+                        ResetForm(ControlEnum.CLEARFILTER);
+                        GetFieldValues(ControlEnum.GRID);
+                        SetFieldValues(ControlEnum.GRID);
+                        txtCodeFilterList.Focus();
+                        break;
+                    #endregion
+
+                    #region DELETE
+                    case ActionsEnum.DELETE:
+                        bIsChecked = false;
+                        result = InvoiceTypeBL.DeleteInvoiceTypeDetails(CurrPK, LastModifiedTime);
+                        if (result > 0)
+                        {
+                            litErrorMsg.Text = Resources.ErrorMessages.Msg_Delete_Success;
+                            litErrorMsg.Text = string.Format(litErrorMsg.Text, GetLocalResourceObject("InvoiceType").ToString());
+                            ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                + "','" + Resources.ErpRes.Information + "');", true);
+                            ResetForm(ControlEnum.CLEAR);
+                            EntryStatus = EntryStatus.LISTMODE;
+                            GetFieldValues(ControlEnum.GRID);
+                            SetFieldValues(ControlEnum.GRID);
+                        }
+                        else
+                        {
+                            if (result == (int)BusinessObject.CommonManagement.DbDeleteStatus.SQLERROR)
+                            {
+                                litErrorMsg.Text = Resources.Messages.ActionFailedPleaseTryAgain;
+                                litErrorMsg.Text = string.Format(litErrorMsg.Text, GetLocalResourceObject("InvoiceType").ToString());
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                    + "','" + Resources.ErpRes.Information + "');", true);
+                            }
+                            else if (result == (int)BusinessObject.CommonManagement.DbDeleteStatus.CONCURRENCY)
+                            {
+                                litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + Resources.Messages.EditUsedByAnotherUser;
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                + "','" + Resources.ErpRes.Information + "');", true);
+                            }
+                            else if (result == (int)BusinessObject.CommonManagement.DbDeleteStatus.REFERRED)
+                            {
+                                litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + Resources.Messages.UsedInAnotherPlace;
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                + "','" + Resources.ErpRes.Information + "');", true);
+                            }
+                            else if (result == (int)BusinessObject.CommonManagement.DbDeleteStatus.DELETECONCURRENCY)
+                            {
+                                litErrorMsg.Text = GetLocalResourceObject("InvoiceType").ToString() + " " + Resources.Messages.AlreadyDeleted;
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                + "','" + Resources.ErpRes.Information + "');", true);
+                            }
+                            else
+                            {
+                                litErrorMsg.Text = Resources.Messages.ActionFailedPleaseTryAgain;
+                                litErrorMsg.Text = string.Format(litErrorMsg.Text, GetLocalResourceObject("InvoiceType").ToString());
+                                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + litErrorMsg.Text
+                                    + "','" + Resources.ErpRes.Information + "');", true);
+                            }
+                        }
+                        break;
+                    #endregion
+
+                    #region GROUP CHANGE
+                    case ActionsEnum.CHANGE:
+                        if (Convert.ToInt16(ddlInvoiceGroup.SelectedValue) > 0)
+                        {
+                            switch (ddlInvoiceGroup.SelectedValue)
+                            {
+                                case "1":
+                                    subType = "SALES INVOICE TYPE";
+                                    break;
+                                case "2":
+                                    subType = "PURCHASE INVOICE TYPE";
+                                    break;
+                            }
+                            GetFieldValues(ControlEnum.INVOICESUBTYPE);
+                            SetFieldValues(ControlEnum.INVOICESUBTYPE);
+                        }
+                        break;
+                    #endregion
+                    default: break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.FormatErrorMessage(CommonFunctions.ProcessException(ex)) + "','" + Resources.Messages.Information + "');", true);
+            }
+            finally { }
+        }
+        #endregion
+
+        #region Get Field Values
+        private void GetFieldValues(ControlEnum type)
+        {
+            currentUser = ((BusinessObject.User)(HttpContext.Current.User.Identity));
+            try
+            {
+                switch (type)
+                {
+
+                    #region INVOICETYPE
+                    case ControlEnum.INVOICETYPE:
+                        dtInvoiceType = new DataTable();
+                        dtInvoiceType = BusinessLogic.CommonManagement.CommonBL.GetAppConfig(currentUser.SBUID, "INVOICE TRX TYPE");
+                        break;
+                    #endregion
+
+                    #region INVOICE SUBTYPE
+                    case ControlEnum.INVOICESUBTYPE:
+                        dtInvoiceSubType = BusinessLogic.CommonManagement.CommonBL.GetAppConfig(currentUser.SBUID, subType);
+                        break;
+                    #endregion
+
+                    #region LISTING GRID
+                    case ControlEnum.GRID:
+                        dtInvoiceTypeList = new DataTable();
+                        dtInvoiceTypeList = InvoiceTypeBL.GetInvoiceTypeList(txtCodeFilterList.Text, txtNameFilterList.Text, currentUser.CurrentSBUPK, PageIndex, Convert.ToInt32(GetLocalResourceObject("PageSize")));
+                        break;
+                    #endregion
+
+                    #region EDIT
+                    case ControlEnum.GSTDETAIL:
+                        dtResult = InvoiceTypeBL.GetInvoiceTypeDetailList(this.CurrPK, Convert.ToInt32(DbActiveStatus.HASPK), currentUser.SBUID);
+                        break;
+                    #endregion
+
+                    default: break;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            finally { }
+        }
+        #endregion
+
+        #region Set Field Values
+        private void SetFieldValues(ControlEnum controlType)
+        {
+            try
+            {
+                switch (controlType)
+                {
+                    #region INVOICETYPE
+                    case ControlEnum.INVOICETYPE:
+                        BindDropdown(controlType);
+                        break;
+                    #endregion
+
+                    #region GRID LIST
+                    case ControlEnum.GRID:
+                        BindGrid(controlType);
+                        break;
+                    #endregion
+
+                    #region GST CLASSIFICATION EDIT
+                    case ControlEnum.GSTDETAIL:
+                        if (dtResult != null && dtResult.Rows.Count > 0)
+                        {
+                            txtInvTypeCode.Text = dtResult.Rows[0]["FTM_CODE"].ToString().HtmlDecode();
+                            txtInvTypeName.Text = dtResult.Rows[0]["FTM_NAME"].ToString().HtmlDecode();
+
+                            if (ddlInvoiceGroup.Items.Count > 0)
+                                ddlInvoiceGroup.SelectedValue = dtResult.Rows[0]["FTM_TRX_TYPE"].ToString().HtmlDecode();
+                            
+                            ActionHandler(ddlInvoiceGroup, EventArgs.Empty);
+                          
+                            if (ddlInvoiceType.Items.Count > 0)
+                                ddlInvoiceType.SelectedValue = dtResult.Rows[0]["FTM_INVOICE_TYPE"].ToString().HtmlDecode();
+                            else
+                                ddlInvoiceType.Items.Insert(0, new ListItem(Resources.ErpRes.Select, CommonConstants.SELECTVAL));
+
+                            txtInvTypeDescription.Text = dtResult.Rows[0]["FTM_DESC"].ToString().HtmlDecode();
+                            LastModifiedTime = Convert.ToDateTime(dtResult.Rows[0]["FTM_MOD_DATE"].ToString());
+                            string active = dtResult.Rows[0]["FTM_ACTIVE"].ToString().HtmlDecode();
+                            if (active == CommonConstants.SELECT_VALUE_ONE)
+                                chkActive.Checked = true;
+                            else
+                                chkActive.Checked = false;
+                        }
+                        break;
+                    #endregion
+
+                    #region INVOICETYPE
+                    case ControlEnum.INVOICESUBTYPE:
+                        BindDropdown(controlType);
+                        break;
+                    #endregion
+
+                    default: break;
+                }
+            }
+            catch (Exception ex) { throw ex; }
+            finally { }
+        }
+        #endregion
+
+        #region Set UIValues To Object
+        private Object SetUIValuesToObject(ControlEnum controlType)
+        {
+            object returnObject = new object();
+            currentUser = ((BusinessObject.User)(HttpContext.Current.User.Identity));
+            try
+            {
+                switch (controlType)
+                {
+                    #region GST CLASSIFICATION DETAILS
+
+                    case ControlEnum.INVOICETYPEHDR:
+                        objInvoiceType.FTM_PK = CurrPK;
+                        objInvoiceType.FTM_NAME = txtInvTypeName.Text.HtmlEncode();
+                        objInvoiceType.FTM_CODE = txtInvTypeCode.Text.HtmlEncode();
+                        objInvoiceType.FTM_TRX_TYPE = Convert.ToInt16(ddlInvoiceGroup.SelectedValue);
+                        objInvoiceType.FTM_INVOICE_TYPE = Convert.ToInt16(ddlInvoiceType.SelectedValue);
+                        objInvoiceType.FTM_DESC = txtInvTypeDescription.Text.HtmlEncode();
+                        objInvoiceType.ACTIVE = chkActive.Checked == true ? Convert.ToInt16(CommonConstants.SELECT_VALUE_ONE) : Convert.ToInt16(CommonConstants.SELECT_VALUE_ZERO);
+                        objInvoiceType.LAST_MOD_DT = LastModifiedTime;
+                        objInvoiceType.BIZUNIT = currentUser.CurrentSBUPK;
+                        objInvoiceType.USER_PK = currentUser.PKUser;
+                        returnObject = objInvoiceType;
+                        break;
+
+                    #endregion
+                    default: break;
+                }
+                return returnObject;
+
+            }
+            catch (Exception ex) { throw ex; }
+            finally { }
+        }
+        #endregion
+
+        #region Set UI EditView
+        private void SetUIEditView(ActionsEnum Mode)
+        {
+            try
+            {
+                if (Mode == ActionsEnum.NEW)
+                {
+                    EntryStatus = EntryStatus.NEWMODE;
+                }
+                else if (Mode == ActionsEnum.VIEW)
+                {
+                    EntryStatus = EntryStatus.VIEWMODE;
+                }
+                else if (Mode == ActionsEnum.EDIT)
+                {
+                    EntryStatus = EntryStatus.EDITMODE;
+                }
+                else
+                {
+                    EntryStatus = EntryStatus.ENTRYMODE;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Helper Methods
+
+        #region Bind Dropdown
+        private void BindDropdown(ControlEnum controlType)
+        {
+            switch (controlType)
+            {
+                case ControlEnum.INVOICETYPE:
+                    ddlInvoiceGroup.Items.Clear();
+                    if (dtInvoiceType != null && dtInvoiceType.Rows.Count > 0)
+                    {
+                        ddlInvoiceGroup.DataSource = dtInvoiceType;
+                        ddlInvoiceGroup.DataTextField = "CFG_DATA";  //Resources.DataFieldRes.cfgData;
+                        ddlInvoiceGroup.DataValueField = "CFG_VALUE"; //Resources.DataFieldRes.cfgValue;
+                        ddlInvoiceGroup.DataBind();
+                    }
+                    ddlInvoiceGroup.Items.Insert(0, new ListItem(Resources.ErpRes.Select, CommonConstants.SELECTVAL));
+                    break;
+
+                case ControlEnum.INVOICESUBTYPE:
+                    ddlInvoiceType.Items.Clear();
+                    if (dtInvoiceSubType != null && dtInvoiceSubType.Rows.Count > 0)
+                    {
+                        ddlInvoiceType.DataSource = dtInvoiceSubType;
+                        ddlInvoiceType.DataTextField = "CFG_DATA";  //Resources.DataFieldRes.cfgData;
+                        ddlInvoiceType.DataValueField = "CFG_VALUE"; //Resources.DataFieldRes.cfgValue;
+                        ddlInvoiceType.DataBind();
+                    }
+                    ddlInvoiceType.Items.Insert(0, new ListItem(Resources.ErpRes.Select, CommonConstants.SELECTVAL));
+                    break;
+
+                default: break;
+            }
+        }
+        #endregion
+
+        #region Bind Grid
+        public void BindGrid(ControlEnum controlType)
+        {
+            try
+            {
+                switch (controlType)
+                {
+                    #region LISTING GRID
+                    case ControlEnum.GRID:
+                        uclPaging.Visible = false;
+                        if (dtInvoiceTypeList != null && dtInvoiceTypeList.Rows.Count > 0)
+                        {
+                            int rowCount = 0;
+                            rowCount = Convert.ToInt32(dtInvoiceTypeList.Rows[0]["TOTAL_ROW_COUNT"].ToString());
+                            uclPaging.TotalPages = rowCount == 0 ? 1 : (rowCount <= this.PageSize) ? 1 :
+                                              (rowCount % this.PageSize) == 0 ? (rowCount / this.PageSize) :
+                                              (rowCount / this.PageSize) + 1;
+                            PageIndex = PageIndex == null ? Convert.ToInt32(CommonConstants.SELECT_VALUE_ONE) : PageIndex;
+                            uclPaging.CurrentPage = Convert.ToInt32(PageIndex);
+                            grdInvoiceTypeList.DataSource = dtInvoiceTypeList;
+                            grdInvoiceTypeList.DataBind();
+                            uclPaging.Visible = true;
+                            uclPaging.BindPager();
+                        }
+                        else
+                        {
+                            grdInvoiceTypeList.DataSource = null;
+                            grdInvoiceTypeList.DataBind();
+                        }
+                        break;
+                    #endregion
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region Reset Form
+
+        private void ResetForm(ControlEnum controlType)
+        {
+            switch (controlType)
+            {
+                #region CLEAR
+                case ControlEnum.CLEAR:
+                    CurrPK = 0;
+                    txtInvTypeCode.Text = txtInvTypeName.Text = txtInvTypeDescription.Text = string.Empty;
+                    //chkNonGstItem.Checked = true;
+                    ddlInvoiceGroup.ClearSelection();
+                    ddlInvoiceType.ClearSelection();
+                    LastModifiedTime = DateTime.Now;
+                    uclPaging.CurrentPage = 0;
+                    PageIndex = 1;
+                    subType = string.Empty;
+                    chkActive.Checked = true;
+                    break;
+                #endregion
+
+                #region CLEAR FILTER
+                case ControlEnum.CLEARFILTER:
+                    txtCodeFilterList.Text = txtNameFilterList.Text = string.Empty;
+                    CurrPK = 0;
+                    uclPaging.CurrentPage = 0;
+                    this.PageIndex = 1;
+                    this.EntryStatus = EntryStatus.LISTMODE;
+                    break;
+                #endregion
+                default: break;
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region InitializeComponent
+        /// <summary>
+        /// Method Used to initialize the Pager Control
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.uclPaging.FirstPage += new ActionHandler(this.ActionHandler);
+            this.uclPaging.PreviousPage += new ActionHandler(this.ActionHandler);
+            this.uclPaging.NextPage += new ActionHandler(this.ActionHandler);
+            this.uclPaging.LastPage += new ActionHandler(this.ActionHandler);
+            this.uclPaging.PageChanged += new ActionHandler(this.ActionHandler);
+            this.Init += new EventHandler(this.Page_Init);
+        }
+
+        private void EnableDisableButtons(int iTotalPages, string pagerId)
+        {
+            if (pagerId == "uclPaging")
+            {
+                uclPaging.FirstButtonEnabled = (uclPaging.CurrentPage == 1) ? false : true;// Should we disable the first link
+                uclPaging.PreviousButtonEnabled = (uclPaging.CurrentPage == 1) ? false : true;// Should we disable the previous link
+                uclPaging.NextButtonEnabled = (uclPaging.CurrentPage < iTotalPages) ? true : false; // Should we enable the next link
+                uclPaging.LastButtonEnabled = (uclPaging.CurrentPage < iTotalPages) ? true : false;// Should we enable the last link
+            }
+        }
+
+        #endregion
+
+        #region ControlEnum
+
+        public enum ControlEnum
+        {
+            GSTCLASSLIST,
+            INVOICETYPE,
+            NEW,
+            CLEAR,
+            CLEARFILTER,
+            GRID,
+            INVOICETYPEHDR,
+            GSTDETAIL,
+            INVOICESUBTYPE
+        }
+
+        #endregion
+
+        #region Pager Methods + Init
+        protected void Page_Init(object sender, System.EventArgs e)
+        {
+            uclPaging.CurrentPage = 1;
+        }
+
+        protected void ActionHandler(object sender, DataNavigatorEventArgs e)
+        {
+            try
+            {
+                PgerControlNew pagerControl = (PgerControlNew)sender;
+                string senderId = pagerControl.ID;
+                switch (e.Action)
+                {
+                    case NavigationEnum.PAGECHANGE:
+                        pagerControl.CurrentPage = e.CurrentPage;
+                        break;
+                    case NavigationEnum.FIRST:
+                        if (e.CurrentPage > 1)
+                            pagerControl.CurrentPage = 1;
+                        break;
+                    case NavigationEnum.LAST:
+                        if (e.CurrentPage <= e.TotalPages)
+                            pagerControl.CurrentPage = e.TotalPages;
+                        break;
+                    case NavigationEnum.NEXT:
+                        if (e.CurrentPage <= e.TotalPages)
+                            pagerControl.CurrentPage++;
+                        break;
+                    case NavigationEnum.PREVIOUS:
+                        if (e.CurrentPage > 1)
+                            pagerControl.CurrentPage--;
+                        break;
+                }
+                if (senderId == "uclPaging")
+                {
+                    PageIndex = uclPaging.CurrentPage;
+                    GetFieldValues(ControlEnum.GRID);
+                    SetFieldValues(ControlEnum.GRID);
+                    EntryStatus = EntryStatus.LISTMODE;
+                    EnableDisableButtons(e.TotalPages, "uclPaging");
+                }
+            }
+            catch (Exception ex)
+            {
+                // ScriptManager.RegisterStartupScript(this.Page, typeof(Page), "ShowErrorMsg", "ShowErrorMessage('" + CommonFunctions.ProcessException(ex) + "','" + Resources.gComsRes.Information + "');", true);
+            }
+        }
+        protected void ActionHandler(object sender, GridViewPageEventArgs e)
+        {
+            PageIndex = e.NewPageIndex;
+        }
+
+        #endregion
+    }
+}

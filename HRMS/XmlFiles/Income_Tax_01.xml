@@ -1,0 +1,1070 @@
+<?xml version="1.0"?>
+<Root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Type>1</Type>
+  <Section>
+    <Seq>1</Seq>
+    <SectionID>1</SectionID>
+    <Title>A. Tax Computation</Title>
+    <Col1>SlNo</Col1>
+    <Col2>Steps</Col2>
+    <Col3>Amount</Col3>
+    <Col4>Value</Col4>
+    <Col5>Description</Col5>
+    <Col5_Visible>0</Col5_Visible>
+    <Col3FunId>A1001-A1002#A1003-A1004#A1005-A1006#A1007-A1008#A1009-A1010#A1012&gt;A1013</Col3FunId>
+    <Col3FunExpression>A1001-A1002,1001,-,1002#A1003-A1004,1003,-,1004#A1005-A1006,1005,-,1006#A1007-A1008,1007,-,1008#A1009-A1010,1009,-,1010#A1012&gt;A1013,1012,&gt;,1013</Col3FunExpression>
+    <Col3ExcludeId>A1001-A1002,1003#A1003-A1004,1005#A1005-A1006,1007#A1007-A1008,1009#A1009-A1010,1011#A1012&gt;A1013,1014</Col3ExcludeId>
+    <Col3CopyId />
+    <Items>
+      <Seq>1</Seq>
+      <DbId>1001</DbId>
+      <Col1>1</Col1>
+      <Col2>Salary,wages,pensions etc (plus Exempted income from B6.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1001-A1002','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>2</Seq>
+      <DbId>1002</DbId>
+      <Col1>2</Col1>
+      <Col2>Less Exempted income (From B7.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1001-A1002','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>3</Seq>
+      <DbId>1003</DbId>
+      <Col1>3</Col1>
+      <Col2>Balance =(1.-2.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1001-A1002','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>4</Seq>
+      <DbId>1004</DbId>
+      <Col1>4</Col1>
+      <Col2>Less expense (40 percent 0f 3, but not exceeding legal limit)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Need master to set limit amount 60,000 by default,later needs to be changed</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1003-A1004','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>5</Seq>
+      <DbId>1005</DbId>
+      <Col1>5</Col1>
+      <Col2>Balance (3.-4.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>6</Seq>
+      <DbId>1006</DbId>
+      <Col1>6</Col1>
+      <Col2>Less Allowances (from C16)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1005-A1006','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>7</Seq>
+      <DbId>1007</DbId>
+      <Col1>7</Col1>
+      <Col2>Balance (5.-6.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>8</Seq>
+      <DbId>1008</DbId>
+      <Col1>8</Col1>
+      <Col2>Less donation supporting education/sports/others (Twice the actual amount paid, but not exceeding 10 percent of 7.) </Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Set auto alert if amount is more than 10%</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1007-A1008','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>9</Seq>
+      <DbId>1009</DbId>
+      <Col1>9</Col1>
+      <Col2>Balance (7.-8.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>10</Seq>
+      <DbId>1010</DbId>
+      <Col1>10</Col1>
+      <Col2>Less other donation (not exceeding 10 percent of 9.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Set auto alert if amount is more than 10%</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1009-A1010','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>11</Seq>
+      <DbId>1011</DbId>
+      <Col1>11</Col1>
+      <Col2>Net income (9.-10.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1009-A1010','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>12</Seq>
+      <DbId>1012</DbId>
+      <Col1>12</Col1>
+      <Col2>Tax computed from Net income Under 11.</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1012&gt;A1013','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>13</Seq>
+      <DbId>1013</DbId>
+      <Col1>13</Col1>
+      <Col2>Less Exemption for first time home buyer property value</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1012&gt;A1013','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>14</Seq>
+      <DbId>1014</DbId>
+      <Col1>14</Col1>
+      <Col2>Tax payable. (only if 12. is more than 13.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('A1012&gt;A1013','Sec1')</ColScript>
+    </Items>
+    <Items>
+      <Seq>15</Seq>
+      <DbId>1015</DbId>
+      <Col1>15</Col1>
+      <Col2>Less withholding Tax</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>in Jan Show tax of jan,In feb show tax of(Jan + Feb),In dec show tax of (jan + feb+…+ dec)</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>16</Seq>
+      <DbId>1016</DbId>
+      <Col1>16</Col1>
+      <Col2>Total tax</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>17</Seq>
+      <DbId>1017</DbId>
+      <Col1 />
+      <Col2>Payable</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>18</Seq>
+      <DbId>1018</DbId>
+      <Col1 />
+      <Col2>Overpaid</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>19</Seq>
+      <DbId>1019</DbId>
+      <Col1>17</Col1>
+      <Col2>Add additional tax payable (from C6. on Attachment Form (if any)) </Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>20</Seq>
+      <DbId>1020</DbId>
+      <Col1>18</Col1>
+      <Col2>Less tax overpaid (from C7. on attachment Form (if any))</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>21</Seq>
+      <DbId>1021</DbId>
+      <Col1>19</Col1>
+      <Col2>Less tax paid from previous filling of PND 91 (In the case of additional filling)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>22</Seq>
+      <DbId>1022</DbId>
+      <Col1>20</Col1>
+      <Col2>Tax</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>23</Seq>
+      <DbId>1023</DbId>
+      <Col1 />
+      <Col2>Payable</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>24</Seq>
+      <DbId>1024</DbId>
+      <Col1 />
+      <Col2>Overpaid</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>25</Seq>
+      <DbId>1025</DbId>
+      <Col1>21</Col1>
+      <Col2>Add subcharge (If any)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>26</Seq>
+      <DbId>1026</DbId>
+      <Col1>22</Col1>
+      <Col2>Total tax</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>27</Seq>
+      <DbId>1027</DbId>
+      <Col1 />
+      <Col2>Payable</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+    <Items>
+      <Seq>28</Seq>
+      <DbId>1028</DbId>
+      <Col1 />
+      <Col2>Overpaid</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Show the positive value.Auto select the check box</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+  </Section>
+  <Section>
+    <Seq>2</Seq>
+    <SectionID>2</SectionID>
+    <Title>B. Exempted Income</Title>
+    <Col1>SlNo</Col1>
+    <Col2>Steps</Col2>
+    <Col3>Amount</Col3>
+    <Col4>Value</Col4>
+    <Col5>Description</Col5>
+    <Col5_Visible>0</Col5_Visible>
+    <Col3FunId>B2001-B2009</Col3FunId>
+    <Col3FunExpression>B2001-B2009,2001,+,2002,+,2003,+,2004,+,2005,+,2006,+,2007,+,2008</Col3FunExpression>
+    <Col3ExcludeId>B2001-B2009,2009</Col3ExcludeId>
+    <Col3CopyId>B2001-B2009,1002</Col3CopyId>
+    <Items>
+      <Seq>1</Seq>
+      <DbId>2001</DbId>
+      <Col1>1</Col1>
+      <Col2>Provident fund contribution (Only the part exceeding 10,000 Baht)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>2</Seq>
+      <DbId>2002</DbId>
+      <Col1>2</Col1>
+      <Col2>Government pension fund contribution</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>3</Seq>
+      <DbId>2003</DbId>
+      <Col1>3</Col1>
+      <Col2>private teacher aid fund contribution</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>4</Seq>
+      <DbId>2004</DbId>
+      <Col1>4</Col1>
+      <Col2>National savings fund contribution</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>5</Seq>
+      <DbId>2005</DbId>
+      <Col1>5</Col1>
+      <Col2>Income Exemption</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>6</Seq>
+      <DbId>2006</DbId>
+      <Col1 />
+      <Col2>Disabled taxpayer aged under 65 years old</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>7</Seq>
+      <DbId>2007</DbId>
+      <Col1 />
+      <Col2>Taxpayer aged 65 years or older(including disabled taxpayer)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>8</Seq>
+      <DbId>2008</DbId>
+      <Col1>6</Col1>
+      <Col2>Severance pay under Labour Law(If opt to include)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('B2001-B2009','Sec2')</ColScript>
+    </Items>
+    <Items>
+      <Seq>9</Seq>
+      <DbId>2009</DbId>
+      <Col1>7</Col1>
+      <Col2>Total (1. to 6.) to be filled in A2.</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>All the Amount k.ying will ener manually</Col5>
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+  </Section>
+  <Section>
+    <Seq>3</Seq>
+    <SectionID>3</SectionID>
+    <Title>C. Allowances and Exemptions after Deduction of Expense(S)</Title>
+    <Col1>SlNo</Col1>
+    <Col2>Steps</Col2>
+    <Col3>Amount</Col3>
+    <Col4>Value</Col4>
+    <Col5>Description</Col5>
+    <Col5_Visible>0</Col5_Visible>
+    <Col3FunId>C3001-C3027</Col3FunId>
+    <Col3FunExpression>C3001-C3027,3001,+,3002,+,3003,+,3004,+,3005,+,3006,+,3007,+,3008,+,3009,+,3010,+,3011,+,3012,+,3013,+,3014,+,3015,+,3016,+,3017,+,3018,+,3019,+,3020,+,3021,+,3022,+,3023,+,3024,+,3025,+,3026,+,3027</Col3FunExpression>
+    <Col3ExcludeId>C3001-C3027,3028</Col3ExcludeId>
+    <Col3CopyId>C3001-C3027,1006</Col3CopyId>
+    <Items>
+      <Seq>1</Seq>
+      <DbId>3001</DbId>
+      <Col1>1</Col1>
+      <Col2>Taxpayer</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Need taxpayer master to set amount 30,000by default, later needs to be changed</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>30000.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>2</Seq>
+      <DbId>3002</DbId>
+      <Col1>2</Col1>
+      <Col2>Spouse (30,000 Bhat if filing jointy or has no income)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Need spouse master to set amount 30,000by default, later needs to be changed. Need radio button to select. If selected set the default amount ,(radio button means spouse has job or not)</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>30000.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>1</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>3</Seq>
+      <DbId>3003</DbId>
+      <Col1>3</Col1>
+      <Col2>Child 15,000 Bhat/person. No of person(s)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Need child master to set amount 15,000 and 17,000 by default, later needs to be changed</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>15000.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>4</Seq>
+      <DbId>3004</DbId>
+      <Col1 />
+      <Col2>Fill personal idendification number</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>1</Col3_Hide>
+      <Col4_Hide>1</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>5</Seq>
+      <DbId>3005</DbId>
+      <Col1 />
+      <Col2>Child 17,000 Thb/person. No of person(s)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>17000.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>6</Seq>
+      <DbId>3006</DbId>
+      <Col1 />
+      <Col2>Fill personal idendification No.</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>(Max limit 3 childs).Dont allow more than 3 childs.</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>1</Col3_Hide>
+      <Col4_Hide>1</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>7</Seq>
+      <DbId>3007</DbId>
+      <Col1>4</Col1>
+      <Col2>Parental care (Fill personal idendification No.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Need parent master to set amount 30,000 by default, later needs to be changed</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>30000.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>1</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>8</Seq>
+      <DbId>3008</DbId>
+      <Col1 />
+      <Col2>Father of Taxpayer</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>9</Seq>
+      <DbId>3009</DbId>
+      <Col1 />
+      <Col2>Mother of Taxpayer</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>10</Seq>
+      <DbId>3010</DbId>
+      <Col1 />
+      <Col2>Father of spouse who is filling joint tax return or has no income</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>11</Seq>
+      <DbId>3011</DbId>
+      <Col1 />
+      <Col2>Mother of spouse who is filling joint tax return or has no income</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>12</Seq>
+      <DbId>3012</DbId>
+      <Col1>5</Col1>
+      <Col2>Disabled/Incompetent person support</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>13</Seq>
+      <DbId>3013</DbId>
+      <Col1>6</Col1>
+      <Col2>Health insurance premium for parents of both taxpayer and spouse (Fill personal idendification No.)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount>0.00</DefaultAmount>
+      <Col3_Max />
+      <ChkBoxReq>1</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>14</Seq>
+      <DbId>3014</DbId>
+      <Col1 />
+      <Col2>Father of Taxpayer</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>15</Seq>
+      <DbId>3015</DbId>
+      <Col1 />
+      <Col2>Mother of Taxpayer</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>16</Seq>
+      <DbId>3016</DbId>
+      <Col1 />
+      <Col2>Father of spouse</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>17</Seq>
+      <DbId>3017</DbId>
+      <Col1 />
+      <Col2>Mother of spouse</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>18</Seq>
+      <DbId>3018</DbId>
+      <Col1>7</Col1>
+      <Col2>Life insurance premium paid</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually. But max limit is 100,000 Thb Don’t allow to enter more than limit. Need master to set the limit, will be changed later.</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max>100000.00</Col3_Max>
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>19</Seq>
+      <DbId>3019</DbId>
+      <Col1 />
+      <Col2>Pension insurance premium paid</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually. But max limit is 100,000 Thb Don’t allow to enter more than limit. Need master to set the limit, will be changed later.</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>20</Seq>
+      <DbId>3020</DbId>
+      <Col1>8</Col1>
+      <Col2>Provident fund contribution(not exceeding 10,000 Bhat)</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually. But max limit is 10,000 Thb Don’t allow to enter more than limit. Need master to set the limit, will be changed later.</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max>10000.00</Col3_Max>
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>21</Seq>
+      <DbId>3021</DbId>
+      <Col1>9</Col1>
+      <Col2>Retirement Mutual fund unit purchase</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>22</Seq>
+      <DbId>3022</DbId>
+      <Col1>10</Col1>
+      <Col2>Long Term equity fund unit purchase</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>23</Seq>
+      <DbId>3023</DbId>
+      <Col1>11</Col1>
+      <Col2>Interest paid on loan for purchase, hire-purchase or construction of residence</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>24</Seq>
+      <DbId>3024</DbId>
+      <Col1>12</Col1>
+      <Col2>First time home buyer expense</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>25</Seq>
+      <DbId>3025</DbId>
+      <Col1>13</Col1>
+      <Col2>Social security fund Contribution</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Link from HR</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>26</Seq>
+      <DbId>3026</DbId>
+      <Col1>14</Col1>
+      <Col2>Domestic tourism expense</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>27</Seq>
+      <DbId>3027</DbId>
+      <Col1>15</Col1>
+      <Col2>Domestic purchse of goods or services expense</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5>Amount k.ying will ener manually</Col5>
+      <Col3_Edit>1</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+      <ColScript>TaxComputation('C3001-C3027','Sec3')</ColScript>
+    </Items>
+    <Items>
+      <Seq>28</Seq>
+      <DbId>3028</DbId>
+      <Col1>16</Col1>
+      <Col2>Total (1. to 15.) to be filled in A6.</Col2>
+      <Col3 />
+      <Col4 />
+      <Col5 />
+      <Col3_Edit>0</Col3_Edit>
+      <Col3_Hide>0</Col3_Hide>
+      <Col4_Hide>0</Col4_Hide>
+      <DefaultAmount />
+      <Col3_Max />
+      <ChkBoxReq>0</ChkBoxReq>
+    </Items>
+  </Section>
+</Root>
