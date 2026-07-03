@@ -15,7 +15,7 @@
     <AssemblyName>CustomerPortal</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
-<FileUpgradeFlags>
+    <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
@@ -51,37 +51,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
-      <HintPath>..\..\Refference DLL\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\Refference DLL\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="MailSend, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Refference DLL\MailSend.dll</HintPath>
+      <HintPath>..\Refference DLL\MailSend.dll</HintPath>
     </Reference>
     <Reference Include="MailSendManager, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Refference DLL\MailSendManager.dll</HintPath>
+      <HintPath>..\Refference DLL\MailSendManager.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\Reports\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.2.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\Reports\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ERPSMS_v01\Reports\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
@@ -91,7 +85,7 @@
       <HintPath>..\ERPSMS_v01\TelDll\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>..\..\Refference DLL\NLog.dll</HintPath>
+      <HintPath>..\Refference DLL\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
@@ -111,7 +105,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WorkflowCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Refference DLL\WorkflowCore.dll</HintPath>
+      <HintPath>..\Refference DLL\WorkflowCore.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -4104,12 +4098,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Controls_WARM.resx</DependentUpon>
     </Compile>
-    <Compile Include="..\ERPSMS_v01\App_GlobalResources\languages\FALLBACK\Controls_WARM1.designer.cs">
-      <Link>App_GlobalResources\languages\FALLBACK\Controls_WARM1.designer.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Controls_WARM.resx</DependentUpon>
-    </Compile>
     <Compile Include="..\ERPSMS_v01\App_GlobalResources\languages\FALLBACK\Messages_TMD.designer.cs">
       <Link>App_GlobalResources\languages\FALLBACK\Messages_TMD.designer.cs</Link>
       <AutoGen>True</AutoGen>
@@ -5389,7 +5377,7 @@
     <Content Include="..\ERPSMS_v01\App_GlobalResources\languages\FALLBACK\Controls_WARM.resx">
       <Link>App_GlobalResources\languages\FALLBACK\Controls_WARM.resx</Link>
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Controls_WARM1.designer.cs</LastGenOutput>
+      <LastGenOutput>Controls_WARM.designer.cs</LastGenOutput>
     </Content>
     <Content Include="..\ERPSMS_v01\App_GlobalResources\languages\FALLBACK\PageNameRes_WARM.resx">
       <Link>App_GlobalResources\languages\FALLBACK\PageNameRes_WARM.resx</Link>
@@ -5594,4 +5582,10 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <!-- Disable RDLC precompile for this legacy web project. The VS RDLC designer remains available,
+       but normal builds should not precompile every .rdlc report because several reports use
+       external code modules that are resolved only at application runtime. -->
+  <Target Name="CompileRdlFiles" />
+  <Target Name="PrepareRdlFiles" />
+  <Target Name="RunRdlCompiler" />
 </Project>

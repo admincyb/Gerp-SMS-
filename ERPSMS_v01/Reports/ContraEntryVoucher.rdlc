@@ -1186,6 +1186,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1266,47 +1267,6 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox82">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Reviewed By</Value>
-                    <Style>
-                      <FontSize>9pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox81</rd:DefaultName>
-            <Top>1.67568in</Top>
-            <Left>2.98693in</Left>
-            <Height>0.1875in</Height>
-            <Width>1.87694in</Width>
-            <ZIndex>3</ZIndex>
-            <Visibility>
-              <Hidden>true</Hidden>
-            </Visibility>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <TopBorder>
-                <Style>Solid</Style>
-              </TopBorder>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox83">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1314,7 +1274,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Approved By</Value>
+                    <Value>Verified By</Value>
                     <Style>
                       <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -1327,11 +1287,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
-            <Top>1.68818in</Top>
-            <Left>5.67444in</Left>
+            <Top>1.67596in</Top>
+            <Left>3.04944in</Left>
             <Height>0.165in</Height>
             <Width>1.87694in</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1369,9 +1329,9 @@
             <Left>0.41193in</Left>
             <Height>0.18264in</Height>
             <Width>1.87694in</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Visibility>
-              <Hidden>=Switch(Parameters!AppType.Value="DPRJ",true)</Hidden>
+              <Hidden>true</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -1404,45 +1364,10 @@
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>1.46387in</Top>
-            <Left>5.67444in</Left>
+            <Left>3.04944in</Left>
             <Height>0.18264in</Height>
             <Width>1.86444in</Width>
-            <ZIndex>6</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox14">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!FTH_TASK2_BY_TEXT.Value, "PVRecordings")</Value>
-                    <Style>
-                      <FontFamily>Verdana</FontFamily>
-                      <FontSize>8pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.44999in</Top>
-            <Left>2.98693in</Left>
-            <Height>0.18264in</Height>
-            <Width>1.87694in</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>true</Hidden>
             </Visibility>
@@ -1477,10 +1402,10 @@
             </Paragraphs>
             <rd:DefaultName>Textbox296</rd:DefaultName>
             <Top>1.84096in</Top>
-            <Left>5.67444in</Left>
+            <Left>3.04944in</Left>
             <Height>0.16052in</Height>
             <Width>1.86444in</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1515,7 +1440,7 @@
             <Left>0.41193in</Left>
             <Height>0.16052in</Height>
             <Width>1.87694in</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>7</ZIndex>
             <Visibility>
               <Hidden>=Switch(Parameters!AppType.Value="DPRJ",true)</Hidden>
             </Visibility>
@@ -1529,14 +1454,52 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox299">
+          <Textbox Name="Textbox84">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Date : " &amp; IIF(IsNothing(First(Fields!FTH_TASK2_DT_TEXT.Value, "PVRecordings")),"",Format(First(Fields!FTH_TASK2_DT_TEXT.Value, "PVRecordings"),Parameters!DateFormat.Value))</Value>
+                    <Value>Managing Director</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox81</rd:DefaultName>
+            <Top>1.67568in</Top>
+            <Left>5.44626in</Left>
+            <Height>0.165in</Height>
+            <Width>1.87694in</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <TopBorder>
+                <Style>Solid</Style>
+              </TopBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox298">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
                     <Style>
                       <FontFamily>Verdana</FontFamily>
                       <FontSize>7pt</FontSize>
@@ -1549,14 +1512,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox296</rd:DefaultName>
-            <Top>1.86457in</Top>
-            <Left>2.98693in</Left>
+            <Top>1.84096in</Top>
+            <Left>5.44626in</Left>
             <Height>0.16052in</Height>
-            <Width>1.87694in</Width>
-            <ZIndex>10</ZIndex>
-            <Visibility>
-              <Hidden>true</Hidden>
-            </Visibility>
+            <Width>1.86444in</Width>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>

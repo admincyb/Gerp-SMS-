@@ -9215,7 +9215,8 @@ namespace ERPSMS_v01.Reports
                     File.Delete(attachmentFilePath);
 
                 format = "PDF";
-                byte[] bytes = locRpt.Render(format, "", out mimeType, out encoding, out extension, out streamids, out warnings);
+                string deviceInfo = "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+                byte[] bytes = locRpt.Render(format, deviceInfo, out mimeType, out encoding, out extension, out streamids, out warnings);
                 /* stream to use for attachment - can implement later
                 Stream stream = new MemoryStream();
                 stream.Write(bytes, 0, bytes.Length);

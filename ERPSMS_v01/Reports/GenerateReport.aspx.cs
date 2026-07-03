@@ -629,6 +629,7 @@ namespace ERPSMS_v01.Reports
             if (reportDocument != null)
             {
                 CommonFunctions.SetCrystalReportDataBaseConnection(reportDocument);
+                ApplyLedgerCrystalFormulaFixes(GetCurrentCrystalReportName());
                 GERP_Report.ParameterFieldInfo = locParamFields;
                 GERP_Report.ReportSource = reportDocument;
             }
@@ -7085,7 +7086,8 @@ namespace ERPSMS_v01.Reports
                     File.Delete(attachmentFilePath);
                 // Array.ForEach(Directory.GetFiles(savePath), File.Delete);//Delete all files in a folder
                 format = "PDF";
-                byte[] bytes = locRpt.Render(format, "", out mimeType, out encoding, out extension, out streamids, out warnings);
+                string deviceInfo = "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+                byte[] bytes = locRpt.Render(format, deviceInfo, out mimeType, out encoding, out extension, out streamids, out warnings);
                 /* stream to use for attachment - can implement later
                 Stream stream = new MemoryStream();
                 stream.Write(bytes, 0, bytes.Length);
@@ -7149,7 +7151,8 @@ namespace ERPSMS_v01.Reports
                 attachmentFileName = RptType + RptSubType + ".pdf";
 
                 format = "PDF";
-                byte[] bytes = locRpt.Render(format, "", out mimeType, out encoding, out extension, out streamids, out warnings);
+                string deviceInfo = "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+                byte[] bytes = locRpt.Render(format, deviceInfo, out mimeType, out encoding, out extension, out streamids, out warnings);
                 Response.Buffer = true;
                 Response.Clear();
                 Response.ContentType = mimeType;
@@ -8901,6 +8904,7 @@ namespace ERPSMS_v01.Reports
                 GC.Collect();
                 reportDocument = new ReportDocument();
                 reportDocument.Load(Server.MapPath("~/Reports/CrystalReportFiles/" + reportName));
+                ApplyLedgerCrystalFormulaFixes(reportName);
                 reportDocument.Refresh();
                 ReportFile = reportName;
                 ERP.Utilities.CommonFunctions.SetCrystalReportDataBaseConnection(reportDocument);
@@ -9473,6 +9477,146 @@ namespace ERPSMS_v01.Reports
         }
         #endregion
 
+        private string GetCurrentCrystalReportName()
+        {
+            if (!string.IsNullOrEmpty(ReportFile))
+                return ReportFile;
+
+            if (!string.IsNullOrEmpty(hdfRptNameRpt.Value))
+                return hdfRptNameRpt.Value;
+
+            return string.Empty;
+        }
+
+        private void ApplyLedgerCrystalFormulaFixes(string reportName)
+        {
+            if (!IsLedgerCrystalReportWithUflFix(reportName))
+                return;
+
+            if (reportDocument == null)
+                return;
+
+            try
+            {
+                int fixedFormulaCount = ApplyLedgerUflFormulaFixes(reportDocument, reportName);
+                fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(reportDocument, reportName);
+                foreach (ReportDocument subReport in reportDocument.Subreports)
+                {
+                    fixedFormulaCount += ApplyLedgerUflFormulaFixes(subReport, reportName);
+                    fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(subReport, reportName);
+                }
+
+                if (fixedFormulaCount > 0)
+                {
+                    CommonBL.ExceptionWriting("Ledger Crystal UFL formulas overridden: " + fixedFormulaCount, "Crystal formula fix applied : " + reportName);
+                }
+            }
+            catch (Exception ex)
+            {
+                CommonBL.ExceptionWriting(ex.ToString(), "Ledger Crystal formula fix failed : " + reportName);
+            }
+        }
+
+        private bool IsLedgerCrystalReportWithUflFix(string reportName)
+        {
+            string crystalReportName = Path.GetFileName(reportName);
+            return string.Equals(crystalReportName, "AS_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
+                || crystalReportName.StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private int ApplyLedgerUflFormulaFixes(ReportDocument crystalReport, string reportName)
+        {
+            int fixedFormulaCount = 0;
+            foreach (FormulaFieldDefinition formulaField in crystalReport.DataDefinition.FormulaFields)
+            {
+                string formulaName = (formulaField.Name ?? string.Empty).TrimStart('@').Trim();
+                string formulaText = formulaField.Text ?? string.Empty;
+
+                string fixedFormulaText = formulaText;
+                if (formulaText.IndexOf("CSGtiLibraryGtiLibraryUflHtmlDecode", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    fixedFormulaText = System.Text.RegularExpressions.Regex.Replace(
+                        fixedFormulaText,
+                        @"CSGtiLibraryGtiLibraryUflHtmlDecode\s*\(\s*(\{[^}]+\})\s*\)",
+                        "$1",
+                        System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                }
+
+                if (Path.GetFileName(reportName).StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase)
+                    && string.Equals(formulaName, "Display_String", StringComparison.OrdinalIgnoreCase))
+                {
+                    fixedFormulaText = "\"\"";
+                }
+
+                if (!string.Equals(formulaText, fixedFormulaText, StringComparison.Ordinal))
+                {
+                    formulaField.Text = fixedFormulaText;
+                    fixedFormulaCount++;
+                }
+            }
+
+            return fixedFormulaCount;
+        }
+
+        private int RemovePartyLedgerDisplayStringConditionFormulas(ReportDocument crystalReport, string reportName)
+        {
+            if (!Path.GetFileName(reportName).StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase))
+                return 0;
+
+            int fixedFormulaCount = 0;
+
+            try
+            {
+                object reportClientDocument = crystalReport.GetType().GetProperty("ReportClientDocument").GetValue(crystalReport, null);
+                object reportDefController = reportClientDocument.GetType().GetProperty("ReportDefController").GetValue(reportClientDocument, null);
+                object reportObjectController = reportDefController.GetType().GetProperty("ReportObjectController").GetValue(reportDefController, null);
+                object reportObjects = reportObjectController.GetType().GetMethod("GetAllReportObjects").Invoke(reportObjectController, null);
+                int reportObjectCount = Convert.ToInt32(reportObjects.GetType().GetProperty("Count").GetValue(reportObjects, null));
+                Type conditionFormulaType = Type.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum, CrystalDecisions.ReportAppServer.ReportDefModel");
+                object displayStringFormulaType = Enum.ToObject(conditionFormulaType, 9);
+
+                for (int i = 0; i < reportObjectCount; i++)
+                {
+                    object reportObject = reportObjects.GetType().GetProperty("Item").GetValue(reportObjects, new object[] { i });
+                    fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormula(reportObjectController, reportObject, displayStringFormulaType);
+                }
+            }
+            catch
+            {
+                return fixedFormulaCount;
+            }
+
+            return fixedFormulaCount;
+        }
+
+        private int RemovePartyLedgerDisplayStringConditionFormula(object reportObjectController, object reportObject, object displayStringFormulaType)
+        {
+            try
+            {
+                object format = reportObject.GetType().GetProperty("Format").GetValue(reportObject, null);
+                object conditionFormulas = format.GetType().GetProperty("ConditionFormulas").GetValue(format, null);
+                object displayStringFormula = conditionFormulas.GetType().GetProperty("Formula").GetValue(conditionFormulas, new object[] { displayStringFormulaType });
+
+                if (displayStringFormula == null)
+                    return 0;
+
+                string formulaText = Convert.ToString(displayStringFormula.GetType().GetProperty("Text").GetValue(displayStringFormula, null));
+                if (string.IsNullOrEmpty(formulaText))
+                    return 0;
+
+                object fixedReportObject = reportObject.GetType().GetMethod("Clone").Invoke(reportObject, new object[] { true });
+                object fixedFormat = fixedReportObject.GetType().GetProperty("Format").GetValue(fixedReportObject, null);
+                object fixedConditionFormulas = fixedFormat.GetType().GetProperty("ConditionFormulas").GetValue(fixedFormat, null);
+                fixedConditionFormulas.GetType().GetMethod("RemoveFormula").Invoke(fixedConditionFormulas, new object[] { displayStringFormulaType });
+
+                reportObjectController.GetType().GetMethod("Modify").Invoke(reportObjectController, new object[] { reportObject, fixedReportObject });
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
 
         #region Excel Export Crystal Report CODE
         private void SetFieldValuesCrystalEXCEL(string appType, string reportName)
@@ -9486,6 +9630,7 @@ namespace ERPSMS_v01.Reports
                 GC.Collect();
                 reportDocument = new ReportDocument();
                 reportDocument.Load(Server.MapPath("~/Reports/CrystalReportFiles/" + reportName));
+                ApplyLedgerCrystalFormulaFixes(reportName);
                 reportDocument.Refresh();
                 ReportFile = reportName;
                 ERP.Utilities.CommonFunctions.SetCrystalReportDataBaseConnection(reportDocument);

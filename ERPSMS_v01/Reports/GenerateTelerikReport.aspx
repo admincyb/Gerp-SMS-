@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="<%$ Resources:Captions,Title_Print %>" Language="C#" MasterPageFile="~/ERPSMS_2.Master" AutoEventWireup="true"
     CodeBehind="GenerateTelerikReport.aspx.cs" Inherits="ERPSMS_v01.Reports.GenerateTelerikReport" Theme="ClassicExt" %>
 
-<%@ Register Assembly="Telerik.ReportViewer.Html5.WebForms, Version=15.1.21.616, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" Namespace="Telerik.ReportViewer.Html5.WebForms" TagPrefix="telerik" %>
+
+<%@ Register Assembly="Telerik.ReportViewer.Html5.WebForms, Version=18.1.24.709, Culture=neutral, PublicKeyToken=a9d7983dfcc261be" Namespace="Telerik.ReportViewer.Html5.WebForms" TagPrefix="telerik" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/GrantPrintUtility.js" type="text/javascript"></script>
