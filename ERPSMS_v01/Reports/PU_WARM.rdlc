@@ -957,7 +957,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1642,7 +1641,7 @@
                                   <Value>Acc Code</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1682,7 +1681,7 @@
                                   <Value>Acc Name</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1722,7 +1721,7 @@
                                   <Value>Description</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1763,7 +1762,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
@@ -1807,7 +1806,7 @@
                                   <Value>="Debit(" &amp; First(Fields!FTH_BASE_CURR_TEXT.Value, "PVAccountDtls") &amp; ")"</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1849,7 +1848,7 @@
                                   <Value>="Credit("&amp; First(Fields!FTH_BASE_CURR_TEXT.Value, "PVAccountDtls") &amp; ")"</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1893,7 +1892,7 @@
                                   <Value>=Fields!FTR_ACCOUNT_CODE.Value</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1933,7 +1932,7 @@
 " - " &amp; Code.HTMLDecode(Fields!FTR_SUB_ACCOUNT_TEXT.Value),"")</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1973,7 +1972,7 @@
 'Code.HtmlDecode(Fields!FTR_NARRATION.Value) &amp; IIF (string.IsNullOrEmpty(Fields!FTR_COST_CENTER_TEXT.Value ),"",System.Environment.NewLine + "CC: " &amp; Code.HtmlDecode(Fields!FTR_COST_CENTER_TEXT.Value))</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2012,7 +2011,7 @@
                                   <Value>=IIF(Fields!FTR_EXCHG_RATE.Value=0 OR Fields!FTR_EXCHG_RATE.Value=1 ,"", Format(Fields!FTR_EXCHG_RATE.Value,Parameters!ExchangeRate.Value))</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2053,7 +2052,7 @@
                                   <Value>=IIF(Fields!FTR_DR_AMT_BC.Value&gt;0,Format(Fields!FTR_DR_AMT_BC.Value,Parameters!CurrencyFormat.Value),"")</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2094,7 +2093,7 @@
                                   <Value>=IIF(Fields!FTR_CR_AMT_BC.Value&gt;0,Format(Fields!FTR_CR_AMT_BC.Value,Parameters!CurrencyFormat.Value),"")</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2137,7 +2136,7 @@
                                   <Value>Total amount this voucher :</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2222,7 +2221,7 @@
                                   <Value>=Format(Sum(Fields!FTR_DR_AMT_BC.Value),Parameters!CurrencyFormat.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2263,7 +2262,7 @@
                                   <Value>=Format(Sum(Fields!FTR_CR_AMT_BC.Value),Parameters!CurrencyFormat.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2307,7 +2306,7 @@
                                   <Value>="Amount in words : " &amp; Fields!FTH_BASE_CURR_TEXT.Value &amp; " " &amp; Replace(Code.objNumConvertor.ConvertNumberToWords(Sum(Fields!FTR_DR_AMT_BC.Value)),"Paise",Fields!FTH_BASE_CURR_FRACTION.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -2490,6 +2489,9 @@
             <Height>0.22917in</Height>
             <Width>1.86514in</Width>
             <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3056,6 +3058,7 @@
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Verdana</FontFamily>
+                        <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                         <TextDecoration>None</TextDecoration>
                       </Style>

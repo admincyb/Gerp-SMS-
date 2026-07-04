@@ -170625,7 +170625,54 @@ namespace ERPData
         private global::System.String _ICH_TAX_ID;
         partial void OnICH_TAX_IDChanging(global::System.String value);
         partial void OnICH_TAX_IDChanged();
-
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RCM_DUE_DATE
+        {
+            get
+            {
+                return _RCM_DUE_DATE;
+            }
+            set
+            {
+                OnRCM_DUE_DATEChanging(value);
+                ReportPropertyChanging("RCM_DUE_DATE");
+                _RCM_DUE_DATE = StructuralObject.SetValidValue(value, true, "RCM_DUE_DATE");
+                ReportPropertyChanged("RCM_DUE_DATE");
+                OnRCM_DUE_DATEChanged();
+            }
+        }
+        private global::System.String _RCM_DUE_DATE;
+        partial void OnRCM_DUE_DATEChanging(global::System.String value);
+        partial void OnRCM_DUE_DATEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RCM_REMAIN_AMOUNT
+        {
+            get
+            {
+                return _RCM_REMAIN_AMOUNT;
+            }
+            set
+            {
+                OnRCM_REMAIN_AMOUNTChanging(value);
+                ReportPropertyChanging("RCM_REMAIN_AMOUNT");
+                _RCM_REMAIN_AMOUNT = StructuralObject.SetValidValue(value, "RCM_REMAIN_AMOUNT");
+                ReportPropertyChanged("RCM_REMAIN_AMOUNT");
+                OnRCM_REMAIN_AMOUNTChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RCM_REMAIN_AMOUNT;
+        partial void OnRCM_REMAIN_AMOUNTChanging(Nullable<global::System.Decimal> value);
+        partial void OnRCM_REMAIN_AMOUNTChanged();
         #endregion
 
     }

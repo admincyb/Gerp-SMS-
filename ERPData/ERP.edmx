@@ -24308,6 +24308,8 @@ FROM [dbo].[ADM_REPORT_USER_MAP] AS [ADM_REPORT_USER_MAP]</DefiningQuery>
           <Property Type="Byte" Name="ICH_BRANCH_TYPE" Nullable="false" />
           <Property Type="String" Name="ICH_BRANCH_TEXT" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ICH_TAX_ID" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RCM_DUE_DATE" Nullable="true" />
+          <Property Type="Decimal" Name="RCM_REMAIN_AMOUNT" Nullable="true" Precision="19" Scale="4" />
         </ComplexType>
         <EntityType Name="PUR_ORDER_TAX_HDR">
           <Key>
@@ -38682,6 +38684,8 @@ FROM [dbo].[ADM_REPORT_USER_MAP] AS [ADM_REPORT_USER_MAP]</DefiningQuery>
                 <ScalarProperty Name="ICH_BRANCH_TYPE" ColumnName="ICH_BRANCH_TYPE" />
                 <ScalarProperty Name="ICH_BRANCH_TEXT" ColumnName="ICH_BRANCH_TEXT" />
                 <ScalarProperty Name="ICH_TAX_ID" ColumnName="ICH_TAX_ID" />
+                <ScalarProperty Name="RCM_DUE_DATE" ColumnName="RCM_DUE_DATE" />
+                <ScalarProperty Name="RCM_REMAIN_AMOUNT" ColumnName="RCM_REMAIN_AMOUNT" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

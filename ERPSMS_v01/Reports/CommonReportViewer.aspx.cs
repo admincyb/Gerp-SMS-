@@ -3531,11 +3531,71 @@ namespace ERPSMS_v01.Reports
                 {
                     CommonBL.ExceptionWriting("Crystal UFL formulas overridden: " + fixedFormulaCount, "Crystal formula fix applied : " + reportName);
                 }
+
+                int fixedFontCount = ApplyCrystalThaiFontFixes(reportName);
+                if (fixedFontCount > 0)
+                {
+                    CommonBL.ExceptionWriting("Crystal Thai fonts overridden: " + fixedFontCount, "Crystal font fix applied : " + reportName);
+                }
             }
             catch (Exception ex)
             {
                 CommonBL.ExceptionWriting(ex.ToString(), "Crystal formula fix failed : " + reportName);
             }
+        }
+
+        private int ApplyCrystalThaiFontFixes(string reportName)
+        {
+            string normalizedReportName = Path.GetFileName(reportName ?? string.Empty);
+            if (!normalizedReportName.Equals("DebtorAgingReport_MIS.rpt", StringComparison.OrdinalIgnoreCase) &&
+                !normalizedReportName.Equals("DebtorsAgingReport_MIS.rpt", StringComparison.OrdinalIgnoreCase) &&
+                !normalizedReportName.Equals("AccountPayableByInvoice_MIS.rpt", StringComparison.OrdinalIgnoreCase) &&
+                !normalizedReportName.Equals("AccountPayableByInvoice_IGCL_MIS.rpt", StringComparison.OrdinalIgnoreCase))
+                return 0;
+
+            int fixedFontCount = ApplyCrystalThaiFontFixes(reportDocument);
+            foreach (ReportDocument subReport in reportDocument.Subreports)
+            {
+                fixedFontCount += ApplyCrystalThaiFontFixes(subReport);
+            }
+
+            return fixedFontCount;
+        }
+
+        private int ApplyCrystalThaiFontFixes(ReportDocument crystalReport)
+        {
+            int fixedFontCount = 0;
+
+            foreach (Section section in crystalReport.ReportDefinition.Sections)
+            {
+                foreach (ReportObject reportObject in section.ReportObjects)
+                {
+                    TextObject textObject = reportObject as TextObject;
+                    if (textObject != null)
+                    {
+                        textObject.ApplyFont(GetThaiSafeFont(textObject.Font));
+                        fixedFontCount++;
+                        continue;
+                    }
+
+                    FieldObject fieldObject = reportObject as FieldObject;
+                    if (fieldObject != null)
+                    {
+                        fieldObject.ApplyFont(GetThaiSafeFont(fieldObject.Font));
+                        fixedFontCount++;
+                    }
+                }
+            }
+
+            return fixedFontCount;
+        }
+
+        private Font GetThaiSafeFont(Font sourceFont)
+        {
+            if (sourceFont == null)
+                return new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 222);
+
+            return new Font("Tahoma", sourceFont.Size, sourceFont.Style, sourceFont.Unit, 222, sourceFont.GdiVerticalFont);
         }
 
         private int ApplyCrystalUflFormulaFixes(ReportDocument crystalReport)
