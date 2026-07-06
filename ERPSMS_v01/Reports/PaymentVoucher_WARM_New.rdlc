@@ -1403,16 +1403,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.54876in</Width>
+                  <Width>1.18418in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.60042in</Width>
+                  <Width>3.10999in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.2961in</Width>
+                  <Width>1.26474in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.2961in</Width>
+                  <Width>1.19193in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1463,7 +1466,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= "VOUCHER NO. : " &amp; First(Fields!FTH_VOUCHER_NO.Value, "PVHeader")</Value>
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Arial Unicode MS</FontFamily>
@@ -1494,6 +1497,43 @@
                     </TablixCell>
                     <TablixCell />
                     <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox24">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -1580,7 +1620,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Debit</Value>
+                                  <Value>Exchange Rate</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Verdana</FontFamily>
@@ -1612,6 +1652,44 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox137">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Debit</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox137</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox138">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1654,14 +1732,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FTR_CR_AMT_TC2">
+                        <Textbox Name="FTR_ACCOUNT_CODE">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FTR_CR_AMT_TC.Value</Value>
+                                  <Value>=Fields!FTR_ACCOUNT_CODE.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1671,7 +1749,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FTR_CR_AMT_TC2</rd:DefaultName>
+                          <rd:DefaultName>FTR_ACCOUNT_CODE</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1720,14 +1798,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FTR_DR_AMT_TC">
+                        <Textbox Name="FTR_EXCHG_RATE">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FTR_DR_AMT_BC.Value</Value>
+                                  <Value>=Fields!FTR_EXCHG_RATE.Value</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1740,7 +1818,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FTR_DR_AMT_TC</rd:DefaultName>
+                          <rd:DefaultName>FTR_EXCHG_RATE</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1762,7 +1840,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FTR_CR_AMT_BC.Value</Value>
+                                  <Value>=Fields!FTR_DR_AMT_BC.Value</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1776,6 +1854,41 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>FTR_CR_AMT_TC</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox30">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!FTR_CR_AMT_BC.Value</Value>
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>=Parameters!CurrencyFormat.Value</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox30</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1840,6 +1953,40 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>=Parameters!CurrencyFormat.Value</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>FTR_DR_AMT_TC1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="FTR_DR_AMT_TC2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
                                   <Value>=Sum(Fields!FTR_DR_AMT_BC.Value)</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
@@ -1867,7 +2014,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="FTR_CR_AMT_TC1">
+                        <Textbox Name="Textbox33">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1886,7 +2033,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>FTR_CR_AMT_TC1</rd:DefaultName>
+                          <rd:DefaultName>Textbox33</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1905,6 +2052,7 @@
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -1931,7 +2079,7 @@
             <Top>1.73689in</Top>
             <Left>0.01862in</Left>
             <Height>0.84055in</Height>
-            <Width>7.74138in</Width>
+            <Width>7.75084in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2385,6 +2533,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2431,7 +2580,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Format(Fields!FTR_SUB_ACCOUNT_TEXT.Value,Parameters!DateFormat.Value)</Value>
+                                  <Value>=Format(Fields!FTR_INSTR_DATE.Value,Parameters!DateFormat.Value)</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2672,7 +2821,7 @@ and iif(len(Fields!FTR_INSTR_DATE.Value)&gt;0,false,true)</Hidden>
                           <Sizing>Fit</Sizing>
                           <ZIndex>10</ZIndex>
                           <Visibility>
-                            <Hidden>=IIF(len(First(Fields!FTH_TASK4_BY_SIGN.Value, "PVHeader"))&gt;0,false,true)</Hidden>
+                            <Hidden>true</Hidden>
                           </Visibility>
                           <Style>
                             <Border>
@@ -3555,7 +3704,7 @@ iif(Len(First(Fields!CMP_WEBSITE.Value, "CompanyDtls"))&gt;0
               <Top>0.48958in</Top>
               <Left>0.03074in</Left>
               <Height>0.57028in</Height>
-              <Width>4.98392in</Width>
+              <Width>4.71309in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -3576,6 +3725,40 @@ iif(Len(First(Fields!CMP_WEBSITE.Value, "CompanyDtls"))&gt;0
                 </Border>
               </Style>
             </Line>
+            <Textbox Name="Textbox16">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>= "VOUCHER NO. : " &amp; First(Fields!FTH_VOUCHER_NO.Value, "PVHeader")</Value>
+                      <Style>
+                        <FontFamily>Arial Unicode MS</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox4</rd:DefaultName>
+              <Top>0.50346in</Top>
+              <Left>4.78549in</Left>
+              <Height>0.27861in</Height>
+              <Width>2.7225in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -3606,6 +3789,7 @@ iif(Len(First(Fields!CMP_WEBSITE.Value, "CompanyDtls"))&gt;0
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>0.01862in</Left>
               <Height>0.15903in</Height>
               <Width>6.06456in</Width>

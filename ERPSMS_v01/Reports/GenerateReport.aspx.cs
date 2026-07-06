@@ -5606,8 +5606,7 @@ namespace ERPSMS_v01.Reports
                         }
 
                         string localCmpAddress = lstPND[0].CMP_ADDR3;
-                        string[] _splitter = { Environment.NewLine };
-                        string[] Address = localCmpAddress.Split(_splitter, StringSplitOptions.None);
+                        string[] Address = SplitThaiPndAddress(localCmpAddress);
 
                         parameters = new ReportParameter("Address1", Address[0].Length > 0 ? Address[0].ToString() : "1");
                         locRpt.SetParameters(parameters);
@@ -5691,8 +5690,7 @@ namespace ERPSMS_v01.Reports
                         }
 
                         string localCmpAddress = lstPND[0].CMP_ADDR3;
-                        string[] _splitter = { Environment.NewLine };
-                        string[] Address = localCmpAddress.Split(_splitter, StringSplitOptions.None);
+                        string[] Address = SplitThaiPndAddress(localCmpAddress);
 
                         parameters = new ReportParameter("Address1", Address[0].Length > 0 ? Address[0].ToString() : "1");
                         locRpt.SetParameters(parameters);
@@ -10613,6 +10611,95 @@ namespace ERPSMS_v01.Reports
 
         }
 
+
+        private string[] SplitThaiPndAddress(string localAddress)
+        {
+            string[] address = Enumerable.Repeat("1", 11).ToArray();
+            if (string.IsNullOrEmpty(localAddress) || localAddress.Trim().Length == 0)
+                return address;
+
+            string text = localAddress.Trim();
+            string[] lineSplitter = { Environment.NewLine };
+            string[] lines = text.Split(lineSplitter, StringSplitOptions.None);
+            if (lines.Length > 1)
+            {
+                for (int i = 0; i < address.Length && i < lines.Length; i++)
+                    address[i] = CleanPndAddressValue(lines[i]);
+                return address;
+            }
+
+            int posSoi = text.IndexOf("ซอย", StringComparison.Ordinal);
+            int posRoad = text.IndexOf("ถนน", posSoi >= 0 ? posSoi + 1 : 0, StringComparison.Ordinal);
+            int posSubDistrict = text.IndexOf("แขวง", StringComparison.Ordinal);
+            int posDistrict = text.IndexOf("เขต", StringComparison.Ordinal);
+            int posPostCode = FindThaiPostCodeStart(text);
+
+            if (posSoi > 0)
+                address[0] = CleanPndAddressValue(text.Substring(0, posSoi));
+            else if (posRoad > 0)
+                address[0] = CleanPndAddressValue(text.Substring(0, posRoad));
+
+            if (posSoi >= 0 && posRoad > posSoi)
+                address[6] = CleanPndAddressValue(text.Substring(posSoi, posRoad - posSoi));
+
+            if (posRoad >= 0 && posSubDistrict > posRoad)
+                address[7] = CleanPndAddressValue(text.Substring(posRoad, posSubDistrict - posRoad));
+
+            if (posSubDistrict >= 0 && posDistrict > posSubDistrict)
+                address[8] = CleanPndAddressValue(text.Substring(posSubDistrict, posDistrict - posSubDistrict));
+
+            if (posDistrict >= 0)
+            {
+                int distProvEnd = posPostCode > posDistrict ? posPostCode : text.Length;
+                string distProv = text.Substring(posDistrict, distProvEnd - posDistrict).Trim();
+                int posProvince = -1;
+                string[] provinceMarkers = { "กรุงเทพฯ", "กรุงเทพมหานคร", "จังหวัด" };
+                foreach (string marker in provinceMarkers)
+                {
+                    int markerPos = distProv.IndexOf(marker, StringComparison.Ordinal);
+                    if (markerPos > 0 && (posProvince < 0 || markerPos < posProvince))
+                        posProvince = markerPos;
+                }
+
+                if (posProvince > 0)
+                {
+                    address[9] = CleanPndAddressValue(distProv.Substring(0, posProvince));
+                    address[10] = CleanPndAddressValue(distProv.Substring(posProvince));
+                }
+                else
+                {
+                    int lastSpace = distProv.LastIndexOf(' ');
+                    if (lastSpace > 0)
+                    {
+                        address[9] = CleanPndAddressValue(distProv.Substring(0, lastSpace));
+                        address[10] = CleanPndAddressValue(distProv.Substring(lastSpace + 1));
+                    }
+                    else
+                    {
+                        address[9] = CleanPndAddressValue(distProv);
+                    }
+                }
+            }
+
+            return address;
+        }
+
+        private string CleanPndAddressValue(string value)
+        {
+            if (string.IsNullOrEmpty(value) || value.Trim().Length == 0)
+                return "1";
+            return value.Trim();
+        }
+
+        private int FindThaiPostCodeStart(string text)
+        {
+            for (int i = 0; i <= text.Length - 5; i++)
+            {
+                if (char.IsDigit(text[i]) && char.IsDigit(text[i + 1]) && char.IsDigit(text[i + 2]) && char.IsDigit(text[i + 3]) && char.IsDigit(text[i + 4]))
+                    return i;
+            }
+            return -1;
+        }
         private ParameterField SetParamValue(string paramName, string paramValue)
         {
             ParameterField paramField = new ParameterField();
@@ -10649,3 +10736,4 @@ namespace ERPSMS_v01.Reports
         #endregion
     }
 }
+
