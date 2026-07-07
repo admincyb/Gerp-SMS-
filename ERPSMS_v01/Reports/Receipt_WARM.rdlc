@@ -739,7 +739,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=First(Fields!RCM_DUE_DATE.Value, "RVHeader")</Value>
+                                  <Value>=Fields!RCM_DUE_DATE.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -769,6 +769,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
