@@ -421,6 +421,10 @@
           <DataField>SOH_BANK_NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DPH_CONSIGNEE_EMAIL">
+          <DataField>DPH_CONSIGNEE_EMAIL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
@@ -2436,7 +2440,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>8.31524in</Width>
+      <Width>7.76874in</Width>
       <Page>
         <PageHeader>
           <Height>4.63794in</Height>
@@ -2760,11 +2764,10 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>
-                    =Code.HTMLDecode(First(Fields!DPH_CUSTOMER_ADDRESS.Value, "DOHeaderDtls")) &amp;
+                      <Value>=Code.HTMLDecode(First(Fields!DPH_CUSTOMER_ADDRESS.Value, "DOHeaderDtls")) &amp;
                     IIF(string.IsNullOrEmpty(First(Fields!DPH_CUSTOMER_PHONE.Value, "DOHeaderDtls")),"", VBCRLF &amp; "TEL. : "+First(Fields!DPH_CUSTOMER_PHONE.Value, "DOHeaderDtls")) &amp;
-                    IIF(string.IsNullOrEmpty(First(Fields!DPH_CUSTOMER_FAX.Value, "DOHeaderDtls")),"",VBCRLF &amp; "FAX. : "+First(Fields!DPH_CUSTOMER_FAX.Value, "DOHeaderDtls"))
-                  </Value>
+                    IIF(string.IsNullOrEmpty(First(Fields!DPH_CUSTOMER_FAX.Value, "DOHeaderDtls")),"",VBCRLF &amp; "FAX. : "+First(Fields!DPH_CUSTOMER_FAX.Value, "DOHeaderDtls")) &amp;
+					 IIF(string.IsNullOrEmpty(First(Fields!DPH_CONSIGNEE_EMAIL.Value, "DOHeaderDtls")),"",VBCRLF &amp; "Email. : "+First(Fields!DPH_CONSIGNEE_EMAIL.Value, "DOHeaderDtls"))</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Arial Unicode MS</FontFamily>
