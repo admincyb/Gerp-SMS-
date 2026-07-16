@@ -1736,9 +1736,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!SOD_CASE_MARK.Value</Value>
+                                  <Value>=Code.HTMLDecode(Fields!SOD_CASE_MARK.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -1776,7 +1776,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!CIM_BRAND_TEXT_NEW.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -2028,7 +2028,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!SOD_REMARKS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -2117,7 +2117,7 @@
                                   <Value>=IIF(String.IsNullOrEmpty(Fields!LOT_NO.Value),"","LOT NO. " &amp; code.HTMLDecode(Fields!DPD_LOT_NO.Value)) &amp;
 																IIF(String.IsNullOrEmpty(Fields!LOT_SIZE.Value),"","     LOT SIZE. " &amp; code.HTMLDecode(Fields!LOT_SIZE.Value)) &amp; VBCRLF &amp; "Dimension(MM) : " &amp; Fields!LENGTH_HEIGHT_BREADTH.Value</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -2381,7 +2381,7 @@
                                 <TextRun>
                                   <Value>=IIF(ISNothing(Fields!CIM_PACKING_SPEC_NAME.Value),"","PACKING MODE: " &amp; Code.HTMLDecode(Fields!CIM_PACKING_SPEC_NAME.Value))</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -3016,7 +3016,7 @@
 																(Code.HTMLDecode(First(Fields!DPH_CUSTOMER_TEXT.Value, "DOHeaderDtls"))&amp; " - " &amp;Code.HTMLDecode(First(Fields!CUS_CODE.Value, "DOHeaderDtls"))))
 															</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -3119,7 +3119,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CUSTOMER_ADDRESS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -3499,7 +3499,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(First(Fields!DPH_NOTIFY_PARTY_NAME.Value, "DOHeaderDtls"))</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -3606,7 +3606,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_NOTIFY_PARTY_ADDRESS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -4080,7 +4080,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CONSIGNEE_NAME.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -4182,7 +4182,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CONSIGNEE_ADDRESS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>6pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -6259,7 +6259,13 @@
 
 		Dim DecodedString, i
 
-		DecodedString = EncodedString
+		If EncodedString Is Nothing Then
+
+		Return ""
+
+		End If
+
+		DecodedString = CStr(EncodedString)
 
 		DecodedString = Replace(DecodedString, "&amp;quot;", chr(34) )
 
@@ -6279,7 +6285,33 @@
 
 		Next
 
-		Return DecodedString
+		Return FixThaiMojibake(DecodedString)
+
+		End Function
+
+		Private Function FixThaiMojibake(ByVal value As String) As String
+
+		If value Is Nothing Then
+
+		Return ""
+
+		End If
+
+		If InStr(value, ChrW(&amp;HE0) &amp; ChrW(&amp;HB8)) &gt; 0 Or InStr(value, ChrW(&amp;HE0) &amp; ChrW(&amp;HB9)) &gt; 0 Then
+
+		Try
+
+		Return System.Text.Encoding.UTF8.GetString(System.Text.Encoding.GetEncoding(1252).GetBytes(value))
+
+		Catch
+
+		Return value
+
+		End Try
+
+		End If
+
+		Return value
 
 		End Function
 

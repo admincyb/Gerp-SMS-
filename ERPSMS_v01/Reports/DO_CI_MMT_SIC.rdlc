@@ -4449,7 +4449,7 @@
 																Code.HTMLDecode(First(Fields!DPH_CUSTOMER_TEXT.Value, "DOHeaderDtls")) )
 																' &amp; " - " &amp; Code.HTMLDecode(First(Fields!CUS_CODE.Value, "DOHeaderDtls"))</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -4552,7 +4552,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CUSTOMER_ADDRESS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -6945,7 +6945,7 @@
               <Top>0.24438in</Top>
               <Left>4.50185in</Left>
               <Height>0.30546in</Height>
-              <Width>3.19705in</Width>
+              <Width>3.18895in</Width>
               <ZIndex>2</ZIndex>
               <Visibility>
                 <Hidden>=Parameters!HideHeadTitle.Value</Hidden>
@@ -7985,7 +7985,13 @@
 
 		Dim DecodedString, i
 
-		DecodedString = EncodedString
+		If EncodedString Is Nothing Then
+
+		Return ""
+
+		End If
+
+		DecodedString = CStr(EncodedString)
 
 		DecodedString = Replace(DecodedString, "&amp;quot;", chr(34) )
 
@@ -8005,7 +8011,33 @@
 
 		Next
 
-		Return DecodedString
+		Return FixThaiMojibake(DecodedString)
+
+		End Function
+
+		Private Function FixThaiMojibake(ByVal value As String) As String
+
+		If value Is Nothing Then
+
+		Return ""
+
+		End If
+
+		If InStr(value, ChrW(&amp;HE0) &amp; ChrW(&amp;HB8)) &gt; 0 Or InStr(value, ChrW(&amp;HE0) &amp; ChrW(&amp;HB9)) &gt; 0 Then
+
+		Try
+
+		Return System.Text.Encoding.UTF8.GetString(System.Text.Encoding.GetEncoding(1252).GetBytes(value))
+
+		Catch
+
+		Return value
+
+		End Try
+
+		End If
+
+		Return value
 
 		End Function
 

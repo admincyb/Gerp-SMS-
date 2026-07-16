@@ -7084,7 +7084,7 @@ namespace ERPSMS_v01.Reports
                     File.Delete(attachmentFilePath);
                 // Array.ForEach(Directory.GetFiles(savePath), File.Delete);//Delete all files in a folder
                 format = "PDF";
-                string deviceInfo = "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+                string deviceInfo = GetPdfDeviceInfo(locRpt);
                 byte[] bytes = locRpt.Render(format, deviceInfo, out mimeType, out encoding, out extension, out streamids, out warnings);
                 /* stream to use for attachment - can implement later
                 Stream stream = new MemoryStream();
@@ -7149,7 +7149,7 @@ namespace ERPSMS_v01.Reports
                 attachmentFileName = RptType + RptSubType + ".pdf";
 
                 format = "PDF";
-                string deviceInfo = "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+                string deviceInfo = GetPdfDeviceInfo(locRpt);
                 byte[] bytes = locRpt.Render(format, deviceInfo, out mimeType, out encoding, out extension, out streamids, out warnings);
                 Response.Buffer = true;
                 Response.Clear();
@@ -7164,6 +7164,20 @@ namespace ERPSMS_v01.Reports
             {
                 throw ex;
             }
+        }
+
+        private string GetPdfDeviceInfo(LocalReport locRpt)
+        {
+            if (locRpt != null
+                && !string.IsNullOrEmpty(locRpt.ReportPath)
+                && (locRpt.ReportPath.ToUpper().EndsWith("DO_CI_MMT_SIC.RDLC")
+                    || locRpt.ReportPath.ToUpper().EndsWith("PL_WARM.RDLC")
+                    || locRpt.ReportPath.ToUpper().EndsWith("EXPORTCUSTOMPL.RDLC")))
+            {
+                return string.Empty;
+            }
+
+            return "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
         }
         #endregion
 

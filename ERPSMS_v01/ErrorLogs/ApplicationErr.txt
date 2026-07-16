@@ -30538,3 +30538,218 @@ Stack Trace:
 System.Web.HttpException (0x80004005): A potentially dangerous Request.Path value was detected from the client (:).
    at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
    at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+********** 7/15/2026 6:56:25 PM **********
+Exception Type: System.Data.SqlClient.SqlException
+Exception: Cannot open database "ERP_MMT_TEST_20260203_11_48AM" requested by the login. The login failed.
+Login failed for user 'sa'.
+Stack Trace: 
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+********** Exception To String **********
+System.Data.SqlClient.SqlException (0x80131904): Cannot open database "ERP_MMT_TEST_20260203_11_48AM" requested by the login. The login failed.
+Login failed for user 'sa'.
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ClientConnectionId:8256130e-3f00-4c47-a261-ba2b18b1e73e
+Error Number:4060,State:1,Class:11
+********** 7/15/2026 6:58:59 PM **********
+Exception Type: System.Data.SqlClient.SqlException
+Exception: A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+Stack Trace: 
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+********** Exception To String **********
+System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:-1,State:0,Class:20
+********** 7/15/2026 7:01:54 PM **********
+Inner Exception Type: System.ComponentModel.Win32Exception
+Inner Exception: The remote computer refused the network connection
+Inner Source: 
+Exception Type: System.Data.SqlClient.SqlException
+Exception: A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 0 - The remote computer refused the network connection.)
+Stack Trace: 
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+********** Exception To String **********
+System.Data.SqlClient.SqlException (0x80131904): A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: TCP Provider, error: 0 - The remote computer refused the network connection.) ---> System.ComponentModel.Win32Exception (0x80004005): The remote computer refused the network connection
+   at DataAccess.LoginDL.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\DataAccess\LoginDL.cs:line 126
+   at BusinessLogic.Login.GetUserGroup(Int32 userPK) in C:\PROJECT\G-ERP_SMS\BusinessLogic\Login.cs:line 64
+   at LatexERPV2.Global.Application_AuthenticateRequest(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Global.asax.cs:line 186
+   at System.Web.HttpApplication.SyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+ClientConnectionId:00000000-0000-0000-0000-000000000000
+Error Number:1225,State:0,Class:20
+********** 7/15/2026 7:20:14 PM **********
+Inner Exception Type: System.Web.HttpException
+Inner Exception: Failed to load viewstate.  The control tree into which viewstate is being loaded must match the control tree that was used to save viewstate during the previous request.  For example, when adding controls dynamically, the controls added during a post-back must match the type and position of the controls added during the initial request.
+Inner Source: System.Web
+Inner Stack Trace: 
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Page.LoadAllState()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+Exception Type: System.Web.HttpUnhandledException
+Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+Stack Trace: 
+   at System.Web.UI.Page.HandleError(Exception e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest()
+   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   at System.Web.UI.Page.ProcessRequest(HttpContext context)
+   at ASP.reports_commonreportviewer_aspx.ProcessRequest(HttpContext context) in c:\Users\Sooraj\AppData\Local\Temp\Temporary ASP.NET Files\vs\c388bfed\b456f981\App_Web_3xkgfex5.1.cs:line 0
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+********** Exception To String **********
+System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. ---> System.Web.HttpException (0x80004005): Failed to load viewstate.  The control tree into which viewstate is being loaded must match the control tree that was used to save viewstate during the previous request.  For example, when adding controls dynamically, the controls added during a post-back must match the type and position of the controls added during the initial request.
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Control.LoadChildViewStateByIndex(ArrayList childState)
+   at System.Web.UI.Control.LoadViewStateRecursive(Object savedState)
+   at System.Web.UI.Page.LoadAllState()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.HandleError(Exception e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest()
+   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   at System.Web.UI.Page.ProcessRequest(HttpContext context)
+   at ASP.reports_commonreportviewer_aspx.ProcessRequest(HttpContext context) in c:\Users\Sooraj\AppData\Local\Temp\Temporary ASP.NET Files\vs\c388bfed\b456f981\App_Web_3xkgfex5.1.cs:line 0
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+********** 7/16/2026 12:20:08 PM **********
+Inner Exception Type: System.NullReferenceException
+Inner Exception: Object reference not set to an instance of an object.
+Inner Source: ERPSMS_v01
+Inner Stack Trace: 
+   at ERPSMS_v01.Reports.GenerateReport.PageActionHandler() in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Reports\GenerateReport.aspx.cs:line 8127
+   at ERPSMS_v01.Reports.GenerateReport.Page_Load(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Reports\GenerateReport.aspx.cs:line 588
+   at System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+Exception Type: System.Web.HttpUnhandledException
+Exception: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+Stack Trace: 
+   at System.Web.UI.Page.HandleError(Exception e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest()
+   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   at System.Web.UI.Page.ProcessRequest(HttpContext context)
+   at ASP.reports_generatereport_aspx.ProcessRequest(HttpContext context) in c:\Users\Sooraj\AppData\Local\Temp\Temporary ASP.NET Files\vs\c388bfed\b456f981\App_Web_yc1fj0ek.3.cs:line 0
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+********** Exception To String **********
+System.Web.HttpUnhandledException (0x80004005): Exception of type 'System.Web.HttpUnhandledException' was thrown. ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at ERPSMS_v01.Reports.GenerateReport.PageActionHandler() in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Reports\GenerateReport.aspx.cs:line 8127
+   at ERPSMS_v01.Reports.GenerateReport.Page_Load(Object sender, EventArgs e) in C:\PROJECT\G-ERP_SMS\ERPSMS_v01\Reports\GenerateReport.aspx.cs:line 588
+   at System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   at System.Web.UI.Control.OnLoad(EventArgs e)
+   at System.Web.UI.Control.LoadRecursive()
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.HandleError(Exception e)
+   at System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   at System.Web.UI.Page.ProcessRequest()
+   at System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   at System.Web.UI.Page.ProcessRequest(HttpContext context)
+   at ASP.reports_generatereport_aspx.ProcessRequest(HttpContext context) in c:\Users\Sooraj\AppData\Local\Temp\Temporary ASP.NET Files\vs\c388bfed\b456f981\App_Web_yc1fj0ek.3.cs:line 0
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+********** 7/16/2026 12:21:20 PM **********
+Exception Type: System.Web.HttpException
+Exception: A potentially dangerous Request.Path value was detected from the client (:).
+Stack Trace: 
+   at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
+
+********** Exception To String **********
+System.Web.HttpException (0x80004005): A potentially dangerous Request.Path value was detected from the client (:).
+   at System.Web.HttpRequest.ValidateInputIfRequiredByConfig()
+   at System.Web.HttpApplication.PipelineStepManager.ValidateHelper(HttpContext context)
