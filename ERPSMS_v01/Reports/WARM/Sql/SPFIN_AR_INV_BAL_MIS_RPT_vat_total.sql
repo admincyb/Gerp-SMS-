@@ -1,0 +1,137 @@
+ALTER PROCEDURE [dbo].[SPFIN_AR_INV_BAL_MIS_RPT]
+(
+	@P_XML XML = NULL
+)
+
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	DECLARE	 @V_DOC_HANDLE		INT
+			,@V_FROM_DT			DATE
+			,@V_TO_DT			DATE
+			,@V_BIZUNIT			INT
+			,@V_CMP_PK			INT
+			,@V_CUS_PK			INT
+			,@V_COA_PK			INT
+	DECLARE @T_PARAMETER TABLE
+		(
+			[ParamName]			NVARCHAR(100)
+			,[Value]			NVARCHAR(200)
+		)
+
+	EXEC SP_XML_PREPAREDOCUMENT @V_DOC_HANDLE OUTPUT,@P_XML
+
+	SELECT	 @V_FROM_DT	= [FromDate]
+			,@V_TO_DT	= [ToDate]
+			,@V_BIZUNIT	= [BizUnit]
+	FROM OPENXML(@V_DOC_HANDLE,'/FilterParameters',2)
+	WITH
+		(
+			[FromDate]	DATE
+			,[ToDate]	DATE
+			,[BizUnit]	INT
+			,[Dept]		INT
+		)
+
+	--insert into table variable parameter name and values
+	INSERT INTO @T_PARAMETER
+		(
+			[ParamName]
+			,[Value]
+		)
+	SELECT	[ParamName]
+			,[Value]
+	FROM	OPENXML(@V_DOC_HANDLE,'/FilterParameters/Parameter/Values/Value')
+	WITH
+	(
+		 [ParamName]	NVARCHAR(100)	'../../ParamName'
+		,[Value]		NVARCHAR(200)	'../Value'
+	)
+
+	EXEC SP_XML_REMOVEDOCUMENT @V_DOC_HANDLE
+
+	SELECT	@V_CMP_PK	=	[Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName]	=	'CMP_PK'
+
+	SELECT	@V_CUS_PK	=	[Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName]	=	'CUS_PK'
+
+	SELECT	@V_COA_PK	=	[Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName]	=	'COA_PK'
+
+	SELECT	[COA_PK]
+			,[COA_CODE]
+			,[COA_NAME]
+			,[CUS_PK]
+			,[CUS_CODE]
+			,[CUS_NAME]
+			,[ICH_PK]
+			,[FTH_DATE]	AS	[ICH_DATE]
+			,[ICH_NO]
+			,[ICH_CUR_CODE]
+			,[ICH_BAL_AMOUNT]
+			,ER.[ICH_EXCHG_RATE]
+			,CAST(([ICH_BAL_AMOUNT] * ER.[ICH_EXCHG_RATE]) * 0.07 AS DECIMAL(18,2)) AS [vat(7%)]
+			,CAST(([ICH_BAL_AMOUNT] * ER.[ICH_EXCHG_RATE]) * 1.07 AS DECIMAL(18,2)) AS [Total]
+			,[ICH_BASE_CUR_CODE]
+			,(	SELECT	[CMP_NAME]
+				FROM	ADM_COMPANY_MST
+				WHERE	[CMP_PK]	=	[ICH_COMPANY])		AS		[ICH_COMPANY_TEXT]
+			,[ICH_DATE_PAY_BY]
+			,[ICH_CUR_SYMBOL]
+	FROM	[CRM_CUSTOMER_MST]
+		INNER JOIN	[FIN_COA_MST]		ON	[COA_PK]	=	[CUS_ACCOUNT]
+		INNER JOIN	(
+			SELECT	 [ICH_PK]
+					,[ICH_CUSTOMER]
+					,[ICH_DATE]
+					,[ICH_NO]
+					,[ICH_CURRENCY]
+					,IC.[CUR_CODE]	AS	[ICH_CUR_CODE]
+
+					,[ICH_AMOUNT_NET_TC]	+
+						[ICH_AMOUNT_DN_TC]	-
+						[ICH_AMOUNT_RCVD_TC]-
+						[ICH_AMOUNT_CN_TC]		AS	[ICH_BAL_AMOUNT]
+					,[ICH_EXCHG_RATE]
+					,[ICH_COMPANY]
+					,BC.[CUR_CODE]	AS	[ICH_BASE_CUR_CODE]
+					,[ICH_DATE_PAY_BY]
+					,IC.[CUR_SYMBOL]	AS	[ICH_CUR_SYMBOL]
+			FROM	[FIN_INVOICE_CUS_HDR]
+				INNER JOIN	[ADM_CURRENCY_MST]	AS	IC	ON	IC.[CUR_PK]	=	[ICH_CURRENCY]
+				INNER JOIN	[ADM_CURRENCY_MST]	AS	BC	ON	BC.[CUR_PK]	=	[ICH_BASE_CURR]
+			WHERE	[ICH_DATE]				<=	@V_TO_DT
+				AND	[ICH_DEL_STATUS]		=	0
+				AND	[ICH_HAS_JRNL_ENTRY]	=	1
+				AND	[ICH_COMPANY]			=	ISNULL(@V_CMP_PK,[ICH_COMPANY])
+				AND [ICH_INV_IS_DUMMY]		=	0
+				AND ICH_BIZUNIT=ISNULL(@V_BIZUNIT,ICH_BIZUNIT)
+		)	AS	D	ON	[ICH_CUSTOMER]	=	[CUS_PK]
+		INNER JOIN	[FIN_TRX_HDR]		ON	[FTH_REF_TYPE]	IN	('SIJ','MSIJ')
+										AND	[FTH_REF_PK]		=	[ICH_PK]
+										AND	[FTH_IS_JRNLD]		=	1
+										AND [FTH_IS_DELETED]	=	0
+		CROSS APPLY
+		(
+			SELECT	ISNULL((	SELECT	MAX([FTR_EXCHG_RATE])
+								FROM	[FIN_TRX]
+									INNER JOIN	[FIN_COA_MST]	AS	AD	ON	AD.[COA_PK]			=	[FTR_ACCOUNT]
+																		AND	AD.[COA_SUB_TYPE]	=	2	--AR
+								WHERE	[FTR_TRX_HDR]	=	[FTH_PK]
+							),[ICH_EXCHG_RATE])	AS	[ICH_EXCHG_RATE]
+		) AS ER
+	WHERE	[ICH_BAL_AMOUNT]	>	0.00
+		AND	([CUS_PK]			=	ISNULL(@V_CUS_PK,[CUS_PK])	OR	@V_CUS_PK IS NULL)
+		AND	([COA_PK]			=	ISNULL(@V_COA_PK,[COA_PK])	OR	@V_COA_PK IS NULL)
+	ORDER	BY	[COA_NAME]
+				,[CUS_NAME]
+				,[ICH_DATE]
+				,[ICH_NO]
+
+END

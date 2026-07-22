@@ -3522,9 +3522,11 @@ namespace ERPSMS_v01.Reports
             try
             {
                 int fixedFormulaCount = ApplyCrystalUflFormulaFixes(reportDocument);
+                fixedFormulaCount += RemoveCrystalUflDisplayStringConditionFormulas(reportDocument);
                 foreach (ReportDocument subReport in reportDocument.Subreports)
                 {
                     fixedFormulaCount += ApplyCrystalUflFormulaFixes(subReport);
+                    fixedFormulaCount += RemoveCrystalUflDisplayStringConditionFormulas(subReport);
                 }
 
                 if (fixedFormulaCount > 0)
@@ -3606,18 +3608,29 @@ namespace ERPSMS_v01.Reports
                 string formulaName = (formulaField.Name ?? string.Empty).TrimStart('@').Trim();
                 string formulaText = formulaField.Text ?? string.Empty;
 
-                if (formulaText.IndexOf("CSGtiLibraryGtiLibraryUflHtmlDecode", StringComparison.OrdinalIgnoreCase) >= 0)
+                if (HasCrystalUflHtmlDecodeFormula(formulaText))
                 {
                     string fieldReference = GetCrystalFieldReference(formulaText);
-                    if (!string.IsNullOrEmpty(fieldReference))
+                    if (!string.IsNullOrEmpty(fieldReference) && CrystalReportContainsFieldReference(crystalReport, fieldReference))
                     {
                         formulaField.Text = fieldReference;
+                        fixedFormulaCount++;
+                    }
+                    else
+                    {
+                        formulaField.Text = "\"\"";
                         fixedFormulaCount++;
                     }
                 }
             }
 
             return fixedFormulaCount;
+        }
+
+        private bool HasCrystalUflHtmlDecodeFormula(string formulaText)
+        {
+            return !string.IsNullOrEmpty(formulaText)
+                && formulaText.IndexOf("UflHtmlDecode", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private string GetCrystalFieldReference(string formulaText)
@@ -3628,6 +3641,148 @@ namespace ERPSMS_v01.Reports
                 return formulaText.Substring(startIndex, endIndex - startIndex + 1);
 
             return string.Empty;
+        }
+
+        private bool CrystalReportContainsFieldReference(ReportDocument crystalReport, string fieldReference)
+        {
+            string fieldName = GetCrystalFieldName(fieldReference);
+            if (string.IsNullOrEmpty(fieldName))
+                return false;
+
+            foreach (CrystalDecisions.CrystalReports.Engine.Table table in crystalReport.Database.Tables)
+            {
+                if (CrystalTableContainsField(table, fieldName))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CrystalTableContainsField(CrystalDecisions.CrystalReports.Engine.Table table, string fieldName)
+        {
+            try
+            {
+                PropertyInfo fieldsProperty = table.GetType().GetProperty("Fields");
+                if (fieldsProperty == null)
+                    return false;
+
+                object fields = fieldsProperty.GetValue(table, null);
+                IEnumerable fieldList = fields as IEnumerable;
+                if (fieldList == null)
+                    return false;
+
+                foreach (object field in fieldList)
+                {
+                    PropertyInfo nameProperty = field.GetType().GetProperty("Name");
+                    if (nameProperty == null)
+                        continue;
+
+                    string candidateName = Convert.ToString(nameProperty.GetValue(field, null));
+                    if (string.Equals(candidateName, fieldName, StringComparison.OrdinalIgnoreCase))
+                        return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
+        }
+
+        private string GetCrystalFieldName(string fieldReference)
+        {
+            if (string.IsNullOrEmpty(fieldReference))
+                return string.Empty;
+
+            string trimmedReference = fieldReference.Trim().Trim('{', '}');
+            int fieldSeparatorIndex = trimmedReference.LastIndexOf('.');
+            if (fieldSeparatorIndex < 0 || fieldSeparatorIndex == trimmedReference.Length - 1)
+                return string.Empty;
+
+            return trimmedReference.Substring(fieldSeparatorIndex + 1);
+        }
+
+        private int RemoveCrystalUflDisplayStringConditionFormulas(ReportDocument crystalReport)
+        {
+            int fixedFormulaCount = 0;
+
+            try
+            {
+                dynamic reportClientDocument = crystalReport.GetType().GetProperty("ReportClientDocument").GetValue(crystalReport, null);
+                dynamic reportDefController = reportClientDocument.ReportDefController;
+                dynamic reportObjectController = reportDefController.ReportObjectController;
+                dynamic reportObjects = reportObjectController.GetAllReportObjects();
+                int reportObjectCount = Convert.ToInt32(reportObjects.Count);
+                Type conditionFormulaType = GetCrystalObjectFormatConditionFormulaType();
+
+                if (conditionFormulaType == null)
+                    return fixedFormulaCount;
+
+                object displayStringFormulaType = Enum.ToObject(conditionFormulaType, 9);
+
+                for (int i = 0; i < reportObjectCount; i++)
+                {
+                    dynamic reportObject = reportObjects[i];
+                    fixedFormulaCount += RemoveCrystalUflDisplayStringConditionFormula(reportObjectController, reportObject, displayStringFormulaType);
+                }
+            }
+            catch
+            {
+                return fixedFormulaCount;
+            }
+
+            return fixedFormulaCount;
+        }
+
+        private int RemoveCrystalUflDisplayStringConditionFormula(object reportObjectController, object reportObject, object displayStringFormulaType)
+        {
+            try
+            {
+                dynamic sourceReportObject = reportObject;
+                dynamic format = sourceReportObject.Format;
+                dynamic conditionFormulas = format.ConditionFormulas;
+                dynamic displayStringFormula = conditionFormulas.Formula[displayStringFormulaType];
+
+                if (displayStringFormula == null)
+                    return 0;
+
+                string formulaText = Convert.ToString(displayStringFormula.Text);
+                if (!HasCrystalUflHtmlDecodeFormula(formulaText))
+                    return 0;
+
+                dynamic fixedReportObject = sourceReportObject.Clone(true);
+                dynamic fixedFormat = fixedReportObject.Format;
+                dynamic fixedConditionFormulas = fixedFormat.ConditionFormulas;
+                fixedConditionFormulas.RemoveFormula(displayStringFormulaType);
+
+                dynamic controller = reportObjectController;
+                controller.Modify(sourceReportObject, fixedReportObject);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        private Type GetCrystalObjectFormatConditionFormulaType()
+        {
+            Type conditionFormulaType = Type.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum, CrystalDecisions.ReportAppServer.ReportDefModel");
+            if (conditionFormulaType != null)
+                return conditionFormulaType;
+
+            Assembly reportDefModelAssembly;
+            try
+            {
+                reportDefModelAssembly = Assembly.Load("CrystalDecisions.ReportAppServer.ReportDefModel");
+            } 
+            catch (FileNotFoundException)
+            {
+                reportDefModelAssembly = Assembly.LoadFrom(Path.Combine(HttpRuntime.BinDirectory, "CrystalDecisions.ReportAppServer.ReportDefModel.dll"));
+            }
+
+            return reportDefModelAssembly.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum");
         }
 
         private void BindCrystalReportEXCEL(string paramName, string reportName, string reportID, string curFilter)

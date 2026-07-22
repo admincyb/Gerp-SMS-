@@ -164009,6 +164009,78 @@ namespace ERPData
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String PVM_PURCHASE_ORDER_NO
+        {
+            get
+            {
+                return _PVM_PURCHASE_ORDER_NO;
+            }
+            set
+            {
+                OnPVM_PURCHASE_ORDER_NOChanging(value);
+                ReportPropertyChanging("PVM_PURCHASE_ORDER_NO");
+                _PVM_PURCHASE_ORDER_NO = StructuralObject.SetValidValue(value, true, "PVM_PURCHASE_ORDER_NO");
+                ReportPropertyChanged("PVM_PURCHASE_ORDER_NO");
+                OnPVM_PURCHASE_ORDER_NOChanged();
+            }
+        }
+        private global::System.String _PVM_PURCHASE_ORDER_NO;
+        partial void OnPVM_PURCHASE_ORDER_NOChanging(global::System.String value);
+        partial void OnPVM_PURCHASE_ORDER_NOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PVM_VENDOR_NAME
+        {
+            get
+            {
+                return _PVM_VENDOR_NAME;
+            }
+            set
+            {
+                OnPVM_VENDOR_NAMEChanging(value);
+                ReportPropertyChanging("PVM_VENDOR_NAME");
+                _PVM_VENDOR_NAME = StructuralObject.SetValidValue(value, true, "PVM_VENDOR_NAME");
+                ReportPropertyChanged("PVM_VENDOR_NAME");
+                OnPVM_VENDOR_NAMEChanged();
+            }
+        }
+        private global::System.String _PVM_VENDOR_NAME;
+        partial void OnPVM_VENDOR_NAMEChanging(global::System.String value);
+        partial void OnPVM_VENDOR_NAMEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PVM_PO_NO
+        {
+            get
+            {
+                return _PVM_PO_NO;
+            }
+            set
+            {
+                OnPVM_PO_NOChanging(value);
+                ReportPropertyChanging("PVM_PO_NO");
+                _PVM_PO_NO = StructuralObject.SetValidValue(value, true, "PVM_PO_NO");
+                ReportPropertyChanged("PVM_PO_NO");
+                OnPVM_PO_NOChanged();
+            }
+        }
+        private global::System.String _PVM_PO_NO;
+        partial void OnPVM_PO_NOChanging(global::System.String value);
+        partial void OnPVM_PO_NOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Decimal> PVH_TAX_AMOUNT
         {
             get
