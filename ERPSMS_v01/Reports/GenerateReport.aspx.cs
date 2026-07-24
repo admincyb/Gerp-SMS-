@@ -9531,7 +9531,7 @@ namespace ERPSMS_v01.Reports
 
         private bool IsLedgerCrystalReportWithUflFix(string reportName)
         {
-            string crystalReportName = Path.GetFileName(reportName);
+            string crystalReportName = Path.GetFileName(reportName ?? string.Empty);
             return string.Equals(crystalReportName, "AS_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
                 || crystalReportName.StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase);
         }
@@ -9572,24 +9572,27 @@ namespace ERPSMS_v01.Reports
 
         private int RemovePartyLedgerDisplayStringConditionFormulas(ReportDocument crystalReport, string reportName)
         {
-            if (!Path.GetFileName(reportName).StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase))
+            if (!Path.GetFileName(reportName ?? string.Empty).StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase))
                 return 0;
 
             int fixedFormulaCount = 0;
 
             try
             {
-                object reportClientDocument = crystalReport.GetType().GetProperty("ReportClientDocument").GetValue(crystalReport, null);
-                object reportDefController = reportClientDocument.GetType().GetProperty("ReportDefController").GetValue(reportClientDocument, null);
-                object reportObjectController = reportDefController.GetType().GetProperty("ReportObjectController").GetValue(reportDefController, null);
-                object reportObjects = reportObjectController.GetType().GetMethod("GetAllReportObjects").Invoke(reportObjectController, null);
-                int reportObjectCount = Convert.ToInt32(reportObjects.GetType().GetProperty("Count").GetValue(reportObjects, null));
-                Type conditionFormulaType = Type.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum, CrystalDecisions.ReportAppServer.ReportDefModel");
+                dynamic reportClientDocument = crystalReport.GetType().GetProperty("ReportClientDocument").GetValue(crystalReport, null);
+                dynamic reportDefController = reportClientDocument.ReportDefController;
+                dynamic reportObjectController = reportDefController.ReportObjectController;
+                dynamic reportObjects = reportObjectController.GetAllReportObjects();
+                int reportObjectCount = Convert.ToInt32(reportObjects.Count);
+                Type conditionFormulaType = GetCrystalObjectFormatConditionFormulaType();
+                if (conditionFormulaType == null)
+                    return fixedFormulaCount;
+
                 object displayStringFormulaType = Enum.ToObject(conditionFormulaType, 9);
 
                 for (int i = 0; i < reportObjectCount; i++)
                 {
-                    object reportObject = reportObjects.GetType().GetProperty("Item").GetValue(reportObjects, new object[] { i });
+                    dynamic reportObject = reportObjects[i];
                     fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormula(reportObjectController, reportObject, displayStringFormulaType);
                 }
             }
@@ -9601,27 +9604,48 @@ namespace ERPSMS_v01.Reports
             return fixedFormulaCount;
         }
 
+        private Type GetCrystalObjectFormatConditionFormulaType()
+        {
+            Type conditionFormulaType = Type.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum, CrystalDecisions.ReportAppServer.ReportDefModel");
+            if (conditionFormulaType != null)
+                return conditionFormulaType;
+
+            Assembly reportDefModelAssembly;
+            try
+            {
+                reportDefModelAssembly = Assembly.Load("CrystalDecisions.ReportAppServer.ReportDefModel");
+            }
+            catch (FileNotFoundException)
+            {
+                reportDefModelAssembly = Assembly.LoadFrom(Path.Combine(HttpRuntime.BinDirectory, "CrystalDecisions.ReportAppServer.ReportDefModel.dll"));
+            }
+
+            return reportDefModelAssembly.GetType("CrystalDecisions.ReportAppServer.ReportDefModel.CrObjectFormatConditionFormulaTypeEnum");
+        }
+
         private int RemovePartyLedgerDisplayStringConditionFormula(object reportObjectController, object reportObject, object displayStringFormulaType)
         {
             try
             {
-                object format = reportObject.GetType().GetProperty("Format").GetValue(reportObject, null);
-                object conditionFormulas = format.GetType().GetProperty("ConditionFormulas").GetValue(format, null);
-                object displayStringFormula = conditionFormulas.GetType().GetProperty("Formula").GetValue(conditionFormulas, new object[] { displayStringFormulaType });
+                dynamic sourceReportObject = reportObject;
+                dynamic format = sourceReportObject.Format;
+                dynamic conditionFormulas = format.ConditionFormulas;
+                dynamic displayStringFormula = conditionFormulas.Formula[displayStringFormulaType];
 
                 if (displayStringFormula == null)
                     return 0;
 
-                string formulaText = Convert.ToString(displayStringFormula.GetType().GetProperty("Text").GetValue(displayStringFormula, null));
+                string formulaText = Convert.ToString(displayStringFormula.Text);
                 if (string.IsNullOrEmpty(formulaText))
                     return 0;
 
-                object fixedReportObject = reportObject.GetType().GetMethod("Clone").Invoke(reportObject, new object[] { true });
-                object fixedFormat = fixedReportObject.GetType().GetProperty("Format").GetValue(fixedReportObject, null);
-                object fixedConditionFormulas = fixedFormat.GetType().GetProperty("ConditionFormulas").GetValue(fixedFormat, null);
-                fixedConditionFormulas.GetType().GetMethod("RemoveFormula").Invoke(fixedConditionFormulas, new object[] { displayStringFormulaType });
+                dynamic fixedReportObject = sourceReportObject.Clone(true);
+                dynamic fixedFormat = fixedReportObject.Format;
+                dynamic fixedConditionFormulas = fixedFormat.ConditionFormulas;
+                fixedConditionFormulas.RemoveFormula(displayStringFormulaType);
 
-                reportObjectController.GetType().GetMethod("Modify").Invoke(reportObjectController, new object[] { reportObject, fixedReportObject });
+                dynamic controller = reportObjectController;
+                controller.Modify(sourceReportObject, fixedReportObject);
                 return 1;
             }
             catch
