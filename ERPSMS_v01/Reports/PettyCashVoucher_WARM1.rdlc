@@ -2470,7 +2470,18 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details1" />
+                  <Group Name="Details1">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!WTH_TAX_INV_NO.Value</GroupExpression>
+                      <GroupExpression>=Fields!WTH_TAX_DATE.Value</GroupExpression>
+                      <GroupExpression>=Fields!TAX_SUB_CATEGORY.Value</GroupExpression>
+                      <GroupExpression>=Fields!WTH_TAX_AMT.Value</GroupExpression>
+                      <GroupExpression>=Fields!IS_BANK.Value</GroupExpression>
+                      <GroupExpression>=Fields!FTR_INSTR_NO.Value</GroupExpression>
+                      <GroupExpression>=Fields!FTR_INSTR_DATE.Value</GroupExpression>
+                      <GroupExpression>=Fields!FTR_SUB_ACCOUNT_TEXT.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                   <Visibility>
                     <Hidden>= iif(Fields!WTH_TAX_INV_NO.Value  ="",true,false) and iif( Fields!FTR_INSTR_NO.Value="",true,false) 
 and iif((Fields!WTH_TAX_AMT.Value)&gt;0,false,true) 
