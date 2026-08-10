@@ -2072,7 +2072,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!DPD_QTY_ORDERED_PAIRS.Value</Value>
+                                  <Value>=Replace(format(CDec(Fields!DPD_QTY_DESPATCHED.Value) / 2, Parameters!CurrencyFormat.Value),".00","")</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>6pt</FontSize>
@@ -3468,7 +3468,6 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -5806,7 +5805,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>= CDate(First(Fields!DPH_SHIPPING_PLAN_DATE.Value, "DOHeaderDtls")).toString("dd-MMM-yyyy")
+                      <Value>= CDate(First(Fields!INV_DATE.Value, "DOHeaderDtls")).toString("dd-MMM-yyyy")
 
 'Format(First(Fields!INV_DATE.Value, "DOHeaderDtls"),"dd-MMM-yyyy")</Value>
                       <Style>

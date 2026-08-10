@@ -170487,6 +170487,30 @@ namespace ERPData
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public global::System.String CBM_ACC_NO
+        {
+            get
+            {
+                return _CBM_ACC_NO;
+            }
+            set
+            {
+                OnCBM_ACC_NOChanging(value);
+                ReportPropertyChanging("CBM_ACC_NO");
+                _CBM_ACC_NO = StructuralObject.SetValidValue(value, true, "CBM_ACC_NO");
+                ReportPropertyChanged("CBM_ACC_NO");
+                OnCBM_ACC_NOChanged();
+            }
+        }
+        private global::System.String _CBM_ACC_NO;
+        partial void OnCBM_ACC_NOChanging(global::System.String value);
+        partial void OnCBM_ACC_NOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int32> FTH_COMPANY
         {
             get

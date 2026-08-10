@@ -165,6 +165,10 @@
           <DataField>RCH_BANK_OF_CHEQUE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CBM_ACC_NO">
+          <DataField>CBM_ACC_NO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="RCH_DEL_STATUS">
           <DataField>RCH_DEL_STATUS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -810,7 +814,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1340,9 +1343,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox46</rd:DefaultName>
-            <Top>2.07234in</Top>
+            <Top>2.35312in</Top>
             <Left>0.01601in</Left>
-            <Height>0.21875in</Height>
+            <Height>0.18797in</Height>
             <Width>7.22167in</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -2149,9 +2152,9 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>1.86146in</Top>
-            <Left>1.24259in</Left>
+            <Left>1.21482in</Left>
             <Height>0.17708in</Height>
-            <Width>5.96236in</Width>
+            <Width>5.99013in</Width>
             <ZIndex>11</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!RCH_MODE.Value, "RVHeader")="2",false,true)</Hidden>
@@ -2305,6 +2308,80 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox83">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Bank Account No : "</Value>
+                    <Style>
+                      <FontFamily>Arial Unicode MS</FontFamily>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox81</rd:DefaultName>
+            <Top>2.1066in</Top>
+            <Left>0.01601in</Left>
+            <Height>0.17708in</Height>
+            <Width>1.15714in</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Code.HTMLDecode(First(Fields!CBM_ACC_NO.Value, "RVHeader"))</Value>
+                    <Style>
+                      <FontFamily>Arial Unicode MS</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>2.10798in</Top>
+            <Left>1.22497in</Left>
+            <Height>0.1757in</Height>
+            <Width>5.97998in</Width>
+            <ZIndex>17</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RCH_MODE.Value, "RVHeader") = "4", False, True)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Top</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>8.31603in</Height>
         <Style>
@@ -2316,7 +2393,7 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
       <Width>7.26545in</Width>
       <Page>
         <PageHeader>
-          <Height>1.66012in</Height>
+          <Height>1.38929in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2327,7 +2404,7 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
               <Sizing>FitProportional</Sizing>
               <Top>0.08859in</Top>
               <Left>0.01485in</Left>
-              <Height>0.6736in</Height>
+              <Height>0.31302in</Height>
               <Width>4.0309in</Width>
               <Visibility>
                 <Hidden>=Parameters!HideLogo.Value</Hidden>
@@ -2400,7 +2477,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox166</rd:DefaultName>
-              <Top>1.04522in</Top>
+              <Top>0.79522in</Top>
               <Left>5.30912in</Left>
               <Height>0.21875in</Height>
               <Width>0.91828in</Width>
@@ -2433,7 +2510,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox166</rd:DefaultName>
-              <Top>1.29175in</Top>
+              <Top>1.04175in</Top>
               <Left>5.30912in</Left>
               <Height>0.21875in</Height>
               <Width>0.93217in</Width>
@@ -2465,7 +2542,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox215</rd:DefaultName>
-              <Top>1.04522in</Top>
+              <Top>0.79522in</Top>
               <Left>6.25517in</Left>
               <Height>0.22228in</Height>
               <Width>0.94978in</Width>
@@ -2497,7 +2574,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox216</rd:DefaultName>
-              <Top>1.2675in</Top>
+              <Top>1.0175in</Top>
               <Left>6.25517in</Left>
               <Height>0.22911in</Height>
               <Width>0.94973in</Width>
@@ -2538,7 +2615,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>0.84205in</Top>
+              <Top>0.58163in</Top>
               <Left>0.025in</Left>
               <Height>0.78682in</Height>
               <Width>5.22717in</Width>
@@ -2581,6 +2658,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>0.05768in</Left>
               <Height>0.15903in</Height>
               <Width>5.00709in</Width>
@@ -2615,6 +2693,7 @@ First(Fields!RCH_DEL_STATUS.Value, "RVHeader")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>5.95135in</Left>
               <Height>0.15903in</Height>
               <Width>1.28632in</Width>
