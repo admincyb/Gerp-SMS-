@@ -537,7 +537,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CUSTOMER_TEXT.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode Ms</FontFamily>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -647,7 +647,7 @@
                                 <TextRun>
                                   <Value>=Code.HTMLDecode(Fields!DPH_CUSTOMER_ADDRESS.Value)</Value>
                                   <Style>
-                                    <FontFamily>Verdana</FontFamily>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -1933,7 +1933,7 @@
                   <TextRun>
                     <Value>=Code.HTMLDecode(First(Fields!DPH_REMARKS.Value, "DOHeaderDtls"))</Value>
                     <Style>
-                      <FontFamily>Verdana</FontFamily>
+                      <FontFamily>Arial Unicode MS</FontFamily>
                       <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
@@ -2548,7 +2548,7 @@
       <Width>7.75832in</Width>
       <Page>
         <PageHeader>
-          <Height>1.53943in</Height>
+          <Height>1.34151in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2556,10 +2556,9 @@
               <Source>External</Source>
               <Value>=First(Fields!CMP_LOGO.Value, "CompanyDtls")</Value>
               <MIMEType>image/png</MIMEType>
-              <Top>0.0375in</Top>
-              <Left>2.71689in</Left>
-              <Height>0.27499in</Height>
-              <Width>2.83332in</Width>
+              <Left>0.02792in</Left>
+              <Height>0.39999in</Height>
+              <Width>2.30207in</Width>
               <Visibility>
                 <Hidden>=Parameters!HideLogo.Value</Hidden>
               </Visibility>
@@ -2592,16 +2591,16 @@ iif(Len(First(Fields!CMP_WEBSITE.Value, "CompanyDtls"))&gt;0,  VBCRLF &amp; "Web
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>0.35416in</Top>
-              <Left>1.63542in</Left>
-              <Height>0.48625in</Height>
-              <Width>4.74666in</Width>
+              <Top>0.125in</Top>
+              <Left>3.84236in</Left>
+              <Height>0.59041in</Height>
+              <Width>3.69763in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
-                <PaddingRight>2pt</PaddingRight>
+                <PaddingLeft>11pt</PaddingLeft>
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>

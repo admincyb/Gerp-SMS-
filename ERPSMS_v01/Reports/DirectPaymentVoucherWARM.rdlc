@@ -2182,10 +2182,11 @@ First(Fields!FTH_BASE_CURR_FRACTION.Value, "PVRecordings"))</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(Fields!TAX_SUB_CATEGORY.Value=3,Fields!WTH_TAX_AMT.Value, "")</Value>
+                                  <Value>=IIF(Fields!TAX_SUB_CATEGORY.Value=4, "", Fields!WTH_TAX_AMT.Value)</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2206,6 +2207,7 @@ First(Fields!FTH_BASE_CURR_FRACTION.Value, "PVRecordings"))</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2872,7 +2874,7 @@ and iif(len(Fields!FTR_INSTR_DATE.Value)&gt;0,false,true)</Hidden>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.44791in</Height>
+                  <Height>0.85416in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3259,9 +3261,9 @@ and iif(len(Fields!FTR_INSTR_DATE.Value)&gt;0,false,true)</Hidden>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>PVRecordings</DataSetName>
-            <Top>4.56079in</Top>
+            <Top>3.81079in</Top>
             <Left>0.25674in</Left>
-            <Height>1.5072in</Height>
+            <Height>1.91345in</Height>
             <Width>7.24652in</Width>
             <ZIndex>8</ZIndex>
             <Style>
@@ -3271,7 +3273,7 @@ and iif(len(Fields!FTR_INSTR_DATE.Value)&gt;0,false,true)</Hidden>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.13049in</Height>
+        <Height>5.72424in</Height>
         <Style>
           <Border>
             <Style>Solid</Style>
