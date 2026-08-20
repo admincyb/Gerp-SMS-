@@ -1314,7 +1314,7 @@
             <Top>1.65in</Top>
             <Left>0.0125in</Left>
             <Height>0.17708in</Height>
-            <Width>1.29651in</Width>
+            <Width>1.46317in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1927,9 +1927,9 @@ Fields!ICH_BRANCH_TYPE.Value = 5,"Tax ID : " &amp; Code.HTMLDecode(Fields!ICH_TA
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>1.6375in</Top>
-            <Left>1.37845in</Left>
+            <Left>1.50345in</Left>
             <Height>0.17708in</Height>
-            <Width>1.70219in</Width>
+            <Width>1.64663in</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -2119,7 +2119,7 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
             <Top>1.87396in</Top>
             <Left>0.025in</Left>
             <Height>0.17708in</Height>
-            <Width>1.14815in</Width>
+            <Width>1.19997in</Width>
             <ZIndex>10</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!RCH_MODE.Value, "RVHeader")="2",false,true)</Hidden>
@@ -2152,9 +2152,9 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>1.87014in</Top>
-            <Left>1.20093in</Left>
+            <Left>1.23886in</Left>
             <Height>0.17708in</Height>
-            <Width>5.66769in</Width>
+            <Width>5.62976in</Width>
             <ZIndex>11</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Fields!RCH_MODE.Value, "RVHeader")="2",false,true)</Hidden>
@@ -2330,10 +2330,13 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
             <Top>2.1066in</Top>
-            <Left>0.01601in</Left>
+            <Left>0.02616in</Left>
             <Height>0.17708in</Height>
-            <Width>1.15714in</Width>
+            <Width>1.04256in</Width>
             <ZIndex>16</ZIndex>
+            <Visibility>
+              <Hidden>=iif(IsNothing(First(Fields!CBM_ACC_NO.Value, "RVHeader")) Or Len(First(Fields!CBM_ACC_NO.Value, "RVHeader")) = 0, True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2364,12 +2367,12 @@ First(Fields!RCH_MODE.Value, "RVHeader")="3","DD# :"
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>2.10798in</Top>
-            <Left>1.22497in</Left>
+            <Left>1.08261in</Left>
             <Height>0.1757in</Height>
-            <Width>5.64365in</Width>
+            <Width>5.78601in</Width>
             <ZIndex>17</ZIndex>
             <Visibility>
-              <Hidden>=iif(First(Fields!RCH_MODE.Value, "RVHeader") = "4", False, True)</Hidden>
+              <Hidden>=iif(IsNothing(First(Fields!CBM_ACC_NO.Value, "RVHeader")) Or Len(First(Fields!CBM_ACC_NO.Value, "RVHeader")) = 0, True, False)</Hidden>
             </Visibility>
             <Style>
               <Border>
