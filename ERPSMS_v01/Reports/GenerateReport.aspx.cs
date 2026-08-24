@@ -9440,8 +9440,39 @@ namespace ERPSMS_v01.Reports
                         List<SPFIN_TRIAL_BALANCE_RPT_Result> TBList = currentEntity.SPFIN_TRIAL_BALANCE_RPT(currentUser.SBUID, Convert.ToDateTime(txtFromDate.Text.Trim()), Convert.ToDateTime(txtToDate.Text.Trim()), null).ToList();
                         if (TBList != null && TBList.Count > 0)
                         {
-                            dsFinance.Tables.Add(TBList.ToDataTable());
-                            dsFinance.Tables[0].TableName = "TBDtls";
+                            DataTable dtTrialBalance = TBList.ToDataTable();
+                            if (!dtTrialBalance.Columns.Contains("COA_SHORT_NAME"))
+                                dtTrialBalance.Columns.Add("COA_SHORT_NAME", typeof(string));
+
+                            Dictionary<int, string> accountShortNames = currentEntity.FIN_COA_MST
+                                .Where(coa => coa.COA_BIZUNIT == currentUser.SBUID)
+                                .Select(coa => new { coa.COA_PK, coa.COA_SHORT_NAME })
+                                .ToList()
+                                .ToDictionary(coa => coa.COA_PK, coa => coa.COA_SHORT_NAME);
+
+                            foreach (DataRow row in dtTrialBalance.Rows)
+                            {
+                                foreach (DataColumn column in dtTrialBalance.Columns)
+                                {
+                                    if (column.DataType == typeof(string) && row[column] != DBNull.Value)
+                                        row[column] = System.Web.HttpUtility.HtmlDecode(Convert.ToString(row[column]));
+                                }
+
+                                if (row["COA_PK"] == DBNull.Value)
+                                {
+                                    row["COA_SHORT_NAME"] = string.Empty;
+                                    continue;
+                                }
+
+                                int accountPK = Convert.ToInt32(row["COA_PK"]);
+                                string shortName;
+                                row["COA_SHORT_NAME"] = accountShortNames.TryGetValue(accountPK, out shortName)
+                                    ? System.Web.HttpUtility.HtmlDecode(shortName)
+                                    : string.Empty;
+                            }
+
+                            dtTrialBalance.TableName = "TBDtls";
+                            dsFinance.Tables.Add(dtTrialBalance);
                         }
                         else
                         {

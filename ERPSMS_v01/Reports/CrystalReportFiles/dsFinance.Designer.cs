@@ -1173,6 +1173,8 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
             
             private global::System.Data.DataColumn columnCOA_NAME;
             
+            private global::System.Data.DataColumn columnCOA_SHORT_NAME;
+            
             private global::System.Data.DataColumn columnCOA_OB_DR;
             
             private global::System.Data.DataColumn columnCOA_OB_CR;
@@ -1241,6 +1243,14 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
             public global::System.Data.DataColumn COA_NAMEColumn {
                 get {
                     return this.columnCOA_NAME;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn COA_SHORT_NAMEColumn {
+                get {
+                    return this.columnCOA_SHORT_NAME;
                 }
             }
             
@@ -1337,12 +1347,13 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public TBDtlsRow AddTBDtlsRow(int COA_PK, string COA_CODE, string COA_NAME, double COA_OB_DR, double COA_OB_CR, double COA_DR, double COA_CR, double COA_CB_DR, double COA_CB_CR, string BZU_NAME) {
+            public TBDtlsRow AddTBDtlsRow(int COA_PK, string COA_CODE, string COA_NAME, string COA_SHORT_NAME, double COA_OB_DR, double COA_OB_CR, double COA_DR, double COA_CR, double COA_CB_DR, double COA_CB_CR, string BZU_NAME) {
                 TBDtlsRow rowTBDtlsRow = ((TBDtlsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         COA_PK,
                         COA_CODE,
                         COA_NAME,
+                        COA_SHORT_NAME,
                         COA_OB_DR,
                         COA_OB_CR,
                         COA_DR,
@@ -1375,6 +1386,7 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
                 this.columnCOA_PK = base.Columns["COA_PK"];
                 this.columnCOA_CODE = base.Columns["COA_CODE"];
                 this.columnCOA_NAME = base.Columns["COA_NAME"];
+                this.columnCOA_SHORT_NAME = base.Columns["COA_SHORT_NAME"];
                 this.columnCOA_OB_DR = base.Columns["COA_OB_DR"];
                 this.columnCOA_OB_CR = base.Columns["COA_OB_CR"];
                 this.columnCOA_DR = base.Columns["COA_DR"];
@@ -1393,6 +1405,8 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
                 base.Columns.Add(this.columnCOA_CODE);
                 this.columnCOA_NAME = new global::System.Data.DataColumn("COA_NAME", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCOA_NAME);
+                this.columnCOA_SHORT_NAME = new global::System.Data.DataColumn("COA_SHORT_NAME", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCOA_SHORT_NAME);
                 this.columnCOA_OB_DR = new global::System.Data.DataColumn("COA_OB_DR", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCOA_OB_DR);
                 this.columnCOA_OB_CR = new global::System.Data.DataColumn("COA_OB_CR", typeof(double), null, global::System.Data.MappingType.Element);
@@ -6456,6 +6470,22 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string COA_SHORT_NAME {
+                get {
+                    try {
+                        return ((string)(this[this.tableTBDtls.COA_SHORT_NAMEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'COA_SHORT_NAME\' in table \'TBDtls\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTBDtls.COA_SHORT_NAMEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public double COA_OB_DR {
                 get {
                     try {
@@ -6600,6 +6630,18 @@ namespace ERPSMS_v01.Reports.CrystalReportFiles {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCOA_NAMENull() {
                 this[this.tableTBDtls.COA_NAMEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCOA_SHORT_NAMENull() {
+                return this.IsNull(this.tableTBDtls.COA_SHORT_NAMEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCOA_SHORT_NAMENull() {
+                this[this.tableTBDtls.COA_SHORT_NAMEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

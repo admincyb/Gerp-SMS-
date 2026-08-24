@@ -189,6 +189,10 @@
           <DataField>FC_BALANCE_6</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CMP_LOGO">
+          <DataField>CMP_LOGO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
@@ -1736,7 +1740,7 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
             <Top>1.94073in</Top>
             <Left>1.33105in</Left>
             <Height>0.21805in</Height>
-            <Width>2.42485in</Width>
+            <Width>2.2627in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -1811,7 +1815,7 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
             <Top>2.19073in</Top>
             <Left>1.28244in</Left>
             <Height>0.21805in</Height>
-            <Width>2.47346in</Width>
+            <Width>2.31131in</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -1848,7 +1852,7 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>1.59536in</Top>
+            <Top>1.97036in</Top>
             <Left>9.53999cm</Left>
             <Height>0.19792in</Height>
             <Width>1.30432in</Width>
@@ -1883,7 +1887,7 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>1.59536in</Top>
+            <Top>1.97036in</Top>
             <Left>5.08799in</Left>
             <Height>0.19792in</Height>
             <Width>2.43903in</Width>
@@ -1938,8 +1942,9 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
               </Paragraphs>
               <rd:DefaultName>Textbox47</rd:DefaultName>
               <Top>0.275in</Top>
+              <Left>5.52979cm</Left>
               <Height>0.23437in</Height>
-              <Width>7.71884in</Width>
+              <Width>3.87158in</Width>
               <Visibility>
                 <Hidden>=Parameters!HideHeadTitle.Value</Hidden>
               </Visibility>
@@ -1974,8 +1979,9 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox47</rd:DefaultName>
+              <Left>6.00604cm</Left>
               <Height>0.25556in</Height>
-              <Width>7.71884in</Width>
+              <Width>3.48617in</Width>
               <ZIndex>1</ZIndex>
               <Visibility>
                 <Hidden>=Parameters!HideHeadTitle.Value</Hidden>
@@ -2320,6 +2326,22 @@ Replace(Code.objNumConvertor.ConvertNumberToWords((Sum(Fields!DEBIT_AMOUNT_TC.Va
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Image Name="CMP_LOGO">
+              <Source>Embedded</Source>
+              <Value>image1</Value>
+              <MIMEType>image/jpeg</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>0.12395in</Top>
+              <Left>0.03223in</Left>
+              <Height>0.38542in</Height>
+              <Width>2.07541in</Width>
+              <ZIndex>12</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
           </ReportItems>
           <Style>
             <Border>
@@ -3121,6 +3143,17 @@ Function GetDigit(Digit)
 
 End Function
 </Code>
+  <EmbeddedImages>
+    <EmbeddedImage Name="image1">
+      <MIMEType>image/jpeg</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
   <CodeModules>
     <CodeModule>NumberToWordConverter, Version=1.2.0.0, Culture=neutral, PublicKeyToken=98d0a9a465e51f01</CodeModule>
   </CodeModules>

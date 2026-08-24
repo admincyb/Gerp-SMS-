@@ -2548,7 +2548,7 @@
       <Width>7.75832in</Width>
       <Page>
         <PageHeader>
-          <Height>1.34151in</Height>
+          <Height>1.59151in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2586,21 +2586,22 @@ iif(Len(First(Fields!CMP_WEBSITE.Value, "CompanyDtls"))&gt;0,  VBCRLF &amp; "Web
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
-              <Top>0.125in</Top>
-              <Left>3.84236in</Left>
-              <Height>0.59041in</Height>
-              <Width>3.69763in</Width>
+              <Top>0.64999in</Top>
+              <Left>0.05917in</Left>
+              <Height>0.44042in</Height>
+              <Width>7.17055in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
-                <PaddingLeft>11pt</PaddingLeft>
+                <VerticalAlign>Top</VerticalAlign>
+                <PaddingLeft>1pt</PaddingLeft>
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
@@ -2630,7 +2631,7 @@ First(Fields!DPH_DEL_STATUS.Value, "DOHeaderDtls")="1"," - Cancelled")</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>1.08813in</Top>
+              <Top>1.33813in</Top>
               <Left>0.02792in</Left>
               <Height>0.25338in</Height>
               <Width>7.68611in</Width>
@@ -2656,28 +2657,61 @@ First(Fields!DPH_DEL_STATUS.Value, "DOHeaderDtls")="1"," - Cancelled")</Value>
                       <Value>=IIF(len(First(Fields!CMP_TAX_NO.Value, "CompanyDtls"))&gt;0,"Tax ID : " &amp; First(Fields!CMP_TAX_NO.Value, "CompanyDtls"),"")</Value>
                       <Style>
                         <FontFamily>Verdana</FontFamily>
-                        <FontSize>8pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
+                        <FontSize>7pt</FontSize>
                       </Style>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox6</rd:DefaultName>
-              <Top>0.88208in</Top>
-              <Left>0.02792in</Left>
+              <Top>1.13208in</Top>
+              <Left>0.05917in</Left>
               <Height>0.1991in</Height>
-              <Width>7.7in</Width>
+              <Width>7.66875in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
+                <VerticalAlign>Top</VerticalAlign>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox9">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!CMP_NAME.Value, "CompanyDtls")</Value>
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox6</rd:DefaultName>
+              <Top>0.4462in</Top>
+              <Left>0.08694in</Left>
+              <Height>0.1991in</Height>
+              <Width>7.6266in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Top</VerticalAlign>
                 <PaddingTop>2pt</PaddingTop>
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
