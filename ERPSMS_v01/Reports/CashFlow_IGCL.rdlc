@@ -424,9 +424,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=iif(RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing) &gt; 0,RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing) &amp; " Dr",RunningValue((Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value),Sum,Nothing) &amp; " Cr")
-
-'=iif(RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing) &gt; 0, RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing)+" Dr",RunningValue((Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value),Sum,Nothing)+" Cr")</Value>
+                              <Value>=Format(RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing), Parameters!CurrencyFormat.Value) &amp; iif(RunningValue(Fields!TRX_DR_AMT_BC.Value-Fields!TRX_CR_AMT_BC.Value,Sum,Nothing) &gt; 0, " Dr", " Cr")</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                                 <Format>=Parameters!CurrencyFormat.Value</Format>
