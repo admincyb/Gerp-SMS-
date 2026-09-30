@@ -866,7 +866,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Amount in words: " &amp; Fields!FTH_BASE_CURR_TEXT.Value &amp; " " &amp; Replace(Code.objNumConvertor.ConvertNumberToWords(Sum(Fields!FTR_DR_AMT_BC.Value)),"Paise",Fields!FTH_BASE_CURR_FRACTION.Value)</Value>
+                                  <Value>="Amount in words: " &amp; Fields!FTH_BASE_CURR_TEXT.Value &amp; " " &amp; Replace(Code.NumToWordsInMln(Sum(Fields!FTR_DR_AMT_BC.Value)),"Paise",Fields!FTH_BASE_CURR_FRACTION.Value)</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3224,15 +3224,6 @@ Function GetDigit(Digit)
     End Select
 
 End Function</Code>
-  <CodeModules>
-    <CodeModule>NumberToWordConverter, Version=1.2.0.0, Culture=neutral, PublicKeyToken=98d0a9a465e51f01</CodeModule>
-  </CodeModules>
-  <Classes>
-    <Class>
-      <ClassName>NumberToWordConverter.NumberToWordConvertion</ClassName>
-      <InstanceName>objNumConvertor</InstanceName>
-    </Class>
-  </Classes>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>8072906a-f4ad-48ad-82ce-1200a2f8b92e</rd:ReportID>
 </Report>

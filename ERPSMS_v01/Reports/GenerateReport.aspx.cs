@@ -7177,7 +7177,22 @@ namespace ERPSMS_v01.Reports
                 return string.Empty;
             }
 
+            if (locRpt != null
+                && !string.IsNullOrEmpty(locRpt.ReportPath)
+                && IsLedgerRdlcReportWithThaiFontFix(locRpt.ReportPath))
+            {
+                return string.Empty;
+            }
+
             return "<DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>";
+        }
+
+        private bool IsLedgerRdlcReportWithThaiFontFix(string reportPath)
+        {
+            string reportName = Path.GetFileName(reportPath ?? string.Empty);
+            return string.Equals(reportName, "AS_IGPL.rdlc", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(reportName, "GL_IGPL.rdlc", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(reportName, "PartyLedger.rdlc", StringComparison.OrdinalIgnoreCase);
         }
         #endregion
 
@@ -9493,6 +9508,7 @@ namespace ERPSMS_v01.Reports
                 }
 
                 reportDocument.SetDataSource(dsFinance);
+                ApplyLedgerCrystalThaiFontFixesForReport(reportName, "after data source");
                 ParameterFieldDefinitions crParameterdef;
                 crParameterdef = reportDocument.DataDefinition.ParameterFields;
                 rptParamFields = SetCrystalreportParameters(crParameterdef);
@@ -9533,26 +9549,33 @@ namespace ERPSMS_v01.Reports
 
         private void ApplyLedgerCrystalFormulaFixes(string reportName)
         {
-            if (!IsLedgerCrystalReportWithUflFix(reportName))
+            if (reportDocument == null)
                 return;
 
-            if (reportDocument == null)
+            bool applyFormulaFix = IsLedgerCrystalReportWithUflFix(reportName);
+            bool applyThaiFontFix = IsLedgerCrystalReportWithThaiFontFix(reportName);
+            if (!applyFormulaFix && !applyThaiFontFix)
                 return;
 
             try
             {
-                int fixedFormulaCount = ApplyLedgerUflFormulaFixes(reportDocument, reportName);
-                fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(reportDocument, reportName);
-                foreach (ReportDocument subReport in reportDocument.Subreports)
+                if (applyFormulaFix)
                 {
-                    fixedFormulaCount += ApplyLedgerUflFormulaFixes(subReport, reportName);
-                    fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(subReport, reportName);
+                    int fixedFormulaCount = ApplyLedgerUflFormulaFixes(reportDocument, reportName);
+                    fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(reportDocument, reportName);
+                    foreach (ReportDocument subReport in reportDocument.Subreports)
+                    {
+                        fixedFormulaCount += ApplyLedgerUflFormulaFixes(subReport, reportName);
+                        fixedFormulaCount += RemovePartyLedgerDisplayStringConditionFormulas(subReport, reportName);
+                    }
+
+                    if (fixedFormulaCount > 0)
+                    {
+                        CommonBL.ExceptionWriting("Ledger Crystal UFL formulas overridden: " + fixedFormulaCount, "Crystal formula fix applied : " + reportName);
+                    }
                 }
 
-                if (fixedFormulaCount > 0)
-                {
-                    CommonBL.ExceptionWriting("Ledger Crystal UFL formulas overridden: " + fixedFormulaCount, "Crystal formula fix applied : " + reportName);
-                }
+                ApplyLedgerCrystalThaiFontFixesForReport(reportName, "after load");
             }
             catch (Exception ex)
             {
@@ -9565,6 +9588,100 @@ namespace ERPSMS_v01.Reports
             string crystalReportName = Path.GetFileName(reportName ?? string.Empty);
             return string.Equals(crystalReportName, "AS_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
                 || crystalReportName.StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool IsLedgerCrystalReportWithThaiFontFix(string reportName)
+        {
+            string crystalReportName = Path.GetFileName(reportName ?? string.Empty);
+            return string.Equals(crystalReportName, "AS_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(crystalReportName, "GL_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(crystalReportName, "SAS_IGPL.rpt", StringComparison.OrdinalIgnoreCase)
+                || crystalReportName.StartsWith("PartyLedger", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void ApplyLedgerCrystalThaiFontFixesForReport(string reportName, string context)
+        {
+            if (reportDocument == null || !IsLedgerCrystalReportWithThaiFontFix(reportName))
+                return;
+
+            try
+            {
+                int fixedFontCount = ApplyLedgerCrystalThaiFontFixes();
+                if (fixedFontCount > 0)
+                {
+                    CommonBL.ExceptionWriting("Ledger Crystal Thai fonts overridden " + context + ": " + fixedFontCount, "Crystal font fix applied : " + reportName);
+                }
+            }
+            catch (Exception ex)
+            {
+                CommonBL.ExceptionWriting(ex.ToString(), "Ledger Crystal Thai font fix failed " + context + " : " + reportName);
+            }
+        }
+
+        private int ApplyLedgerCrystalThaiFontFixes()
+        {
+            int fixedFontCount = ApplyLedgerCrystalThaiFontFixes(reportDocument);
+            foreach (ReportDocument subReport in reportDocument.Subreports)
+            {
+                fixedFontCount += ApplyLedgerCrystalThaiFontFixes(subReport);
+            }
+
+            return fixedFontCount;
+        }
+
+        private int ApplyLedgerCrystalThaiFontFixes(ReportDocument crystalReport)
+        {
+            int fixedFontCount = 0;
+
+            foreach (Section section in crystalReport.ReportDefinition.Sections)
+            {
+                foreach (ReportObject reportObject in section.ReportObjects)
+                {
+                    if (!ShouldApplyThaiFontToLedgerReportObject(reportObject))
+                        continue;
+
+                    TextObject textObject = reportObject as TextObject;
+                    if (textObject != null)
+                    {
+                        textObject.ApplyFont(GetThaiSafeFont(textObject.Font));
+                        fixedFontCount++;
+                        continue;
+                    }
+
+                    FieldObject fieldObject = reportObject as FieldObject;
+                    if (fieldObject != null)
+                    {
+                        fieldObject.ApplyFont(GetThaiSafeFont(fieldObject.Font));
+                        fixedFontCount++;
+                    }
+                }
+            }
+
+            return fixedFontCount;
+        }
+
+        private bool ShouldApplyThaiFontToLedgerReportObject(ReportObject reportObject)
+        {
+            if (reportObject == null || string.IsNullOrEmpty(reportObject.Name))
+                return false;
+
+            string objectName = reportObject.Name.ToUpperInvariant();
+
+            return objectName.Contains("NARRATION")
+                || objectName.Contains("GROUP1HEADING")
+                || objectName.Contains("GROUP1_HEADING")
+                || objectName.Contains("COANAME")
+                || objectName.Contains("COA_NAME")
+                || objectName.Contains("PARTYNAME")
+                || objectName.Contains("PARTY_NAME");
+        }
+
+        private Font GetThaiSafeFont(Font sourceFont)
+        {
+            if (sourceFont == null)
+                return new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 222);
+
+            return new Font("Tahoma", sourceFont.Size, sourceFont.Style, sourceFont.Unit, 222, sourceFont.GdiVerticalFont);
         }
 
         private int ApplyLedgerUflFormulaFixes(ReportDocument crystalReport, string reportName)
@@ -10243,6 +10360,7 @@ namespace ERPSMS_v01.Reports
                 }
 
                 reportDocument.SetDataSource(dsFinance);
+                ApplyLedgerCrystalThaiFontFixesForReport(reportName, "after data source");
                 ParameterFieldDefinitions crParameterdef;
                 crParameterdef = reportDocument.DataDefinition.ParameterFields;
                 rptParamFields = SetCrystalreportParameters(crParameterdef);

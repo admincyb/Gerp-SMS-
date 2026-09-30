@@ -756,7 +756,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=RunningValue(Fields!POD_NO.Value, countdistinct,Nothing)
+                                  <Value>=RunningValue(Fields!GRD_ITEM_TEXT.Value, countdistinct,Nothing)
 'Rownumber(nothing)</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
@@ -780,6 +780,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1077,7 +1078,7 @@ IIF(len(Fields!GRD_QA_LOT_NO.Value)&gt;0,VBCRLF &amp; "QA Lot No : " &amp; Code.
                 <TablixMember>
                   <Group Name="Details">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!POD_NO.Value</GroupExpression>
+                      <GroupExpression>=Fields!GRD_ITEM_TEXT.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                 </TablixMember>

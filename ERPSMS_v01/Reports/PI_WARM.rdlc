@@ -409,6 +409,10 @@
           <DataField>DPH_POH_INVESTOR</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DPH_TAX">
+          <DataField>DPH_TAX</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDataSet</rd:DataSetName>
@@ -486,10 +490,10 @@
                   <Width>0.09214in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.44791in</Width>
+                  <Width>0.61458in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.02837in</Width>
+                  <Width>2.90337in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -776,7 +780,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>TEL. :</Value>
+                                  <Value>TEL.     :</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -918,7 +922,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>FAX. :</Value>
+                                  <Value>FAX.     :</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -981,6 +985,151 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>0.20833in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox82">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox82</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>White</Color>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox98">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox98</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>White</Color>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox102">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>TAX ID :</Value>
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox102</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>White</Color>
+                            </BottomBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DPH_TAX">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!DPH_TAX.Value</Value>
+                                  <Style>
+                                    <FontFamily>Arial Unicode MS</FontFamily>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>DPH_TAX</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -1008,6 +1157,7 @@
                         <Hidden>=IIF(String.IsNullorEmpty(Fields!DPH_CUSTOMER_FAX.Value),true,false)</Hidden>
                       </Visibility>
                     </TablixMember>
+                    <TablixMember />
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
@@ -1015,8 +1165,8 @@
             <DataSetName>DOHeaderDtls</DataSetName>
             <Top>0.05655in</Top>
             <Left>0.04083in</Left>
-            <Height>0.74999in</Height>
-            <Width>4.08679in</Width>
+            <Height>0.95832in</Height>
+            <Width>4.12846in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2555,7 +2705,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2619,7 +2768,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DOHeaderDtls</DataSetName>
-            <Top>0.92211in</Top>
+            <Top>1.17211in</Top>
             <Left>0.04228in</Left>
             <Height>1.35417in</Height>
             <Width>7.72298in</Width>
@@ -3144,7 +3293,7 @@
             </TablixRowHierarchy>
             <RepeatColumnHeaders>true</RepeatColumnHeaders>
             <DataSetName>DOProductDtls</DataSetName>
-            <Top>2.41905in</Top>
+            <Top>2.66905in</Top>
             <Left>0.00333in</Left>
             <Height>0.41667in</Height>
             <Width>7.76193in</Width>
@@ -3166,7 +3315,7 @@
             </Style>
           </Tablix>
           <Line Name="Line2">
-            <Top>0.88572in</Top>
+            <Top>1.13572in</Top>
             <Left>0.00333in</Left>
             <Height>0in</Height>
             <Width>7.76193in</Width>
@@ -3179,7 +3328,7 @@
             </Style>
           </Line>
           <Line Name="Line3">
-            <Top>2.41552in</Top>
+            <Top>2.66552in</Top>
             <Left>0.00333in</Left>
             <Height>0in</Height>
             <Width>7.76193in</Width>
@@ -3195,18 +3344,18 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.2562in</Width>
+                  <Width>1.27495in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.11088in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14949in</Width>
+                  <Width>2.10782in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.16667in</Height>
+                  <Height>0.1875in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3662,8 +3811,8 @@
             <DataSetName>DOHeaderDtls</DataSetName>
             <Top>0.03155in</Top>
             <Left>4.22994in</Left>
-            <Height>0.69791in</Height>
-            <Width>3.51657in</Width>
+            <Height>0.71874in</Height>
+            <Width>3.49365in</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -3693,7 +3842,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
-            <Top>4.63224in</Top>
+            <Top>4.88224in</Top>
             <Height>0.2in</Height>
             <Width>5.21696in</Width>
             <ZIndex>6</ZIndex>
@@ -3734,7 +3883,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
-            <Top>4.64474in</Top>
+            <Top>4.89474in</Top>
             <Left>5.2614in</Left>
             <Height>0.2in</Height>
             <Width>1.34385in</Width>
@@ -3773,7 +3922,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
-            <Top>4.64474in</Top>
+            <Top>4.89474in</Top>
             <Left>6.62331in</Left>
             <Height>0.2in</Height>
             <Width>1.10028in</Width>
@@ -3789,7 +3938,7 @@
             </Style>
           </Textbox>
           <Line Name="Line4">
-            <Top>4.84613in</Top>
+            <Top>5.09613in</Top>
             <Left>0.00333in</Left>
             <Height>0in</Height>
             <Width>7.74945in</Width>
@@ -3802,7 +3951,7 @@
             </Style>
           </Line>
           <Line Name="Line5">
-            <Top>4.63765in</Top>
+            <Top>4.88765in</Top>
             <Left>0.0079in</Left>
             <Height>0in</Height>
             <Width>7.74945in</Width>
@@ -3835,7 +3984,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
-            <Top>5.24315in</Top>
+            <Top>5.49315in</Top>
             <Left>0.31291in</Left>
             <Height>0.165in</Height>
             <Width>1.87694in</Width>
@@ -3873,7 +4022,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
-            <Top>5.24315in</Top>
+            <Top>5.49315in</Top>
             <Left>2.93791in</Left>
             <Height>0.1875in</Height>
             <Width>1.87694in</Width>
@@ -3911,7 +4060,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox81</rd:DefaultName>
-            <Top>5.24315in</Top>
+            <Top>5.49315in</Top>
             <Left>5.57541in</Left>
             <Height>0.165in</Height>
             <Width>1.87694in</Width>
@@ -3948,7 +4097,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.03273in</Top>
+            <Top>5.28273in</Top>
             <Left>0.31291in</Left>
             <Height>0.18264in</Height>
             <Width>1.87694in</Width>
@@ -3983,7 +4132,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.04384in</Top>
+            <Top>5.29384in</Top>
             <Left>5.57541in</Left>
             <Height>0.18264in</Height>
             <Width>1.86444in</Width>
@@ -4018,7 +4167,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.02996in</Top>
+            <Top>5.27996in</Top>
             <Left>2.94416in</Left>
             <Height>0.18264in</Height>
             <Width>1.87694in</Width>
@@ -4053,7 +4202,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox296</rd:DefaultName>
-            <Top>5.42093in</Top>
+            <Top>5.67093in</Top>
             <Left>5.57541in</Left>
             <Height>0.16052in</Height>
             <Width>1.86444in</Width>
@@ -4088,7 +4237,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox296</rd:DefaultName>
-            <Top>5.42093in</Top>
+            <Top>5.67093in</Top>
             <Left>0.31291in</Left>
             <Height>0.16052in</Height>
             <Width>1.87694in</Width>
@@ -4123,7 +4272,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox296</rd:DefaultName>
-            <Top>5.45843in</Top>
+            <Top>5.70843in</Top>
             <Left>2.94416in</Left>
             <Height>0.16052in</Height>
             <Width>1.87694in</Width>
@@ -5074,7 +5223,7 @@ Format(First(Fields!DPH_TOTAL_TAX.Value, "DOHeaderDtls"),Parameters!CurrencyForm
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DOOtherDtls</DataSetName>
-            <Top>2.90844in</Top>
+            <Top>3.15844in</Top>
             <Left>0.03125in</Left>
             <Height>1.70832in</Height>
             <Width>7.70276in</Width>
@@ -5086,7 +5235,7 @@ Format(First(Fields!DPH_TOTAL_TAX.Value, "DOHeaderDtls"),Parameters!CurrencyForm
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>5.63353in</Height>
+        <Height>5.86895in</Height>
         <Style>
           <Border />
           <TopBorder>
@@ -5106,7 +5255,7 @@ Format(First(Fields!DPH_TOTAL_TAX.Value, "DOHeaderDtls"),Parameters!CurrencyForm
       <Width>7.76526in</Width>
       <Page>
         <PageHeader>
-          <Height>1.50817in</Height>
+          <Height>1.31025in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -5137,7 +5286,8 @@ Format(First(Fields!DPH_TOTAL_TAX.Value, "DOHeaderDtls"),Parameters!CurrencyForm
                       <Value>=Code.HTMLDecode(First(Fields!CMP_ADDR1.Value, "CompanyDtls")) &amp; VBCRLF &amp; 
 Code.HTMLDecode(First(Fields!CMP_ADDR2.Value, "CompanyDtls")) &amp; VBCRLF &amp;
 iif(Len(First(Fields!CMP_PHONE.Value, "CompanyDtls"))&gt;0,"Tel : " &amp; First(Fields!CMP_PHONE.Value, "CompanyDtls"),"") &amp; 
-iif(Len(First(Fields!CMP_FAX.Value, "CompanyDtls"))&gt;0, "  Fax : " &amp; First(Fields!CMP_FAX.Value, "CompanyDtls"),"")</Value>
+iif(Len(First(Fields!CMP_FAX.Value, "CompanyDtls"))&gt;0, "  Fax : " &amp; First(Fields!CMP_FAX.Value, "CompanyDtls"),"") &amp; VBCRLF &amp;
+iif(Len(First(Fields!CMP_TAX_NO.Value, "CompanyDtls"))&gt;0, "Tax ID : " &amp; First(Fields!CMP_FAX.Value, "CompanyDtls"),"")</Value>
                       <Style>
                         <FontFamily>Arial Unicode MS</FontFamily>
                         <FontSize>8pt</FontSize>

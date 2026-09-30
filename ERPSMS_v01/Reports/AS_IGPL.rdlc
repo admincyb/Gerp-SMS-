@@ -444,7 +444,7 @@
 &amp; "      Account Name : " &amp; Code.HTMLDecode(Fields!COA_NAME.Value) 
 &amp; IIf ( IsNothing(Fields!TAX_CODE.Value), " ","   (Tax Code : " &amp; Code.HTMLDecode(Fields!TAX_CODE.Value) &amp; ")" )</Value>
                               <Style>
-                                <FontFamily>Verdana</FontFamily>
+                                <FontFamily>Tahoma</FontFamily>
                                 <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -648,6 +648,7 @@
                             <TextRun>
                               <Value>=Code.HTMLDecode(Fields!FTH_NARRATION.Value)</Value>
                               <Style>
+                                <FontFamily>Tahoma</FontFamily>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
