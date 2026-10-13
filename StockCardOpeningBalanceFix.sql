@@ -1,0 +1,1928 @@
+-- Report 2104: carry forward the zero-stock value reset across date filters.
+-- Reproduced on MMT_LIVE_NEW_BKP_20260903, item 21326, store 20004.
+-- 31-Jul-2026 closing quantity is zero, with a historical residual value of 7,927.19.
+-- Aug closes at 883.995 / 31,190.27 / 35.283310; Sep must open at the same values.
+-- Only report procedures change; inventory transactions and rates are untouched.
+USE [MMT_LIVE_NEW_BKP_20260903];
+GO
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+GO
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Author	: GTI-229
+	Date	: 05-05t-2021
+	Purpose : To ge Stk of Item within a date range.
+    Execute : EXEC [SPINV_STK_CARD_BATCH_CNDN_RPT_MMT_FIN_YEAR_NEW]
+				
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Modified By		On				Remarks 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	GTI-232	     16/08/2021		DATE FILTER ADDEDD FIRST TO WORK PARTION FILTER PROPERLY FOR BETTER PERFORMANCE.
+	GTI-232		 22/09/2022		qty>0 contition in where cluse same as Stock Card Report By Location- Monthwise
+	GTI-232		 23/09/2022		Added @V_ALL_ITEM Filter
+	GTI-232		 15/02/2022		Added ORDER BY [STX_ITEM_CODE] at last
+	GTI-229      10-05-2022     Compound start time change From CTH_PRE_START_DT To CSD_START_DATE
+	GTI-244		 21/06/2022		START_TIME data type changed to  DATETIME FROM TIME
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ALTER PROCEDURE [dbo].[SPINV_STK_CARD_BATCH_CNDN_RPT_MMT_FIN_YEAR_NEW]				   
+(
+ 	@P_XML	XML = NULL
+)
+AS
+ 
+BEGIN
+	SET NOCOUNT ON
+	SET ANSI_WARNINGS OFF
+
+
+
+
+	DECLARE @T_PARAMETER TABLE
+		(
+			[ParamName]		NVARCHAR(100),
+			[Value]			NVARCHAR(200)
+		)
+
+	DECLARE	@T_STOCK_BY_LOCATION	TABLE
+	(	
+			 [STX_ITEM]						INT
+			,[STX_DEPT]						INT
+			,[STX_DEPT_1]					INT
+			,[STX_SL_NO]					BIGINT
+			,[STX_ITEM_TEXT]				NVARCHAR(500)
+			,[STX_ITEM_CODE]				NVARCHAR(100)
+			,[STX_ITEM_CATEGORY_TEXT]		NVARCHAR(200)
+			,[STX_ITEM_CATEGORY_SEL_TEXT]	NVARCHAR(200)
+			,[ITC_ORDER]					NVARCHAR(30)
+			,[STX_UOM_TEXT]					NVARCHAR(100)
+			,[STX_DEPT_TEXT]				NVARCHAR(200)
+			,[STX_CURRENCY_TEXT]			NVARCHAR(100)
+			,[STX_COST_MTHD]				NVARCHAR(30)
+			,[STX_TAX_NO]					NVARCHAR(100)
+			,[STX_OPN_QTY]					NUMERIC(38,6)
+			,[STX_OPN_VALUE]				NUMERIC(38,6)
+			,[STX_RCVD_QTY]					NUMERIC(38,6)
+			,[STX_RCVD_VALUE]				NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY]				NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_CMP_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_CMP_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_CMP_P3]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_INV_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_INV_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_INV_P3]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_PRD_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_PRD_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_QTY_PRD_P3]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE]			NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_CMP_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_CMP_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_CMP_P3]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_INV_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_INV_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_INV_P3]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_PRD_P1]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_PRD_P2]		NUMERIC(38,6)
+			,[STX_RCVD_MA_VALUE_PRD_P3]		NUMERIC(38,6)
+			,[STX_RCVD_EMR_QTY]				NUMERIC(38,6)
+			,[STX_RCVD_EMR_VALUE]			NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY]				NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_CMP_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_CMP_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_CMP_P3]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_INV_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_INV_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_INV_P3]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_PRD_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_PRD_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_QTY_PRD_P3]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE]			NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_CMP_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_CMP_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_CMP_P3]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_INV_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_INV_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_INV_P3]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_PRD_P1]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_PRD_P2]		NUMERIC(38,6)
+			,[STX_ISSD_MI_VALUE_PRD_P3]		NUMERIC(38,6)
+			,[STX_ISSD_EMI_QTY]				NUMERIC(38,6)
+			,[STX_ISSD_EMI_VALUE]			NUMERIC(38,6)
+			,[STX_ISSD_QTY]					NUMERIC(38,6)
+			,[STX_ISSD_VALUE]				NUMERIC(38,6)
+			,[STX_TRX_MONTH_TEXT]			NVARCHAR(100)
+			,[STX_TRX_YEAR_TEXT]			NVARCHAR(100)
+			,[STX_TRX_MONTH]				INT
+			,[STX_ADJ_QTY]					NUMERIC(38,6)
+			,[STX_CLS_QTY]					NUMERIC(38,6)
+			,[STX_CLS_VALUE]				NUMERIC(38,6)
+			,[STX_CLS_RATE]					NUMERIC(38,6)
+			,[STX_MR_VALUE]					NUMERIC(38,6)
+			,[STX_MR_QTY]					NUMERIC(38,6)
+	)
+
+	DECLARE	@V_DOC_HANDLE	INT,
+			@V_FROM_DT		DATE,
+			@V_TO_DT		DATE,
+			@V_BIZUNIT		INT,
+			@V_DEPT			INT,
+			@V_TYPE			NVARCHAR(20),
+			@V_USER			INT,
+			@V_ITM_CATEGORY	INT,
+			@V_ITM_PK		INT,
+			@V_DPT_PK		INT,
+			@V_TRAN_ONLY	TINYINT,
+			@V_IS_RETURN	TINYINT,
+			@V_IPD_CLASSIFICATION	NVARCHAR(200),
+			@V_CUR_ROUND			TINYINT,
+			@V_FIN_YEAR				INT,
+			@V_FIN_DATE_FROM		DATE,
+			@V_TO_DT1				DATE,
+			@V_FROM_DT1				DATE,
+			@V_ALL_ITEM				TINYINT
+
+	SELECT	@V_CUR_ROUND = [ACF_VALUE]
+	FROM	[ADM_APP_CONFIG_MST]
+	WHERE	[ACF_SETTING]	=	'CURRENCY SETTINGS' 
+		AND [ACF_DATA]		=	'CurrencyDecimalDigit'
+
+	EXEC SP_XML_PREPAREDOCUMENT @V_DOC_HANDLE OUTPUT,@P_XML
+
+	SELECT	 @V_FROM_DT			=	[FromDate]
+			,@V_TO_DT			=	[ToDate]
+			,@V_BIZUNIT			=	[BizUnit]
+	FROM	OPENXML(@V_DOC_HANDLE,'/FilterParameters',2)
+	WITH
+		(
+			 [FromDate]	DATE
+			,[ToDate]	DATE
+			,[BizUnit]	INT
+			,[UserPK]	INT
+			,[Dept]		INT
+		)
+
+	INSERT INTO @T_PARAMETER
+		(
+			[ParamName]	,
+			[Value]		
+		)
+
+	SELECT	[ParamName],
+			[Value]
+	FROM	OPENXML(@V_DOC_HANDLE,'/FilterParameters/Parameter/Values/Value')
+	WITH
+	(
+		 [ParamName]	NVARCHAR(100)	'../../ParamName'
+		,[Value]		NVARCHAR(200)	'../Value'
+	)
+
+	EXEC SP_XML_REMOVEDOCUMENT @V_DOC_HANDLE
+
+	SELECT	@V_ITM_CATEGORY = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'ITM_CATEGORY'
+
+	SELECT	@V_ITM_PK = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'ITM_PK'
+
+	SELECT	@V_DPT_PK = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'DPT_PK'
+
+	SELECT	@V_TRAN_ONLY = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'TRAN_ONLY'
+
+	SELECT	@V_IS_RETURN = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'IS_RETURN'
+
+	SELECT	@V_IPD_CLASSIFICATION = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'IPD_CLASSIFICATION'
+
+	SELECT	@V_FIN_YEAR = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'FIN_YEAR'
+
+	
+	SELECT	@V_ALL_ITEM = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'ALL_ITEMS'
+
+	SET @V_FIN_YEAR =  CASE WHEN NOT EXISTS (SELECT 1
+	                                         FROM [INV_ITEM_DEPT_OPENING_STOCK_HDR]
+	                                         WHERE [IOH_FIN_YEAR]   = @V_FIN_YEAR
+											   AND [IOH_BIZUNIT]    = @V_BIZUNIT
+											   AND [IOH_DEL_STATUS] = 0
+											   AND [IOH_STATUS]     = 2)
+							THEN (SELECT TOP 1 [IOH_FIN_YEAR]
+							      FROM [INV_ITEM_DEPT_OPENING_STOCK_HDR]
+								  WHERE [IOH_BIZUNIT]    = @V_BIZUNIT
+								    AND [IOH_DEL_STATUS] = 0
+								    AND [IOH_STATUS]     = 2
+								    AND [IOH_DATE] < (SELECT [FYR_DATE_FROM] 
+	                                                  FROM [FIN_YEAR_MST] 
+	                                                  WHERE FYR_PK = @V_FIN_YEAR)
+								  ORDER BY [IOH_DATE] DESC )
+							ELSE @V_FIN_YEAR
+					   END
+
+	SELECT @V_FIN_DATE_FROM = [FYR_DATE_FROM] 
+	FROM [FIN_YEAR_MST] 
+	WHERE FYR_PK = @V_FIN_YEAR
+
+	-------------------
+	--Get Date Range
+	-------------------
+	IF @V_TO_DT IS NULL
+	BEGIN	
+		SET	@V_TO_DT = DATEADD(MONTH, DATEDIFF(MONTH, -1, @V_FROM_DT), -1)	--	Last day of given month
+	END
+
+	SET @V_TO_DT1=DATEADD(DAY,1,@V_TO_DT)
+	SET @V_FROM_DT1=DATEADD(DAY,1,@V_FROM_DT)
+
+
+	;WITH 
+	----------------------
+	--Item Category Filter
+	----------------------
+	[ITEM_CATEGORY_CTE]
+	( 
+		[ITC_PK]
+		,[ITC_PARENT]
+		,[ITC_NAME]
+		,[Level]
+		,[ITC_ORDER]
+		,[ITC_IS_STOCK]
+	) 
+	AS 
+	( 
+		SELECT	[ITC_PK]
+				,[ITC_PARENT]
+				,[ITC_NAME]
+				,1
+				,CAST(REPLICATE('0',3-LEN( CAST(ROW_NUMBER() OVER (ORDER BY [ITC_NAME])AS VARCHAR) )) + CAST(ROW_NUMBER() OVER (ORDER BY [ITC_NAME])AS VARCHAR)AS VARCHAR)
+				,[ITC_IS_STOCK]
+		FROM	[INV_ITEM_CATEGORY] 
+		WHERE (@V_ITM_CATEGORY IS NULL OR
+		       [ITC_PK] IN (SELECT	[Value]	FROM @T_PARAMETER WHERE	[ParamName] = 'ITM_CATEGORY'))
+		/*( ISNULL(@V_ITM_CATEGORY,0) = 0 AND [ITC_PARENT] = 0 )
+					OR
+			  ( @V_ITM_CATEGORY > 0  AND [ITC_PK] IN (SELECT	[Value]	FROM @T_PARAMETER WHERE	[ParamName] = 'ITM_CATEGORY'))
+
+		UNION ALL 
+
+		SELECT	C.[ITC_PK]
+				,C.[ITC_PARENT]
+				,C.[ITC_NAME]
+				,[Level] + 1
+				,CAST(CTE.[ITC_ORDER] +'.'+ REPLICATE('0',3-LEN( CAST(ROW_NUMBER() OVER (ORDER BY C.[ITC_NAME])AS VARCHAR) )) + CAST(ROW_NUMBER() OVER (ORDER BY C.[ITC_NAME])AS VARCHAR) AS VARCHAR)
+				,C.[ITC_IS_STOCK]
+		FROM	[INV_ITEM_CATEGORY] C 
+				INNER JOIN [ITEM_CATEGORY_CTE] CTE ON CTE.[ITC_PK] = C.[ITC_PARENT]*/
+	)
+	-----------------
+	--MR details
+	-----------------
+	,[CTE_STK_MR_DTL]
+	AS
+	(	
+		SELECT	SUM(ROUND(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_RCP] AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_MR_VALUE]
+				,SUM(T.[BTD_QTY_STK_RCP])					AS	[STX_MR_QTY]
+		FROM	[INV_STK_BATCH_TRX_DTL] T
+				INNER JOIN [INV_ITEM_MST]	ON [ITM_PK] = [BTD_ITEM] 
+				INNER JOIN [ITEM_CATEGORY_CTE] cte	 ON [ITM_CATEGORY] = CTE.[ITC_PK]
+													AND ISNULL(CTE.[ITC_IS_STOCK],0)	=	1	--Stock Card Report Item
+				INNER JOIN [ADM_DEPT_MST]	ON	[DPT_PK]		=	[BTD_DEPT]
+											AND	[DPT_IS_STOCK]	=	1
+											AND	[DPT_TYPE]		=	2
+		WHERE	T.[BTD_DEPT]		= ISNULL(@V_DPT_PK,T.[BTD_DEPT])
+			AND	T.[BTD_TRN_DATE]	BETWEEN  @V_FROM_DT AND @V_TO_DT
+			AND	(	@V_ITM_PK IS NULL	OR
+					[ITM_PK] IN (	SELECT	[Value]
+									FROM	@T_PARAMETER
+									WHERE	[ParamName] = 'ITM_PK')
+				)	--for multi select
+			AND T.[BTD_QTY_STK_RCP] >	0
+			AND T.[BTD_BATCH_TYPE]<>13
+			AND T.[BTD_TRX_MODE]	=	22	--Material Return
+	)
+	-------------------------
+	--Stock Batch Trx Details
+	-------------------------
+	,[CTE_INV_STK_DTL]
+	AS
+	(
+	SELECT	[ITM_PK]													AS	[STX_ITEM]
+			,[STD_DEPT]													AS	[STX_DEPT]
+			,[DEPT_1]													AS	[STX_DEPT_1]
+			,ROW_NUMBER() OVER (ORDER BY [DPT_NAME] ,[ITM_NAME] )		AS	[STX_SL_NO]
+			,[ITM_NAME]													AS	[STX_ITEM_TEXT]
+			,[ITM_CODE]													AS  [STX_ITEM_CODE]
+			,cte.[ITC_NAME]												AS	[STX_ITEM_CATEGORY_TEXT]
+			,(	CASE	WHEN @V_ITM_CATEGORY IS NULL 
+						THEN 'All'
+				ELSE	cte.[ITC_NAME]
+				END 
+			)															AS  [STX_ITEM_CATEGORY_SEL_TEXT]
+
+			,cte.[ITC_ORDER]											AS  [ITC_ORDER]
+			,(	SELECT	[UOM_CODE]
+				FROM	[INV_UOM_MST] 
+				WHERE	[UOM_PK] = [STD_UOM])							AS	[STX_UOM_TEXT]
+			,[DPT_NAME]													AS	[STX_DEPT_TEXT]
+			,(	SELECT	[CUR_CODE]	
+				FROM	[ADM_CURRENCY_MST] 
+				WHERE	[CUR_PK] = [DPT_CURR])							AS	[STX_CURRENCY_TEXT]
+			,'WA'														AS	[STX_COST_MTHD]
+			,[BZU_TAX_NO]												AS  [STX_TAX_NO]
+			-----------------
+			--OPENING
+			-----------------
+			/*,CAST(ISNULL((	SELECT	SUM(T.[BTD_QTY_STK_RCP]) - SUM(T.[BTD_QTY_STK_ISS])	
+					FROM	[INV_STK_BATCH_TRX_DTL] T
+					WHERE	T.[BTD_BIZUNIT]   = S.[STD_BIZUNIT] 
+						AND	T.[BTD_TRN_DATE]  < @V_FROM_DT
+						AND	T.[BTD_DEPT]	  = S.[STD_DEPT]
+						AND	T.[BTD_ITEM]	  = S.[STD_ITEM] 
+					),0)AS NUMERIC(19,6))								AS	[STX_OPN_QTY]
+			,CAST(ISNULL((	SELECT	CASE WHEN SUM(T.[BTD_QTY_STK_RCP]) - SUM(T.[BTD_QTY_STK_ISS]) > 0
+								 THEN
+									SUM(	ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+										-
+											ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+										)
+								 ELSE
+									0
+							END
+					FROM	[INV_STK_BATCH_TRX_DTL] T
+					WHERE	T.[BTD_TRN_DATE]  < @V_FROM_DT
+						AND	T.[BTD_ITEM]	  = S.[STD_ITEM]
+						AND	T.[BTD_DEPT]	  = S.[STD_DEPT]						
+					),0) 
+					AS NUMERIC(19,6))									AS	[STX_OPN_VALUE]*/
+			,ISNULL([STX_OP_QTY],0)+ISNULL([STX_OPENING_QTY],0)			AS	[STX_OPN_QTY]
+			,ISNULL([STX_OP_VALUE],0)+ISNULL([STX_OPENING_VALUE],0)		AS	[STX_OPN_VALUE]
+			--RECEIPTS
+			-----------------
+			,ISNULL([STX_RCVD_QTY],0)									AS	[STX_RCVD_QTY]
+			,ISNULL([STX_RCVD_VALUE],0)									AS	[STX_RCVD_VALUE]
+			,ISNULL([STX_RCVD_MA_QTY],0)								AS	[STX_RCVD_MA_QTY]
+			,ISNULL([STX_RCVD_MA_VALUE],0)								AS	[STX_RCVD_MA_VALUE]
+			,ISNULL([STX_RCVD_EMR_QTY],0)								AS	[STX_RCVD_EMR_QTY]
+			,ISNULL([STX_RCVD_EMR_VALUE],0)								AS	[STX_RCVD_EMR_VALUE]
+			-----------------
+			--ISSUE 
+			-----------------
+			,ISNULL([STX_ISSD_QTY],0)									AS	[STX_ISSD_QTY]
+			,ISNULL([STX_ISSD_VALUE],0)									AS	[STX_ISSD_VALUE]
+			,ISNULL([STX_ISSD_MI_QTY],0)								AS	[STX_ISSD_MI_QTY]
+			,ISNULL([STX_ISSD_MI_VALUE],0)								AS	[STX_ISSD_MI_VALUE]
+			,ISNULL([STX_ISSD_EMI_QTY],0)								AS	[STX_ISSD_EMI_QTY]
+			,ISNULL([STX_ISSD_EMI_VALUE],0)								AS	[STX_ISSD_EMI_VALUE]
+
+			,DATENAME(MONTH,@V_FROM_DT)									AS	[STX_TRX_MONTH_TEXT]
+			,CAST(DATEPART(YEAR,@V_FROM_DT)	AS NVARCHAR)				AS	[STX_TRX_YEAR_TEXT]
+			,DATEPART(MONTH,@V_FROM_DT)									AS	[STX_TRX_MONTH]
+			-----------------
+			--ADJUST
+			-----------------
+			,CAST(
+			   (SELECT	SUM(T.[BTD_QTY_STK_RCP]) - SUM(T.[BTD_QTY_STK_ISS])
+				FROM	[INV_STK_BATCH_TRX_DTL] T
+				WHERE	T.[BTD_TRN_DATE]  BETWEEN @V_FROM_DT AND @V_TO_DT
+					AND	T.[BTD_ITEM]	  = S.[STD_ITEM]
+					AND	T.[BTD_DEPT]	  = S.[STD_DEPT]
+					AND T.[BTD_BATCH_TYPE]<>13
+					AND	T.[BTD_TRX_MODE]  = 6 --stock adjustment				
+				   )
+				   AS NUMERIC(19,6))									 AS	[STX_ADJ_QTY]
+			-----------------
+			--BALANCE
+			-----------------
+			--,CAST(
+			--	(	SELECT	SUM(T.[BTD_QTY_STK_RCP]) - SUM(T.[BTD_QTY_STK_ISS])
+			--		FROM	[INV_STK_BATCH_TRX_DTL] T
+			--		WHERE	T.[BTD_TRN_DATE]  <= @V_TO_DT
+			--		AND		T.[BTD_ITEM]	  = S.[STD_ITEM]
+			--		AND		T.[BTD_DEPT]	  = S.[STD_DEPT]
+			--		AND		T.[BTD_BATCH_TYPE]<>13
+			--		AND (	@V_IS_RETURN = 0
+			--					OR	( @V_IS_RETURN = 1 
+			--							AND	(		T.[BTD_TRX_MODE]	<> 22	--All transaction except MR
+			--									OR	
+			--										T.[BTD_QTY_STK_ISS]	> 0		--Only Issued MR trx
+			--								)
+			--						  ) -- Material Return
+			--				)
+			--	  )
+			--	   AS NUMERIC(19,6))									 AS	[STX_CLS_QTY]
+			,ROUND(CAST((ISNULL([STX_RCVD_QTY],0)
+						+ISNULL([STX_RCVD_MA_QTY],0)
+						+ISNULL([STX_OP_QTY],0)
+						+ISNULL([STX_OPENING_QTY],0)
+						-ISNULL([STX_ISSD_QTY],0)
+						-ISNULL([STX_ISSD_MI_QTY],0)) AS NUMERIC(19,6))
+						,@V_CUR_ROUND)			
+																		AS	[STX_CLS_QTY]
+
+			,CAST(0 AS NUMERIC(19,6))									AS	[STX_CLS_RATE]		 
+	FROM	[INV_STK_DTL] S
+			INNER JOIN [INV_ITEM_MST]		ON [ITM_PK] = [STD_ITEM]
+			INNER JOIN [ADM_DEPT_MST]		ON [DPT_PK] = [STD_DEPT]
+			--INNER JOIN [INV_ITEM_DEPT_MAP]	ON	[ITM_PK] = [IDM_ITEM]	AND [IDM_DEPT] = [DPT_PK]	AND [IDM_ACTIVE] = 1
+			INNER JOIN [INV_ITEM_CATEGORY]	ON [ITC_PK] = [ITM_CATEGORY]
+											AND	[ITC_IS_STOCK]	=	1
+			INNER JOIN [ADM_BIZUNIT_MST]		ON [BZU_PK] = [STD_BIZUNIT]
+			INNER JOIN [ITEM_CATEGORY_CTE] cte	ON [ITM_CATEGORY] = cte.[ITC_PK]
+												AND ISNULL(CTE.[ITC_IS_STOCK],0)	=	1	--Stock Card Report Item
+			LEFT  JOIN [INV_ITEM_PACK_DTL]		 ON [IPD_ITEM]	 =	[ITM_PK]
+
+			OUTER APPLY (	SELECT	 SUM(CAST(CASE WHEN [BTD_TRX_MODE] NOT IN (6,8,9,43,20,21) 
+												   THEN [BTD_QTY_STK_RCP]	
+												   ELSE 0 
+											  END AS NUMERIC(19,6)))						AS	[STX_RCVD_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] NOT IN (6,8,9,43,20,21) AND [BTD_QTY_STK_RCP]>0 
+														 THEN [BTD_VALUE]	
+														 ELSE 0 
+												    END AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_RCVD_VALUE]
+
+									,SUM(CAST(CASE WHEN [BTD_TRX_MODE] IN(9,43)
+												   THEN [BTD_QTY_STK_RCP]	
+												   ELSE 0 
+											  END AS NUMERIC(19,6)))						AS	[STX_RCVD_MA_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] IN(9,43) AND [BTD_QTY_STK_RCP]>0 
+														 THEN [BTD_VALUE]	
+														 ELSE 0 
+												    END AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_RCVD_MA_VALUE]
+
+									,SUM(CAST(CASE WHEN [BTD_TRX_MODE] IN(21)
+												   THEN [BTD_QTY_STK_RCP]	
+												   ELSE 0 
+											  END AS NUMERIC(19,6)))						AS	[STX_RCVD_EMR_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] IN(21) AND [BTD_QTY_STK_RCP]>0 
+														 THEN [BTD_VALUE]	
+														 ELSE 0 
+												    END AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_RCVD_EMR_VALUE]
+
+									--------------------------------------
+									,SUM(CAST(CASE WHEN [BTD_TRX_MODE] NOT IN (6,8,9,20,21) 
+												   THEN [BTD_QTY_STK_ISS]	
+												   ELSE 0 
+											  END 	AS NUMERIC(19,6)))						AS	[STX_ISSD_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] NOT IN (6,8,9,20,21) 
+														 THEN [BTD_QTY_STK_ISS]*[BTD_RATE_DTL]	
+														 ELSE 0 
+													END  AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_ISSD_VALUE]
+
+									,SUM(CAST(CASE WHEN [BTD_TRX_MODE] = 8 
+												   THEN [BTD_QTY_STK_ISS]	
+												   ELSE 0 
+											  END 	AS NUMERIC(19,6)))						AS	[STX_ISSD_MI_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] = 8 
+														 THEN [BTD_QTY_STK_ISS]*[BTD_RATE_DTL]	
+														 ELSE 0 
+													END  AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_ISSD_MI_VALUE]
+
+									,SUM(CAST(CASE WHEN [BTD_TRX_MODE] = 20 
+												   THEN [BTD_QTY_STK_ISS]	
+												   ELSE 0 
+											  END 	AS NUMERIC(19,6)))						AS	[STX_ISSD_EMI_QTY]
+
+									,SUM(ROUND(CAST(CASE WHEN [BTD_TRX_MODE] = 20 
+														 THEN [BTD_QTY_STK_ISS]*[BTD_RATE_DTL]	
+														 ELSE 0 
+													END  AS NUMERIC(19,6)),@V_CUR_ROUND))	AS	[STX_ISSD_EMI_VALUE]
+
+									,ISNULL([MIH_DEPT_TO],[MIH_DEPT_FROM])					AS	[DEPT_1]
+									------------------------------------	
+							FROM	[INV_STK_BATCH_TRX_DTL]
+							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4*/
+										 SELECT CAST(CSD_START_DATE AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 INNER JOIN [PRD_COMP_STAGE_TRX_DTL] ON [CSD_COMP_TRX] = [CTH_PK]
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4
+										 UNION ALL
+										 SELECT CAST([DTH_LOAD_TM] AS TIME)    AS [START_TIME] 
+							             FROM [PRD_DISP_TRX_HDR] 
+										 WHERE [DTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 5
+										 UNION ALL
+										 SELECT CAST([RTH_TIME] AS TIME)       AS [START_TIME] 
+							             FROM [PRD_RM_TOP_UP_HDR] 
+										 WHERE [RTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 33) AS [ST_DATE]
+								
+							OUTER APPLY (	SELECT DISTINCT [MIH_DEPT_TO] 
+											FROM [INV_ITEM_ISSUE_HDR]
+											INNER JOIN [INV_ITEM_ISSUE_DTL] ON [MIH_PK] = [MID_MI]
+											WHERE [MIH_PK] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 8
+											AND [BTD_ITEM] = [MID_ITEM]
+											 
+											)[ISSSS]
+							OUTER APPLY (	SELECT DISTINCT [MIH_DEPT] AS [MIH_DEPT_FROM] 
+											FROM [INV_ITEM_ACCEPT_DTL]
+											INNER JOIN [INV_ITEM_ISSUE_HDR] ON [MIH_PK] = [MAD_MI]
+											WHERE [MAD_MA] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 9
+											AND [BTD_ITEM] = [MAD_ITEM]
+
+											UNION ALL
+											
+											SELECT [ICH_DEPT] 
+											FROM [INV_ITEM_CONS_HDR]
+											INNER JOIN [INV_ITEM_CONS_DTL] ON [ICD_ITEM_CONS_HDR] = [ICH_PK]
+											WHERE [ICH_PK] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 43
+											AND [ICH_TRX_TYPE] = 9
+											AND [BTD_ITEM] = [ICD_ITEM]
+											GROUP BY [ICH_PK],[ICH_DEPT]
+											 
+											)[ACCEPT]
+							WHERE	[BTD_TRN_DATE] BETWEEN @V_FROM_DT AND @V_TO_DT1 AND
+								[BTD_DEPT]	 =  [STD_DEPT]
+								AND	[BTD_ITEM]	 =	[STD_ITEM]
+								--AND	[BTD_TRN_DATE] BETWEEN @V_FROM_DT AND @V_TO_DT
+								AND	CAST([BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME)  BETWEEN CASE WHEN [BTD_TRX_MODE] IN (4,5,33) 
+																																	 THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+																																	 ELSE @V_FROM_DT END
+																																	 AND 
+																															    CASE WHEN [BTD_TRX_MODE] IN (4,5,33)
+																																     THEN DATEADD(MINUTE,6*300+59,CAST(@V_TO_DT AS DATETIME))
+																																	 ELSE @V_TO_DT END
+								AND [BTD_BATCH_TYPE]<>13
+								GROUP BY ISNULL([MIH_DEPT_TO],[MIH_DEPT_FROM])
+						) STK
+			OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
+			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
+			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
+						  WHERE	[IOS_DEPT]		= [STD_DEPT]
+							AND [IOS_ITEM]		= [STD_ITEM]
+							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
+            OUTER APPLY
+            (
+                -- Once a reporting month closes with no stock, its residual value
+                -- must not reappear in the opening value of a later date filter.
+                SELECT TOP (1)
+                    CAST([RUNNING_VALUE]
+                        - CASE WHEN MAX(CASE WHEN [BALANCE_QTY] = 0 THEN 1 ELSE 0 END) OVER () = 1
+                               THEN FIRST_VALUE([RUNNING_VALUE]+ISNULL(OP.[STX_OP_VALUE],0)) OVER
+                                    (ORDER BY CASE WHEN [BALANCE_QTY] = 0 THEN 0 ELSE 1 END,[REPORT_MONTH] DESC)
+                               WHEN ISNULL(OP.[STX_OP_QTY],0) = 0 THEN ISNULL(OP.[STX_OP_VALUE],0)
+                               ELSE 0 END AS NUMERIC(19,6)) AS [STX_OPENING_VALUE],
+                    CAST([RUNNING_QTY] AS NUMERIC(19,6)) AS [STX_OPENING_QTY]
+                FROM
+                (
+                    SELECT [REPORT_MONTH],[RUNNING_QTY],[RUNNING_VALUE],
+                        CAST(ISNULL(OP.[STX_OP_QTY],0)+[RUNNING_QTY] AS NUMERIC(19,6)) AS [BALANCE_QTY]
+                    FROM
+                    (
+                        SELECT [REPORT_MONTH],
+                            SUM([MONTH_RCP_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING)
+                            -SUM([MONTH_ISS_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_QTY],
+                            SUM([MONTH_VALUE]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_VALUE]
+                        FROM
+                        (
+                            SELECT [REPORT_DATE].[REPORT_MONTH],
+                                SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) AS [MONTH_RCP_QTY],
+                                SUM(ISNULL(T.[BTD_QTY_STK_ISS],0)) AS [MONTH_ISS_QTY],
+                                SUM(ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+                                   -ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)) AS [MONTH_VALUE]
+                            FROM	[INV_STK_BATCH_TRX_DTL] T
+							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4*/
+										 SELECT CAST(CSD_START_DATE AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 INNER JOIN [PRD_COMP_STAGE_TRX_DTL] ON [CSD_COMP_TRX] = [CTH_PK]
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4
+										 UNION ALL
+										 SELECT CAST([DTH_LOAD_TM] AS TIME)    AS [START_TIME] 
+							             FROM [PRD_DISP_TRX_HDR] 
+										 WHERE [DTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 5
+										 UNION ALL
+										 SELECT CAST([RTH_TIME] AS TIME)       AS [START_TIME] 
+							             FROM [PRD_RM_TOP_UP_HDR] 
+										 WHERE [RTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 33) AS [ST_DATE]
+							CROSS APPLY (SELECT CONVERT(DATE,
+                                DATEADD(MONTH,DATEDIFF(MONTH,0,
+                                DATEADD(HOUR,CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) THEN -7 ELSE 0 END,
+                                CAST(T.[BTD_TRN_DATE] AS DATETIME)
+                                +CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME))),0)) AS [REPORT_MONTH]) [REPORT_DATE]
+                            WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND @V_FROM_DT1 AND
+								T.[BTD_DEPT]		= [STD_DEPT]
+								AND T.[BTD_ITEM]		= [STD_ITEM]
+								--AND	T.[BTD_TRN_DATE]	< @V_FROM_DT
+								AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME)>= CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+																															    THEN DATEADD(HOUR,7,CAST(@V_FIN_DATE_FROM AS DATETIME))
+																															    ELSE @V_FIN_DATE_FROM END
+								AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME) < CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+																															    THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+																															    ELSE @V_FROM_DT END
+								AND T.[BTD_BATCH_TYPE]<>13
+                            GROUP BY [REPORT_DATE].[REPORT_MONTH]
+                        ) [MONTHLY_HISTORY]
+                    ) [RUNNING_HISTORY]
+                ) [OPENING_HISTORY]
+                ORDER BY [REPORT_MONTH] DESC
+            ) AS [OPENING]
+	WHERE	[STD_BIZUNIT]	=	ISNULL(@V_BIZUNIT,[STD_BIZUNIT])
+		AND	[STD_DEPT] 		=	ISNULL(@V_DEPT,[STD_DEPT])
+		AND	[DPT_CATEGORY]	IN (0,2) --General,Compund stores
+		AND	[DPT_TYPE]		IN(	2,3) --Stores
+		--AND [ITM_ACTIVE]	=	1
+		AND	(	@V_ITM_PK IS NULL	OR
+				[ITM_PK] IN (	SELECT	[Value]	FROM	@T_PARAMETER	WHERE	[ParamName] = 'ITM_PK')
+			)	--for multi select
+		AND	(	@V_DPT_PK IS NULL	OR
+				[DPT_PK] IN (	SELECT	[Value]	FROM	@T_PARAMETER	WHERE	[ParamName] = 'DPT_PK')
+			)	--for multi select
+		AND	(	
+				@V_IPD_CLASSIFICATION IS NULL		
+			OR	[IPD_CLASSIFICATION]	= @V_IPD_CLASSIFICATION
+			)
+		AND (EXISTS(SELECT	[BTD_PK]	
+					FROM	[INV_STK_BATCH_TRX_DTL] T
+					WHERE	T.[BTD_TRN_DATE]  BETWEEN @V_FROM_DT AND @V_TO_DT
+						AND	T.[BTD_ITEM]	  = S.[STD_ITEM] 
+						AND T.[BTD_BATCH_TYPE]<>13
+						AND	T.[BTD_DEPT]	  = S.[STD_DEPT]) OR @V_TRAN_ONLY = 0)
+	)
+	INSERT INTO @T_STOCK_BY_LOCATION
+	(		 
+			 [STX_ITEM]
+			,[STX_DEPT]
+			,[STX_DEPT_1]
+			,[STX_SL_NO]
+			,[STX_ITEM_TEXT]
+			,[STX_ITEM_CODE]
+			,[STX_ITEM_CATEGORY_TEXT]
+			,[STX_ITEM_CATEGORY_SEL_TEXT]
+			,[ITC_ORDER]
+			,[STX_UOM_TEXT]
+			,[STX_DEPT_TEXT]
+			,[STX_CURRENCY_TEXT]
+			,[STX_COST_MTHD]
+			,[STX_TAX_NO]
+			,[STX_OPN_QTY]
+			,[STX_OPN_VALUE]
+			,[STX_RCVD_QTY]
+			,[STX_RCVD_VALUE]
+			,[STX_RCVD_MA_QTY]
+			,[STX_RCVD_MA_QTY_CMP_P1]
+			,[STX_RCVD_MA_QTY_CMP_P2]
+			,[STX_RCVD_MA_QTY_CMP_P3]
+			,[STX_RCVD_MA_QTY_INV_P1]
+			,[STX_RCVD_MA_QTY_INV_P2]
+			,[STX_RCVD_MA_QTY_INV_P3]
+			,[STX_RCVD_MA_QTY_PRD_P1]
+			,[STX_RCVD_MA_QTY_PRD_P2]
+			,[STX_RCVD_MA_QTY_PRD_P3]
+			,[STX_RCVD_MA_VALUE]
+			,[STX_RCVD_MA_VALUE_CMP_P1]
+			,[STX_RCVD_MA_VALUE_CMP_P2]
+			,[STX_RCVD_MA_VALUE_CMP_P3]
+			,[STX_RCVD_MA_VALUE_INV_P1]
+			,[STX_RCVD_MA_VALUE_INV_P2]
+			,[STX_RCVD_MA_VALUE_INV_P3]
+			,[STX_RCVD_MA_VALUE_PRD_P1]
+			,[STX_RCVD_MA_VALUE_PRD_P2]
+			,[STX_RCVD_MA_VALUE_PRD_P3]
+			,[STX_RCVD_EMR_QTY]
+			,[STX_RCVD_EMR_VALUE]
+			,[STX_ISSD_QTY]
+			,[STX_ISSD_VALUE]
+			,[STX_ISSD_MI_QTY]
+			,[STX_ISSD_MI_QTY_CMP_P1]
+			,[STX_ISSD_MI_QTY_CMP_P2]
+			,[STX_ISSD_MI_QTY_CMP_P3]
+			,[STX_ISSD_MI_QTY_INV_P1]
+			,[STX_ISSD_MI_QTY_INV_P2]
+			,[STX_ISSD_MI_QTY_INV_P3]
+			,[STX_ISSD_MI_QTY_PRD_P1]
+			,[STX_ISSD_MI_QTY_PRD_P2]
+			,[STX_ISSD_MI_QTY_PRD_P3]
+			,[STX_ISSD_MI_VALUE]
+			,[STX_ISSD_MI_VALUE_CMP_P1]
+			,[STX_ISSD_MI_VALUE_CMP_P2]
+			,[STX_ISSD_MI_VALUE_CMP_P3]
+			,[STX_ISSD_MI_VALUE_INV_P1]
+			,[STX_ISSD_MI_VALUE_INV_P2]
+			,[STX_ISSD_MI_VALUE_INV_P3]
+			,[STX_ISSD_MI_VALUE_PRD_P1]
+			,[STX_ISSD_MI_VALUE_PRD_P2]
+			,[STX_ISSD_MI_VALUE_PRD_P3]
+			,[STX_ISSD_EMI_QTY]
+			,[STX_ISSD_EMI_VALUE]
+			,[STX_TRX_MONTH_TEXT]
+			,[STX_TRX_YEAR_TEXT]
+			,[STX_TRX_MONTH]
+			,[STX_ADJ_QTY]
+			,[STX_CLS_QTY]
+			,[STX_CLS_VALUE]
+			,[STX_CLS_RATE]
+			,[STX_MR_VALUE]
+			,[STX_MR_QTY]
+	)
+	SELECT	 [STX_ITEM]
+			,[STX_DEPT]
+			,[STX_DEPT_1]
+			,[STX_SL_NO]
+			,[STX_ITEM_TEXT]
+			,[STX_ITEM_CODE]
+			,[STX_ITEM_CATEGORY_TEXT]
+			,[STX_ITEM_CATEGORY_SEL_TEXT]
+			,[ITC_ORDER]
+			,[STX_UOM_TEXT]
+			,[STX_DEPT_TEXT]
+			,[STX_CURRENCY_TEXT]
+			,[STX_COST_MTHD]
+			,[STX_TAX_NO]
+			,[STX_OPN_QTY]
+			,[STX_OPN_VALUE]
+
+			------ACCEPT---------
+			,[STX_RCVD_QTY]
+			,[STX_RCVD_VALUE]
+			,[STX_RCVD_MA_QTY]
+			,	CASE	WHEN [STX_DEPT_1]=4 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_CMP_P1]			
+			,	CASE	WHEN [STX_DEPT_1]=20004 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_CMP_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30004 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_CMP_P3]
+			,	CASE	WHEN [STX_DEPT_1]=2 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_INV_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20002 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_INV_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30002 --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_INV_P3]
+			,	CASE	WHEN [STX_DEPT_1] IN(30,5) --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_PRD_P1]
+			,	CASE	WHEN [STX_DEPT_1] IN(20030,20005) --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_PRD_P2]
+			,	CASE	WHEN [STX_DEPT_1] IN(30030,30005) --Item Accept
+						THEN [STX_RCVD_MA_QTY] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_QTY_PRD_P3]
+
+			,[STX_RCVD_MA_VALUE]
+
+			,	CASE	WHEN [STX_DEPT_1]=4 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20004 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30004 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P3]
+			,	CASE	WHEN [STX_DEPT_1]=2 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_INV_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20002 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_INV_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30002 --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_INV_P3]
+			,	CASE	WHEN [STX_DEPT_1] IN(30,5) --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P1]
+			,	CASE	WHEN [STX_DEPT_1] IN(20030,20005) --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P2]
+			,	CASE	WHEN [STX_DEPT_1] IN(30030,30005) --Item Accept
+						THEN [STX_RCVD_MA_VALUE] 
+						ELSE NULL 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P3]
+			,[STX_RCVD_EMR_QTY]
+			,[STX_RCVD_EMR_VALUE]
+			 -----------ISSUE-----------
+			,[STX_ISSD_QTY]
+			,[STX_ISSD_VALUE]
+			,[STX_ISSD_MI_QTY]
+			,	CASE	WHEN [STX_DEPT_1]=4--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_CMP_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20004--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_CMP_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30004--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_CMP_P3]
+			,	CASE	WHEN [STX_DEPT_1]=2--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_INV_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20002--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_INV_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30002--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_INV_P3]
+			,	CASE	WHEN [STX_DEPT_1] IN(30,5)--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_PRD_P1]
+			,	CASE	WHEN [STX_DEPT_1]IN(20030,20005)--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_PRD_P2]
+			,	CASE	WHEN [STX_DEPT_1]IN(30030,30005)--Item Issue
+						THEN [STX_ISSD_MI_QTY] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_QTY_PRD_P3]
+
+			,[STX_ISSD_MI_VALUE]
+
+			,	CASE	WHEN [STX_DEPT_1]=4--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20004--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30004--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P3]
+			,	CASE	WHEN [STX_DEPT_1]=2--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_INV_P1]
+			,	CASE	WHEN [STX_DEPT_1]=20002--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_INV_P2]
+			,	CASE	WHEN [STX_DEPT_1]=30002--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_INV_P3]
+			,	CASE	WHEN [STX_DEPT_1] IN(30,5)--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P1]
+			,	CASE	WHEN [STX_DEPT_1] IN(20030,20005)--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P2]	
+			,	CASE	WHEN [STX_DEPT_1] IN(30030,30005)--Item Issue
+						THEN [STX_ISSD_MI_VALUE] 
+						ELSE NULL 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P3]	
+			,[STX_ISSD_EMI_QTY]
+			,[STX_ISSD_EMI_VALUE]
+			
+			,[STX_TRX_MONTH_TEXT]
+			,[STX_TRX_YEAR_TEXT]
+			,[STX_TRX_MONTH]
+			,[STX_ADJ_QTY]
+			,[STX_CLS_QTY]
+			,CASE	WHEN [STX_CLS_QTY] > 0 --- exclued -ve opening quantity value as per instruction from manoj sir on  19-05-2021
+					THEN (CASE WHEN [STX_OPN_QTY] = 0 THEN 0 ELSE [STX_OPN_VALUE] END
+						+ ISNULL([STX_RCVD_VALUE],0) 
+						+ ISNULL([STX_RCVD_MA_VALUE],0) 
+						- ISNULL([STX_ISSD_VALUE],0) 
+						- ISNULL([STX_ISSD_MI_VALUE],0)) 
+					ELSE 0
+			 END	AS	[STX_CLS_VALUE]
+			,[STX_CLS_RATE]
+			,ISNULL(
+				(	SELECT	[STX_MR_VALUE]
+					FROM	[CTE_STK_MR_DTL]
+				),0)						AS	[STX_MR_VALUE]
+			,ISNULL(
+				(	SELECT	[STX_MR_QTY]
+					FROM	[CTE_STK_MR_DTL]
+				),0)						AS	[STX_MR_QTY]	
+	
+	FROM	[CTE_INV_STK_DTL]
+	/*WHERE	COALESCE(	[STX_RCVD_QTY]
+						,[STX_ISSD_QTY]
+						,[STX_CLS_QTY]
+					) IS NOT NULL*/
+	ORDER BY [ITC_ORDER]
+			,[STX_ITEM_CATEGORY_TEXT]
+			,[STX_DEPT_TEXT]
+			,[STX_ITEM_TEXT]
+
+	SELECT   [STX_ITEM]												AS	[STX_ITEM]
+		,[STX_ITEM_TEXT]											AS	[STX_ITEM_TEXT]
+		,[STX_ITEM_CODE]											AS	[STX_ITEM_CODE]
+		,[STX_ITEM_CATEGORY_TEXT]									AS	[STX_ITEM_CATEGORY_TEXT]
+		,[STX_UOM_TEXT]												AS	[STX_UOM_TEXT]
+		,[STX_DEPT_TEXT]											AS	[STX_DEPT_TEXT]
+		,[STX_COST_MTHD]											AS	[STX_COST_MTHD]
+		,[STX_TAX_NO]												AS	[STX_TAX_NO]
+		,ISNULL(SUM([STX_RCVD_QTY])				,0)					AS	[STX_RCVD_QTY]
+		,ISNULL(SUM([STX_RCVD_VALUE])			,0)					AS	[STX_RCVD_VALUE]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_CMP_P1])	,0)					AS	[STX_RCVD_MA_QTY_CMP_P1]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_CMP_P2])	,0)					AS	[STX_RCVD_MA_QTY_CMP_P2]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_CMP_P3])	,0)					AS	[STX_RCVD_MA_QTY_CMP_P3]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_INV_P1])	,0)					AS	[STX_RCVD_MA_QTY_INV_P1]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_INV_P2])	,0)					AS	[STX_RCVD_MA_QTY_INV_P2]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_INV_P3])	,0)					AS	[STX_RCVD_MA_QTY_INV_P3]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_PRD_P1])	,0)					AS	[STX_RCVD_MA_QTY_PRD_P1]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_PRD_P2])	,0)					AS	[STX_RCVD_MA_QTY_PRD_P2]
+		,ISNULL(SUM([STX_RCVD_MA_QTY_PRD_P3])	,0)					AS	[STX_RCVD_MA_QTY_PRD_P3]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_CMP_P1])	,0)					AS	[STX_RCVD_MA_VALUE_CMP_P1]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_CMP_P2])	,0)					AS	[STX_RCVD_MA_VALUE_CMP_P2]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_CMP_P3])	,0)					AS	[STX_RCVD_MA_VALUE_CMP_P3]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_INV_P1])	,0)					AS	[STX_RCVD_MA_VALUE_INV_P1]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_INV_P2])	,0)					AS	[STX_RCVD_MA_VALUE_INV_P2]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_INV_P3])	,0)					AS	[STX_RCVD_MA_VALUE_INV_P3]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_PRD_P1])	,0)					AS	[STX_RCVD_MA_VALUE_PRD_P1]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_PRD_P2])	,0)					AS	[STX_RCVD_MA_VALUE_PRD_P2]
+		,ISNULL(SUM([STX_RCVD_MA_VALUE_PRD_P3])	,0)					AS	[STX_RCVD_MA_VALUE_PRD_P3]
+		,ISNULL(SUM([STX_RCVD_EMR_QTY])	,0)							AS	[STX_RCVD_EMR_QTY]
+		,ISNULL(SUM([STX_RCVD_EMR_VALUE])	,0)						AS	[STX_RCVD_EMR_VALUE]
+		,ISNULL(SUM([STX_ISSD_QTY])				,0)					AS	[STX_ISSD_QTY]
+		,ISNULL(SUM([STX_ISSD_VALUE])			,0)					AS	[STX_ISSD_VALUE]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_CMP_P1])	,0)					AS	[STX_ISSD_MI_QTY_CMP_P1]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_CMP_P2])	,0)					AS	[STX_ISSD_MI_QTY_CMP_P2]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_CMP_P3])	,0)					AS	[STX_ISSD_MI_QTY_CMP_P3]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_INV_P1])	,0)					AS	[STX_ISSD_MI_QTY_INV_P1]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_INV_P2])	,0)					AS	[STX_ISSD_MI_QTY_INV_P2]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_INV_P3])	,0)					AS	[STX_ISSD_MI_QTY_INV_P3]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_PRD_P1])	,0)					AS	[STX_ISSD_MI_QTY_PRD_P1]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_PRD_P2])	,0)					AS	[STX_ISSD_MI_QTY_PRD_P2]
+		,ISNULL(SUM([STX_ISSD_MI_QTY_PRD_P3])	,0)					AS	[STX_ISSD_MI_QTY_PRD_P3]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_CMP_P1])	,0)					AS	[STX_ISSD_MI_VALUE_CMP_P1]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_CMP_P2])	,0)					AS	[STX_ISSD_MI_VALUE_CMP_P2]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_CMP_P3])	,0)					AS	[STX_ISSD_MI_VALUE_CMP_P3]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_INV_P1])	,0)					AS	[STX_ISSD_MI_VALUE_INV_P1]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_INV_P2])	,0)					AS	[STX_ISSD_MI_VALUE_INV_P2]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_INV_P3])	,0)					AS	[STX_ISSD_MI_VALUE_INV_P3]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_PRD_P1])	,0)					AS	[STX_ISSD_MI_VALUE_PRD_P1]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_PRD_P2])	,0)					AS	[STX_ISSD_MI_VALUE_PRD_P2]
+		,ISNULL(SUM([STX_ISSD_MI_VALUE_PRD_P3])	,0)					AS	[STX_ISSD_MI_VALUE_PRD_P3]
+		,ISNULL(SUM([STX_ISSD_EMI_QTY])	,0)							AS	[STX_ISSD_EMI_QTY]
+		,ISNULL(SUM([STX_ISSD_EMI_VALUE])	,0)						AS	[STX_ISSD_EMI_VALUE]
+		,ISNULL(SUM([STX_MR_VALUE])				,0)					AS	[STX_MR_VALUE]
+		,ISNULL(SUM([STX_MR_QTY])				,0)					AS	[STX_MR_QTY]
+		,ISNULL(SUM([STX_RCVD_MA_QTY])			,0)					AS	[STX_RCVD_MA_QTY]
+		,ISNULL(SUM([STX_ISSD_MI_QTY])			,0)					AS	[STX_ISSD_MI_QTY]
+		,ISNULL(MAX([STX_OPN_QTY])				,0)					AS	[STX_OPN_QTY]
+		,ISNULL(MAX([STX_OPN_VALUE])			,0)					AS	[STX_OPN_VALUE]
+		,ISNULL(MAX([STX_ADJ_QTY])				,0)					AS	[STX_ADJ_QTY]
+		, ISNULL(SUM([STX_RCVD_QTY]),0)								
+		 +ISNULL(SUM([STX_RCVD_MA_QTY]),0)	
+		 +ISNULL(SUM([STX_RCVD_EMR_QTY]),0)
+		 +ISNULL(MAX([STX_OPN_QTY]),0)								
+		 -ISNULL(SUM([STX_ISSD_QTY]),0)								
+		 -ISNULL(SUM([STX_ISSD_MI_QTY]),0)
+		 -ISNULL(SUM([STX_ISSD_EMI_QTY]),0)
+																	AS	[STX_CLS_QTY]
+		,CASE	WHEN ISNULL(SUM([STX_RCVD_QTY]),0)
+					+ISNULL(SUM([STX_RCVD_MA_QTY]),0)
+					+ISNULL(SUM([STX_RCVD_EMR_QTY]),0)
+					+ISNULL(MAX([STX_OPN_QTY]),0)
+					-ISNULL(SUM([STX_ISSD_QTY]),0)
+					-ISNULL(SUM([STX_ISSD_MI_QTY]),0)
+					-ISNULL(SUM([STX_ISSD_EMI_QTY]),0)> 0 --- exclued -ve opening quantity value as per instruction from manoj sir on  19-05-2021
+				THEN (CASE WHEN ISNULL(MAX([STX_OPN_QTY]),0) = 0 THEN 0 ELSE ISNULL(MAX([STX_OPN_VALUE]),0) END
+					+ ISNULL(SUM([STX_RCVD_VALUE]),0) 
+					+ ISNULL(SUM([STX_RCVD_MA_VALUE]),0) 
+					+ISNULL(SUM([STX_RCVD_EMR_VALUE]),0)
+					- ISNULL(SUM([STX_ISSD_VALUE]),0) 
+					- ISNULL(SUM([STX_ISSD_MI_VALUE]),0)
+					-ISNULL(SUM([STX_ISSD_EMI_VALUE]),0)) 
+				ELSE 0
+		 END														AS	[STX_CLS_VALUE] 
+FROM   @T_STOCK_BY_LOCATION
+WHERE		([STX_OPN_QTY]		> 0
+		OR	[STX_RCVD_QTY]		> 0
+		OR	[STX_RCVD_MA_QTY]	> 0
+		OR	[STX_ISSD_MI_QTY]	> 0
+		OR	[STX_ISSD_QTY]		> 0 OR ISNULL(@V_ALL_ITEM,0)=1)
+GROUP BY [STX_ITEM]
+		,[STX_ITEM_TEXT]
+		,[STX_ITEM_CODE]
+		,[STX_ITEM_CATEGORY_TEXT]
+		,[STX_UOM_TEXT]
+		,[STX_DEPT_TEXT]
+		,[STX_COST_MTHD]
+		,[STX_TAX_NO]
+
+ORDER BY [STX_ITEM_CODE]
+
+
+	
+
+END
+
+GO
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Author	: GTI-229
+	Date	: 16-04-2021
+	Purpose : 
+	Execute : EXEC [SPINV_STK_CARD_BATCH_TRX_DTL_CNDN_RPT_MMT_FIN_YEAR] ''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Modified By			On				Remarks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+	GTI-229         10-05-2022      Compound start time change From CTH_PRE_START_DT To CSD_START_DATE
+	GTI-232			14/12/2022			Corrected the dat and time addting error .issue on level upgarde
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ALTER PROCEDURE [dbo].[SPINV_STK_CARD_BATCH_TRX_DTL_CNDN_RPT_MMT_FIN_YEAR_NEW]
+(
+	@P_XML	XML	= NULL
+)
+AS
+BEGIN
+	
+	SET NOCOUNT ON
+	SET ANSI_WARNINGS OFF
+
+	DECLARE @T_PARAMETER TABLE
+		(
+			[ParamName]		NVARCHAR(100),
+			[Value]			NVARCHAR(200)
+		)
+
+	DECLARE	@V_DOC_HANDLE	 		INT,
+			@V_FROM_DT		 		DATE,
+			@V_TO_DT		 		DATE,
+			@V_BIZUNIT		 		INT,
+			@V_DEPT			 		INT,
+			@V_TYPE			 		NVARCHAR(20),
+			@V_USER			 		INT,
+			@V_ITM_CATEGORY	 		INT,
+			@V_ITM_PK		 		INT,
+			@V_DPT_PK		 		INT,
+			@V_TRAN_ONLY			TINYINT,
+			@V_IS_RETURN			TINYINT,
+			@V_IPD_CLASSIFICATION	NVARCHAR(200),
+			@V_CUR_ROUND			TINYINT,
+			@V_FIN_YEAR				INT,
+			@V_FIN_DATE_FROM		DATE
+			
+
+	SELECT	@V_CUR_ROUND = [ACF_VALUE]
+	FROM	[ADM_APP_CONFIG_MST]
+	WHERE	[ACF_SETTING]	=	'CURRENCY SETTINGS' 
+		AND [ACF_DATA]		=	'CurrencyDecimalDigit'
+
+	EXEC SP_XML_PREPAREDOCUMENT @V_DOC_HANDLE OUTPUT,@P_XML
+
+	SELECT	 @V_FROM_DT			=	[FromDate]
+			,@V_TO_DT			=	[ToDate]
+			,@V_BIZUNIT			=	[BizUnit]
+			
+	FROM	OPENXML(@V_DOC_HANDLE,'/FilterParameters',2)
+	WITH
+		(
+			 [FromDate]	DATE
+			,[ToDate]	DATE
+			,[BizUnit]	INT
+			,[UserPK]	INT
+			,[Dept]		INT
+			
+ 		)
+
+	INSERT INTO @T_PARAMETER
+		(
+			[ParamName]	,
+			[Value]		
+		)
+
+	SELECT	[ParamName],
+			[Value]
+	FROM	OPENXML(@V_DOC_HANDLE,'/FilterParameters/Parameter/Values/Value')
+	WITH
+	(
+		 [ParamName]	NVARCHAR(100)	'../../ParamName'
+		,[Value]		NVARCHAR(200)	'../Value'
+	)
+
+	EXEC SP_XML_REMOVEDOCUMENT @V_DOC_HANDLE
+
+	SELECT	@V_ITM_CATEGORY = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'ITM_CATEGORY'
+
+	SELECT	@V_ITM_PK = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'ITM_PK'
+
+	SELECT	@V_DPT_PK = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'DPT_PK'
+
+	SELECT	@V_TRAN_ONLY = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'TRAN_ONLY'
+
+	SELECT	@V_IS_RETURN = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'IS_RETURN'
+
+	SELECT	@V_IPD_CLASSIFICATION = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'IPD_CLASSIFICATION'
+
+	SELECT	@V_FIN_YEAR = [Value]
+	FROM	@T_PARAMETER
+	WHERE	[ParamName] = 'FIN_YEAR'
+
+	SET @V_FIN_YEAR =  CASE WHEN NOT EXISTS (SELECT 1
+	                                         FROM [INV_ITEM_DEPT_OPENING_STOCK_HDR]
+	                                         WHERE [IOH_FIN_YEAR]   = @V_FIN_YEAR
+											   AND [IOH_BIZUNIT]    = @V_BIZUNIT
+											   AND [IOH_DEL_STATUS] = 0
+											   AND [IOH_STATUS]     = 2)
+							THEN (SELECT TOP 1 [IOH_FIN_YEAR]
+							      FROM [INV_ITEM_DEPT_OPENING_STOCK_HDR]
+								  WHERE [IOH_BIZUNIT]    = @V_BIZUNIT
+								    AND [IOH_DEL_STATUS] = 0
+								    AND [IOH_STATUS]     = 2
+								    AND [IOH_DATE] < (SELECT [FYR_DATE_FROM] 
+	                                                  FROM [FIN_YEAR_MST] 
+	                                                  WHERE FYR_PK = @V_FIN_YEAR)
+								  ORDER BY [IOH_DATE] DESC )
+							ELSE @V_FIN_YEAR
+					   END
+
+
+	SELECT @V_FIN_DATE_FROM = [FYR_DATE_FROM] 
+	FROM [FIN_YEAR_MST] 
+	WHERE FYR_PK = @V_FIN_YEAR
+
+	;WITH
+	----------------------
+	--Item Category Filter
+	----------------------
+	[ITEM_CATEGORY_CTE] 
+	( 
+		[ITC_PK]
+		,[ITC_PARENT]
+		,[ITC_NAME]
+		,[Level]
+		,[ITC_ORDER]
+		,[ITC_IS_STOCK]
+	) 
+	AS 
+	( 
+		SELECT	[ITC_PK]
+				,[ITC_PARENT]
+				,[ITC_NAME]
+				,1
+				,CAST(REPLICATE('0',3-LEN( CAST(ROW_NUMBER() OVER (ORDER BY [ITC_NAME])AS VARCHAR) )) + CAST(ROW_NUMBER() OVER (ORDER BY [ITC_NAME])AS VARCHAR)AS VARCHAR)
+				,[ITC_IS_STOCK]
+		FROM	[INV_ITEM_CATEGORY] 
+		WHERE  (@V_ITM_CATEGORY IS NULL OR
+		        [ITC_PK] IN (SELECT	[Value]	FROM @T_PARAMETER WHERE	[ParamName] = 'ITM_CATEGORY'))
+		/*( ISNULL(@V_ITM_CATEGORY,0) = 0 AND [ITC_PARENT] = 0 )
+					OR
+					( @V_ITM_CATEGORY > 0  AND [ITC_PK] = @V_ITM_CATEGORY )
+
+		UNION ALL 
+
+		SELECT	C.[ITC_PK]
+				,C.[ITC_PARENT]
+				,C.[ITC_NAME]
+				,[Level] + 1
+				,CAST(CTE.[ITC_ORDER] +'.'+ REPLICATE('0',3-LEN( CAST(ROW_NUMBER() OVER (ORDER BY C.[ITC_NAME])AS VARCHAR) )) + CAST(ROW_NUMBER() OVER (ORDER BY C.[ITC_NAME])AS VARCHAR) AS VARCHAR)
+				,C.[ITC_IS_STOCK]
+		FROM	[INV_ITEM_CATEGORY] C 
+				INNER JOIN [ITEM_CATEGORY_CTE] CTE ON CTE.[ITC_PK] = C.[ITC_PARENT]*/
+	)
+	,[CTE_STK_BATCH_TRX_DTL]
+	AS
+	(			
+	SELECT	[BTD_PK]
+			,(	SELECT  [ITC_NAME]
+				FROM	[INV_ITEM_CATEGORY]
+				WHERE   [ITC_PK] = [ITM_CATEGORY])					AS  [STX_ITEM_CATEGORY_TEXT]
+			,[ITM_PK] 												AS	[STX_ITEM]
+			,[ITM_CODE]												AS  [STX_ITEM_CODE]
+			,[ITM_NAME]												AS	[STX_ITEM_TEXT]
+			,[DPT_PK] 												AS	[STX_DEPT]
+			,[DEPT_1]												AS	[STX_DEPT_1]
+			,[DPT_NAME]												AS	[STX_DEPT_TEXT]
+			,[BTD_BATCH_DTL]										AS	[STX_BATCH_DTL]
+			,[BTD_TRX_MODE]											AS	[ITD_TRX_MODE]
+			,[BTD_TRN_DATE]											AS	[STX_DATE]
+			,''														AS	[STX_INVOICE_NO]
+			,ISNULL([BTD_REF_DESC4],[BTD_TRN_NO])					AS	[STX_REF_NO]		
+			,'' 													AS	[STX_DESC]
+
+			,(	SELECT	[UOM_CODE]	
+				FROM	[INV_UOM_MST] 
+				WHERE	[UOM_PK] = [ITM_UOM])						AS	[STX_UOM_TEXT]
+			,	ISNULL([BZU_NAME],'')								AS	[STX_BIZUNIT_ADDRESS]
+			,[BTD_BATCH_NO]											AS	[STX_BATCH_NO]
+			,[BZU_TAX_NO]											AS  [STX_TAX_NO]
+			,''														AS	[STX_COST_MTHD]
+			-----------------
+			--Opening  
+			-----------------
+			,ISNULL([STX_OP_QTY],0)+ISNULL([STX_OPENING_QTY],0)		AS	[STX_OPENING_QTY]
+			,CASE	WHEN ISNULL([STX_OP_QTY],0)+ISNULL([STX_OPENING_QTY],0) = 0 
+					THEN 0 
+					ELSE ISNULL([STX_OP_VALUE],0)+ISNULL([STX_OPENING_VALUE],0)	
+			 END													AS	[STX_OPENING_VALUE]
+			-----------------
+			--Receiving  
+			-----------------
+			,ISNULL([STX_RCVD_QTY],0)								AS	[STX_RCVD_QTY]
+			,ISNULL([STX_RCVD_RATE],0)								AS	[STX_RCVD_RATE]
+			,ISNULL([STX_RCVD_VALUE],0)								AS	[STX_RCVD_VALUE]
+			-----------------
+			--Issueing  
+			-----------------
+			,ISNULL([STX_ISSD_QTY],0)								AS	[STX_ISSD_QTY]
+			,ISNULL([STX_ISSD_RATE],0)								AS	[STX_ISSD_RATE]
+			,ISNULL([STX_ISSD_VALUE],0)								AS	[STX_ISSD_VALUE]
+			-----------------
+			--Closing
+			-----------------
+			,ISNULL([STX_OP_QTY],0)+ISNULL([STX_OPENING_QTY],0)
+				+	SUM(ISNULL([STX_RCVD_QTY],0)) OVER (PARTITION BY S.[BTD_DEPT],S.[BTD_ITEM] ORDER BY S.[BTD_DEPT],S.[BTD_ITEM])	--Received Value
+				-	SUM(ISNULL([STX_ISSD_QTY],0)) OVER (PARTITION BY S.[BTD_DEPT],S.[BTD_ITEM] ORDER BY S.[BTD_DEPT],S.[BTD_ITEM])	--Issued Value
+																	AS	[STX_CLOSING_QTY]
+			,CASE	WHEN ISNULL([STX_OP_QTY],0)+ISNULL([STX_OPENING_QTY],0) = 0 THEN 0 ELSE ISNULL([STX_OP_VALUE],0)+ISNULL([STX_OPENING_VALUE],0) END --Opening Value
+				+	SUM(ISNULL([STX_RCVD_VALUE],0)) OVER (PARTITION BY S.[BTD_DEPT],S.[BTD_ITEM] ORDER BY S.[BTD_DEPT],S.[BTD_ITEM])	--Received Value
+				-	SUM(ISNULL([STX_ISSD_VALUE],0)) OVER (PARTITION BY S.[BTD_DEPT],S.[BTD_ITEM] ORDER BY S.[BTD_DEPT],S.[BTD_ITEM])	--Issued Value
+																	AS	[STX_CLOSING_VALUE]
+
+			,[BTD_REF_DESC1]		AS	[STX_DOC_NO]
+			,[BTD_REF_DESC2]		AS	[STX_VEN_REF_NO]
+			,[BTD_REF_DESC3]		AS	[STX_VEN_PK]
+			,[BTD_REF_DESC5]		AS	[STX_GRN_BATCH_NO]
+			,[BTD_REF_DESC6]		AS	[STX_MI_COST_CENTER]
+			,[BTD_REF_DATE1]		AS	[STX_VEN_REF_DATE]
+			,[BTD_DATE_SL_NO]
+			,ROW_NUMBER() OVER(	PARTITION BY	[DPT_PK],[ITM_PK] 
+								ORDER BY	ISNULL([BTD_TRN_DATE],'3000-12-31')
+											,ISNULL([BTD_PK],999999999999)
+										)							AS	[STX_ITEM_ROW_NO]
+			,[BTD_TRX_MODE]
+			,[START_TIME]
+	FROM	[INV_ITEM_MST]
+			INNER JOIN [INV_STK_DTL]			 ON [STD_ITEM]	 =	[ITM_PK]
+			INNER JOIN [ADM_DEPT_MST]			 ON [DPT_PK]	 =	[STD_DEPT]
+			INNER JOIN [ADM_BIZUNIT_MST]		 ON [BZU_PK]	 =	[STD_BIZUNIT]
+			INNER JOIN [ITEM_CATEGORY_CTE] CTE	 ON [ITM_CATEGORY] = CTE.[ITC_PK]
+												AND ISNULL(CTE.[ITC_IS_STOCK],0)	=	1	--Stock Card Report Item
+			OUTER APPLY (	SELECT	[BTD_PK]
+									,[BTD_DEPT]
+									,[BTD_ITEM]
+									,[BTD_BATCH_DTL]
+									,[BTD_TRN_DATE]
+									,[BTD_DATE_SL_NO]
+									,[BTD_TRX_MODE]
+									,[BTD_TRN]
+									,[BTD_TRN_NO]
+									,[BTD_BATCH_NO]
+									,[BTD_QTY_STK_RCP]
+									,[BTD_QTY_STK_ISS]
+									,[BTD_RATE_DTL]
+									,[BTD_VALUE]
+									--------------------------------------
+									,CAST([BTD_QTY_STK_RCP]	AS NUMERIC(19,6))			AS	[STX_RCVD_QTY]
+									,CAST(CASE	WHEN CAST([BTD_QTY_STK_RCP]AS NUMERIC(19,6))> 0
+												THEN [BTD_RATE_DTL]
+												ELSE 0
+											END	AS NUMERIC(19,6))						AS	[STX_RCVD_RATE]
+									,ROUND(CAST(CASE WHEN [BTD_QTY_STK_RCP] > 0 THEN [BTD_VALUE] ELSE 0 END AS NUMERIC(19,6)),@V_CUR_ROUND)	
+																						AS	[STX_RCVD_VALUE]
+									--------------------------------------
+									,CAST([BTD_QTY_STK_ISS]	AS NUMERIC(19,6))			AS	[STX_ISSD_QTY]
+									,CAST(CASE	WHEN CAST([BTD_QTY_STK_ISS]AS NUMERIC(19,6))> 0
+												THEN [BTD_RATE_DTL]
+												ELSE 0
+										  END	AS NUMERIC(19,6))						AS	[STX_ISSD_RATE]
+									,ROUND(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_ISS] AS NUMERIC(19,6)),@V_CUR_ROUND)
+																						AS	[STX_ISSD_VALUE]
+									------------------------------------	
+									,[BTD_REF_DESC1]
+									,[BTD_REF_DESC2]
+									,[BTD_REF_DESC3]
+									,[BTD_REF_DESC4]
+									,[BTD_REF_DESC5]
+									,[BTD_REF_DESC6]
+									,[BTD_REF_DATE1]
+									,[START_TIME]
+									,ISNULL([MIH_DEPT_TO],[MIH_DEPT_FROM])					AS	[DEPT_1]
+							FROM	[INV_STK_BATCH_TRX_DTL]  WITH (FORCESEEK,INDEX(IDX_INV_STK_BATCH_TRX_DEPT_ITEM))
+							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4*/
+										 SELECT CAST(CSD_START_DATE AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 INNER JOIN [PRD_COMP_STAGE_TRX_DTL] ON [CSD_COMP_TRX] = [CTH_PK]
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4
+										 UNION ALL
+										 SELECT CAST([DTH_LOAD_TM] AS TIME)    AS [START_TIME] 
+							             FROM [PRD_DISP_TRX_HDR] 
+										 WHERE [DTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 5
+										 UNION ALL
+										 SELECT CAST([RTH_TIME] AS TIME)       AS [START_TIME] 
+							             FROM [PRD_RM_TOP_UP_HDR] 
+										 WHERE [RTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 33) AS [ST_DATE]
+							OUTER APPLY (	SELECT DISTINCT [MIH_DEPT_TO] 
+											FROM [INV_ITEM_ISSUE_HDR]
+											INNER JOIN [INV_ITEM_ISSUE_DTL] ON [MIH_PK] = [MID_MI]
+											WHERE [MIH_PK] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 8
+											AND [BTD_ITEM] = [MID_ITEM]
+																						 
+											)[ISSSS]
+							OUTER APPLY (	SELECT DISTINCT [MIH_DEPT] AS [MIH_DEPT_FROM] 
+											FROM [INV_ITEM_ACCEPT_DTL]
+											INNER JOIN [INV_ITEM_ISSUE_HDR] ON [MIH_PK] = [MAD_MI]
+											WHERE [MAD_MA] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 9
+											AND [BTD_ITEM] = [MAD_ITEM]
+
+											UNION ALL
+											
+											SELECT [ICH_DEPT] 
+											FROM [INV_ITEM_CONS_HDR]
+											INNER JOIN [INV_ITEM_CONS_DTL] ON [ICD_ITEM_CONS_HDR] = [ICH_PK]
+											WHERE [ICH_PK] = [BTD_TRN]
+											AND [BTD_TRX_MODE] = 43
+											AND [ICH_TRX_TYPE] = 9
+											AND [BTD_ITEM] = [ICD_ITEM]
+											GROUP BY [ICH_PK],[ICH_DEPT]
+											 
+											)[ACCEPT]
+							WHERE	[BTD_TRN_DATE] BETWEEN @V_FROM_DT AND DATEADD(DAY,1,@V_TO_DT)
+							    AND [BTD_DEPT]	 =  [STD_DEPT]
+								AND	[BTD_ITEM]	 =	[STD_ITEM]
+								AND [BTD_BATCH_TYPE]<>13
+								AND	CAST([BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME)  BETWEEN CASE WHEN [BTD_TRX_MODE] IN (4,5,33) 
+																																	 THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+																																	 ELSE @V_FROM_DT END
+																																	 AND 
+																															    CASE WHEN [BTD_TRX_MODE] IN (4,5,33)
+																																     THEN DATEADD(MINUTE,6*300+59,CAST(@V_TO_DT AS DATETIME))
+																																	 ELSE @V_TO_DT END
+						) S
+			OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
+			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
+			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
+						  WHERE	[IOS_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
+							AND [IOS_ITEM]		= ISNULL(S.[BTD_ITEM],[STD_ITEM])
+							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
+            OUTER APPLY
+            (
+                -- Once a reporting month closes with no stock, its residual value
+                -- must not reappear in the opening value of a later date filter.
+                SELECT TOP (1)
+                    CAST([RUNNING_VALUE]
+                        - CASE WHEN MAX(CASE WHEN [BALANCE_QTY] = 0 THEN 1 ELSE 0 END) OVER () = 1
+                               THEN FIRST_VALUE([RUNNING_VALUE]+ISNULL(OP.[STX_OP_VALUE],0)) OVER
+                                    (ORDER BY CASE WHEN [BALANCE_QTY] = 0 THEN 0 ELSE 1 END,[REPORT_MONTH] DESC)
+                               WHEN ISNULL(OP.[STX_OP_QTY],0) = 0 THEN ISNULL(OP.[STX_OP_VALUE],0)
+                               ELSE 0 END AS NUMERIC(19,6)) AS [STX_OPENING_VALUE],
+                    CAST([RUNNING_QTY] AS NUMERIC(19,6)) AS [STX_OPENING_QTY]
+                FROM
+                (
+                    SELECT [REPORT_MONTH],[RUNNING_QTY],[RUNNING_VALUE],
+                        CAST(ISNULL(OP.[STX_OP_QTY],0)+[RUNNING_QTY] AS NUMERIC(19,6)) AS [BALANCE_QTY]
+                    FROM
+                    (
+                        SELECT [REPORT_MONTH],
+                            SUM([MONTH_RCP_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING)
+                            -SUM([MONTH_ISS_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_QTY],
+                            SUM([MONTH_VALUE]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_VALUE]
+                        FROM
+                        (
+                            SELECT [REPORT_DATE].[REPORT_MONTH],
+                                SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) AS [MONTH_RCP_QTY],
+                                SUM(ISNULL(T.[BTD_QTY_STK_ISS],0)) AS [MONTH_ISS_QTY],
+                                SUM(ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+                                   -ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)) AS [MONTH_VALUE]
+                            FROM	[INV_STK_BATCH_TRX_DTL] T  WITH (FORCESEEK,INDEX(IDX_INV_STK_BATCH_TRX_DEPT_ITEM))
+							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4*/
+										 SELECT CAST(CSD_START_DATE AS TIME) AS [START_TIME] 
+							             FROM [PRD_COMP_TRX_HDR] 
+										 INNER JOIN [PRD_COMP_STAGE_TRX_DTL] ON [CSD_COMP_TRX] = [CTH_PK]
+										 WHERE [CTH_PK] = [BTD_TRN] 
+										 AND   [BTD_TRX_MODE] = 4
+										 UNION ALL
+										 SELECT CAST([DTH_LOAD_TM] AS TIME)    AS [START_TIME] 
+							             FROM [PRD_DISP_TRX_HDR] 
+										 WHERE [DTH_PK] = [BTD_TRN] 
+										 AND   T.[BTD_TRX_MODE] = 5
+										 UNION ALL
+										 SELECT CAST([RTH_TIME] AS TIME)       AS [START_TIME] 
+							             FROM [PRD_RM_TOP_UP_HDR] 
+										 WHERE [RTH_PK] = [BTD_TRN] 
+										 AND   T.[BTD_TRX_MODE] = 33) AS [ST_DT]
+
+							CROSS APPLY (SELECT CONVERT(DATE,
+                                DATEADD(MONTH,DATEDIFF(MONTH,0,
+                                DATEADD(HOUR,CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) THEN -7 ELSE 0 END,
+                                CAST(T.[BTD_TRN_DATE] AS DATETIME)
+                                +CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME))),0)) AS [REPORT_MONTH]) [REPORT_DATE]
+                            WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND DATEADD(DAY,1,@V_FROM_DT) 
+							AND	T.[BTD_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
+								AND T.[BTD_ITEM]	= ISNULL(S.[BTD_ITEM],[STD_ITEM])
+								--AND	T.[BTD_TRN_DATE]	< @V_FROM_DT
+								AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME)>= CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+																															    THEN DATEADD(HOUR,7,CAST(@V_FIN_DATE_FROM AS DATETIME))
+																															    ELSE @V_FIN_DATE_FROM END
+								AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME) < CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+																															    THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+																															    ELSE @V_FROM_DT END
+								AND T.[BTD_BATCH_TYPE]<>13
+                            GROUP BY [REPORT_DATE].[REPORT_MONTH]
+                        ) [MONTHLY_HISTORY]
+                    ) [RUNNING_HISTORY]
+                ) [OPENING_HISTORY]
+                ORDER BY [REPORT_MONTH] DESC
+            ) AS [OPENING]
+	WHERE	(	@V_DPT_PK IS NULL	OR
+				EXISTS  (	SELECT	1
+							FROM	@T_PARAMETER
+							WHERE	[ParamName] = 'DPT_PK'
+								AND	[DPT_PK] = [Value])
+			)	--for multi select
+		--AND [DPT_IS_STOCK]	=	1
+		--AND	[DPT_TYPE]		=	2		--Stores
+		AND [DPT_ACTIVE]		=	1
+		AND	(	@V_ITM_PK IS NULL	OR
+				EXISTS  (	SELECT	1
+							FROM	@T_PARAMETER
+							WHERE	[ParamName] = 'ITM_PK'
+								AND	[ITM_PK] = [Value])
+			)	--for multi select
+		
+		AND	(	
+				@V_IPD_CLASSIFICATION IS NULL OR	
+				EXISTS (	SELECT	1
+							FROM	[INV_ITEM_PACK_DTL]
+							WHERE	[IPD_ITEM]	 =	[ITM_PK]
+								AND	[IPD_CLASSIFICATION]	= @V_IPD_CLASSIFICATION
+						)
+			)
+		AND (S.[BTD_PK] IS NOT NULL OR @V_TRAN_ONLY = 0)
+		AND (	@V_IS_RETURN = 0
+			OR	( @V_IS_RETURN = 1 
+					AND	(		S.[BTD_TRX_MODE]	<> 22	--All transaction except MR
+							OR	
+								S.[BTD_QTY_STK_ISS]	> 0	--Only Issued MR trx
+						)
+				  ) -- Material Return
+			)
+		
+	)
+
+	SELECT	[BTD_PK]
+			,1														AS	[STX_TYPE]
+			,[STX_ITEM_CATEGORY_TEXT]
+			,[STX_ITEM]
+			,[STX_ITEM_CODE]
+			,[STX_ITEM_TEXT]
+			,[STX_DEPT]
+			,[STX_DEPT_TEXT]
+			,[STX_BATCH_DTL]
+			,[ITD_TRX_MODE]
+			,(	SELECT	[CFG_DATA]
+				FROM	[ADM_CONFIG_MST]
+				WHERE	[CFG_TYPE]	=	'STOCK TRANSACTION MODE'
+					AND [CFG_VALUE]	=	[BTD_TRX_MODE]	)			AS	[ITD_TRX_MODE_TEXT]
+			,SUBSTRING(CONVERT(VARCHAR(11), [STX_DATE], 113), 4, 8) AS	[STX_DATE_MY]
+			,[STX_DATE]
+			,REPLACE(CONVERT(VARCHAR(11),[STX_DATE],113),' ','-')	AS	[STX_DATE1]
+			,[STX_INVOICE_NO]
+			,[STX_REF_NO]
+			,[STX_DESC]
+			,[STX_UOM_TEXT]
+			,[STX_BIZUNIT_ADDRESS]
+			,[STX_BATCH_NO]
+			,[STX_TAX_NO]
+			,[STX_COST_MTHD]
+			--------------------------------------OPENING----------------------------------
+			,[STX_OPENING_QTY]
+			,[STX_OPENING_QTY]		AS	[STX_OPENING_ITEM_QTY]
+			,	CASE	WHEN	[STX_ITEM_ROW_NO] = 1 THEN
+				CASE	WHEN	[STX_OPENING_QTY] = 0 THEN 0 ELSE [STX_OPENING_VALUE] END
+						ELSE	0
+				END					AS	[STX_OPENING_VALUE]
+		    ,CASE	WHEN	[STX_OPENING_QTY] = 0 THEN 0 ELSE [STX_OPENING_VALUE] END
+			 						AS	[STX_OPENING_VALUE_ROW]
+			,CASE	WHEN	[STX_OPENING_QTY] = 0 THEN 0 ELSE ([STX_OPENING_VALUE]/[STX_OPENING_QTY]) END
+			 						AS	[STX_OPENING_RATE_ROW]
+            --------------------------------------------------------------------------------
+			--------------------------------------RECEIVED----------------------------------
+			--------------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,43,20,21) --Item Issue,Item Accept,Stock Trnasfer Accept  Plant To Plant,EMI,EMR
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_QTY]
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,43,20,21) --Item Issue,Item Accept,Stock Trnasfer Accept  Plant To Plant
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_RATE]
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,43,20,21) --Item Issue,Item Accept,Stock Trnasfer Accept  Plant To Plant
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_VALUE]
+			-----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE]  IN(9,43) --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY]
+			
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=4 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_CMP_P1]			
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=20004 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=30004 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=2 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=20002 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=30002 --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9		 AND [STX_DEPT_1] IN(30,5) --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(20030,20005) --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(30030,30005) --Item Accept
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_QTY_PRD_P3]
+			-------------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) --Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE]
+
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=4--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_CMP_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=20004--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=30004--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=2--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=20002--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=30002--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(30,5)--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(20030,20005)--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(30030,30005)--Item Accept
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_RATE_PRD_P3]
+			-----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE]
+
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=4 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=20004 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1]=30004 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=2 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=20002 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] IN(9,43) AND [STX_DEPT_1]=30002 --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(30,5) --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(20030,20005) --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 9 AND [STX_DEPT_1] IN(30030,30005) --Item Accept
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_MA_VALUE_PRD_P3]
+
+			-----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (21) --EMR
+						THEN [STX_RCVD_QTY] 
+						ELSE 0 
+				END											AS [STX_RCVD_EMR_QTY]
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (21) --EMR
+						THEN [STX_RCVD_RATE] 
+						ELSE 0 
+				END											AS [STX_RCVD_EMR_RATE]
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (21) --EMR
+						THEN [STX_RCVD_VALUE] 
+						ELSE 0 
+				END											AS [STX_RCVD_EMR_VALUE]
+			-----------------------------------------------------------------------------
+			--------------------------------------ISSUED---------------------------------
+			-----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,20,21) --Item Issue,Item Accept,EMI,EMR
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_QTY]
+			
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,20,21) --Item Issue,Item Accept,EMI,EMR
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_RATE]
+			,	CASE	WHEN [BTD_TRX_MODE] NOT IN (8,9,20,21) --Item Issue,Item Accept,EMI,EMR
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_VALUE]
+			
+			----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 --Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY]
+
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=4--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_CMP_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20004--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30004--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=2--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20002--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30002--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30,5)--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(20030,20005)--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30030,30005)--Item Issue
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_QTY_PRD_P3]
+			---------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 --Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE]
+
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=4--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_CMP_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20004--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30004--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=2--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20002--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30002--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30,5)--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(20030,20005)--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30030,30005)--Item Issue
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_RATE_PRD_P3]
+			--------------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 --Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE]
+
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=4--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20004--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30004--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_CMP_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=2--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_INV_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=20002--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_INV_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1]=30002--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_INV_P3]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30,5)--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P1]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(20030,20005)--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P2]
+			,	CASE	WHEN [BTD_TRX_MODE] = 8 AND [STX_DEPT_1] IN(30030,30005)--Item Issue
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_MI_VALUE_PRD_P3]
+
+			-----------------------------------------------------------------------------
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (20) --EMI
+						THEN [STX_ISSD_QTY] 
+						ELSE 0 
+				END											AS [STX_ISSD_EMI_QTY]
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (20) --EMI
+						THEN [STX_ISSD_RATE] 
+						ELSE 0 
+				END											AS [STX_ISSD_EMI_RATE]
+			,	CASE	WHEN [BTD_TRX_MODE]  IN (20) --EMI
+						THEN [STX_ISSD_VALUE] 
+						ELSE 0 
+				END											AS [STX_ISSD_EMI_VALUE]
+			--------------------------------------CLOSING----------------------------------
+			,[STX_ITEM_ROW_NO]
+			,[STX_CLOSING_QTY]
+			,[STX_CLOSING_VALUE]
+			,
+			CASE	WHEN	[STX_ITEM_ROW_NO] = 1 
+					THEN	[STX_CLOSING_QTY]
+					ELSE	0 
+			END								AS	[STX_CLOSING_ITEM_QTY]
+			,
+			CASE	WHEN	[STX_ITEM_ROW_NO] = 1 AND [STX_CLOSING_QTY] > 0
+					THEN	[STX_CLOSING_VALUE]
+					ELSE	0
+			END								AS	[STX_CLOSING_ITEM_VALUE]
+			----------------------------------------MISC----------------------------------
+			,[STX_DOC_NO]
+			,[STX_VEN_REF_NO]
+			,[STX_VEN_REF_DATE]			
+			,REPLACE(CONVERT(VARCHAR(11),[STX_VEN_REF_DATE],113),' ','-')	AS	[STX_VEN_REF_DATE1]
+			,CASE	WHEN	ISNUMERIC([STX_VEN_PK]) = 1
+					THEN	(SELECT [VEN_CODE] FROM [PUR_VENDOR_MST] WHERE [VEN_PK]	=	[STX_VEN_PK])
+					ELSE	NULL
+			 END	AS	[STX_VEN_CODE]
+			,CASE	WHEN	ISNUMERIC([STX_VEN_PK]) = 1
+					THEN	(SELECT [VEN_NAME] FROM [PUR_VENDOR_MST] WHERE [VEN_PK]	=	[STX_VEN_PK])
+					ELSE	NULL
+			 END	AS	[STX_VEN_NAME]
+			,[STX_MI_COST_CENTER]
+			,[BTD_DATE_SL_NO]
+			
+			,0								AS	[STX_MR_VALUE]
+			,0								AS	[STX_MR_QTY]
+			,0								AS	[STX_CNDN_TOT_VALUE]
+			,(CAST([STX_DATE] AS DATETIME)
+			 +CAST(ISNULL([START_TIME],'00:00:00.000')AS DATETIME))		 AS [STX_DATE_TIME]
+			,(CASE WHEN [ITD_TRX_MODE] IN (4,5,33) 
+				   THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME)) 
+				   ELSE @V_FROM_DT END)							     AS [FROM_DT] 
+			,(CASE WHEN [ITD_TRX_MODE] IN (4,5,33) 
+			       THEN DATEADD(MINUTE,6*300+59,CAST(@V_TO_DT AS DATETIME)) 
+				   ELSE @V_TO_DT END)  								 AS [TO_DT],STX_DEPT_1
+	FROM	[CTE_STK_BATCH_TRX_DTL] TRX
+	WHERE	[STX_OPENING_QTY]	> 0
+		OR	[STX_RCVD_QTY]		> 0
+		OR	[STX_ISSD_QTY]		> 0
+	ORDER BY [STX_DEPT_TEXT]
+			,[STX_ITEM_TEXT]
+			,[STX_DATE]
+			,[STX_ITEM_ROW_NO]
+END
+
+GO

@@ -1,0 +1,217 @@
+diff --git a/StockCardOpeningBalanceFix.rollback.sql b/StockCardOpeningBalanceFix.sql
+index 85e01a0..ee85671 100644
+--- a/StockCardOpeningBalanceFix.rollback.sql
++++ b/StockCardOpeningBalanceFix.sql
+@@ -1,6 +1,14 @@
+--- Restore the report procedures captured before StockCardOpeningBalanceFix.sql.
++-- Report 2104: carry forward the zero-stock value reset across date filters.
++-- Reproduced on MMT_LIVE_NEW_BKP_20260903, item 21326, store 20004.
++-- 31-Jul-2026 closing quantity is zero, with a historical residual value of 7,927.19.
++-- Aug closes at 883.995 / 31,190.27 / 35.283310; Sep must open at the same values.
++-- Only report procedures change; inventory transactions and rates are untouched.
+ USE [MMT_LIVE_NEW_BKP_20260903];
+ GO
++SET ANSI_NULLS ON;
++GO
++SET QUOTED_IDENTIFIER ON;
++GO
+ /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 	Author	: GTI-229
+ 	Date	: 05-05t-2021
+@@ -558,14 +566,42 @@ BEGIN
+ 								AND [BTD_BATCH_TYPE]<>13
+ 								GROUP BY ISNULL([MIH_DEPT_TO],[MIH_DEPT_FROM])
+ 						) STK
+-			OUTER APPLY	(	SELECT	CAST(SUM(	ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+-										       -ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND))AS NUMERIC(19,6))	
+-											AS	[STX_OPENING_VALUE]
+-
+-									,CAST(SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) - SUM(ISNULL(T.[BTD_QTY_STK_ISS],0))AS NUMERIC(19,6))
+-											AS	[STX_OPENING_QTY]
+-									
+-							FROM	[INV_STK_BATCH_TRX_DTL] T
++			OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
++			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
++			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
++						  WHERE	[IOS_DEPT]		= [STD_DEPT]
++							AND [IOS_ITEM]		= [STD_ITEM]
++							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
++            OUTER APPLY
++            (
++                -- Once a reporting month closes with no stock, its residual value
++                -- must not reappear in the opening value of a later date filter.
++                SELECT TOP (1)
++                    CAST([RUNNING_VALUE]
++                        - CASE WHEN MAX(CASE WHEN [BALANCE_QTY] = 0 THEN 1 ELSE 0 END) OVER () = 1
++                               THEN FIRST_VALUE([RUNNING_VALUE]+ISNULL(OP.[STX_OP_VALUE],0)) OVER
++                                    (ORDER BY CASE WHEN [BALANCE_QTY] = 0 THEN 0 ELSE 1 END,[REPORT_MONTH] DESC)
++                               WHEN ISNULL(OP.[STX_OP_QTY],0) = 0 THEN ISNULL(OP.[STX_OP_VALUE],0)
++                               ELSE 0 END AS NUMERIC(19,6)) AS [STX_OPENING_VALUE],
++                    CAST([RUNNING_QTY] AS NUMERIC(19,6)) AS [STX_OPENING_QTY]
++                FROM
++                (
++                    SELECT [REPORT_MONTH],[RUNNING_QTY],[RUNNING_VALUE],
++                        CAST(ISNULL(OP.[STX_OP_QTY],0)+[RUNNING_QTY] AS NUMERIC(19,6)) AS [BALANCE_QTY]
++                    FROM
++                    (
++                        SELECT [REPORT_MONTH],
++                            SUM([MONTH_RCP_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING)
++                            -SUM([MONTH_ISS_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_QTY],
++                            SUM([MONTH_VALUE]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_VALUE]
++                        FROM
++                        (
++                            SELECT [REPORT_DATE].[REPORT_MONTH],
++                                SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) AS [MONTH_RCP_QTY],
++                                SUM(ISNULL(T.[BTD_QTY_STK_ISS],0)) AS [MONTH_ISS_QTY],
++                                SUM(ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
++                                   -ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)) AS [MONTH_VALUE]
++                            FROM	[INV_STK_BATCH_TRX_DTL] T
+ 							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+ 							             FROM [PRD_COMP_TRX_HDR] 
+ 										 WHERE [CTH_PK] = [BTD_TRN] 
+@@ -585,7 +621,12 @@ BEGIN
+ 							             FROM [PRD_RM_TOP_UP_HDR] 
+ 										 WHERE [RTH_PK] = [BTD_TRN] 
+ 										 AND   [BTD_TRX_MODE] = 33) AS [ST_DATE]
+-							WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND @V_FROM_DT1 AND
++							CROSS APPLY (SELECT CONVERT(DATE,
++                                DATEADD(MONTH,DATEDIFF(MONTH,0,
++                                DATEADD(HOUR,CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) THEN -7 ELSE 0 END,
++                                CAST(T.[BTD_TRN_DATE] AS DATETIME)
++                                +CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME))),0)) AS [REPORT_MONTH]) [REPORT_DATE]
++                            WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND @V_FROM_DT1 AND
+ 								T.[BTD_DEPT]		= [STD_DEPT]
+ 								AND T.[BTD_ITEM]		= [STD_ITEM]
+ 								--AND	T.[BTD_TRN_DATE]	< @V_FROM_DT
+@@ -596,14 +637,12 @@ BEGIN
+ 																															    THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+ 																															    ELSE @V_FROM_DT END
+ 								AND T.[BTD_BATCH_TYPE]<>13
+-							
+-						)	AS	[OPENING]
+-		    OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
+-			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
+-			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
+-						  WHERE	[IOS_DEPT]		= [STD_DEPT]
+-							AND [IOS_ITEM]		= [STD_ITEM]
+-							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
++                            GROUP BY [REPORT_DATE].[REPORT_MONTH]
++                        ) [MONTHLY_HISTORY]
++                    ) [RUNNING_HISTORY]
++                ) [OPENING_HISTORY]
++                ORDER BY [REPORT_MONTH] DESC
++            ) AS [OPENING]
+ 	WHERE	[STD_BIZUNIT]	=	ISNULL(@V_BIZUNIT,[STD_BIZUNIT])
+ 		AND	[STD_DEPT] 		=	ISNULL(@V_DEPT,[STD_DEPT])
+ 		AND	[DPT_CATEGORY]	IN (0,2) --General,Compund stores
+@@ -1373,15 +1412,42 @@ BEGIN
+ 																																     THEN DATEADD(MINUTE,6*300+59,CAST(@V_TO_DT AS DATETIME))
+ 																																	 ELSE @V_TO_DT END
+ 						) S
+-			OUTER APPLY	(	SELECT	CAST(SUM(	ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+-										-
+-											ROUND(ISNULL(CAST([BTD_RATE_DTL] AS NUMERIC(19,6)) * CAST([BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
+-										)
+-									AS NUMERIC(19,6))	
+-											AS	[STX_OPENING_VALUE]
+-									,CAST(SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) - SUM(ISNULL(T.[BTD_QTY_STK_ISS],0))AS NUMERIC(19,6))
+-											AS	[STX_OPENING_QTY]
+-							FROM	[INV_STK_BATCH_TRX_DTL] T  WITH (FORCESEEK,INDEX(IDX_INV_STK_BATCH_TRX_DEPT_ITEM))
++			OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
++			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
++			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
++						  WHERE	[IOS_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
++							AND [IOS_ITEM]		= ISNULL(S.[BTD_ITEM],[STD_ITEM])
++							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
++            OUTER APPLY
++            (
++                -- Once a reporting month closes with no stock, its residual value
++                -- must not reappear in the opening value of a later date filter.
++                SELECT TOP (1)
++                    CAST([RUNNING_VALUE]
++                        - CASE WHEN MAX(CASE WHEN [BALANCE_QTY] = 0 THEN 1 ELSE 0 END) OVER () = 1
++                               THEN FIRST_VALUE([RUNNING_VALUE]+ISNULL(OP.[STX_OP_VALUE],0)) OVER
++                                    (ORDER BY CASE WHEN [BALANCE_QTY] = 0 THEN 0 ELSE 1 END,[REPORT_MONTH] DESC)
++                               WHEN ISNULL(OP.[STX_OP_QTY],0) = 0 THEN ISNULL(OP.[STX_OP_VALUE],0)
++                               ELSE 0 END AS NUMERIC(19,6)) AS [STX_OPENING_VALUE],
++                    CAST([RUNNING_QTY] AS NUMERIC(19,6)) AS [STX_OPENING_QTY]
++                FROM
++                (
++                    SELECT [REPORT_MONTH],[RUNNING_QTY],[RUNNING_VALUE],
++                        CAST(ISNULL(OP.[STX_OP_QTY],0)+[RUNNING_QTY] AS NUMERIC(19,6)) AS [BALANCE_QTY]
++                    FROM
++                    (
++                        SELECT [REPORT_MONTH],
++                            SUM([MONTH_RCP_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING)
++                            -SUM([MONTH_ISS_QTY]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_QTY],
++                            SUM([MONTH_VALUE]) OVER (ORDER BY [REPORT_MONTH] ROWS UNBOUNDED PRECEDING) AS [RUNNING_VALUE]
++                        FROM
++                        (
++                            SELECT [REPORT_DATE].[REPORT_MONTH],
++                                SUM(ISNULL(T.[BTD_QTY_STK_RCP],0)) AS [MONTH_RCP_QTY],
++                                SUM(ISNULL(T.[BTD_QTY_STK_ISS],0)) AS [MONTH_ISS_QTY],
++                                SUM(ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_RCP] AS NUMERIC(19,6)),0),@V_CUR_ROUND)
++                                   -ROUND(ISNULL(CAST(T.[BTD_RATE_DTL] AS NUMERIC(19,6))*CAST(T.[BTD_QTY_STK_ISS] AS NUMERIC(19,6)),0),@V_CUR_ROUND)) AS [MONTH_VALUE]
++                            FROM	[INV_STK_BATCH_TRX_DTL] T  WITH (FORCESEEK,INDEX(IDX_INV_STK_BATCH_TRX_DEPT_ITEM))
+ 							OUTER APPLY (/*SELECT CAST(CTH_PRE_START_DT AS TIME) AS [START_TIME] 
+ 							             FROM [PRD_COMP_TRX_HDR] 
+ 										 WHERE [CTH_PK] = [BTD_TRN] 
+@@ -1402,7 +1468,12 @@ BEGIN
+ 										 WHERE [RTH_PK] = [BTD_TRN] 
+ 										 AND   T.[BTD_TRX_MODE] = 33) AS [ST_DT]
+ 
+-							WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND DATEADD(DAY,1,@V_FROM_DT) 
++							CROSS APPLY (SELECT CONVERT(DATE,
++                                DATEADD(MONTH,DATEDIFF(MONTH,0,
++                                DATEADD(HOUR,CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) THEN -7 ELSE 0 END,
++                                CAST(T.[BTD_TRN_DATE] AS DATETIME)
++                                +CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME))),0)) AS [REPORT_MONTH]) [REPORT_DATE]
++                            WHERE [BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND DATEADD(DAY,1,@V_FROM_DT) 
+ 							AND	T.[BTD_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
+ 								AND T.[BTD_ITEM]	= ISNULL(S.[BTD_ITEM],[STD_ITEM])
+ 								--AND	T.[BTD_TRN_DATE]	< @V_FROM_DT
+@@ -1412,37 +1483,13 @@ BEGIN
+ 								AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS DATETIME) < CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+ 																															    THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+ 																															    ELSE @V_FROM_DT END
+-								AND T.[BTD_BATCH_TYPE]<>13	
+-							GROUP BY T.[BTD_ITEM],T.[BTD_DEPT]
+-							--WHERE	T.[BTD_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
+-							--	AND T.[BTD_ITEM]		= ISNULL(S.[BTD_ITEM],[STD_ITEM])
+-							--	AND T.[BTD_BATCH_TYPE] <> 13
+-							--	AND	[BTD_TRN_DATE] BETWEEN @V_FIN_DATE_FROM AND DATEADD(DAY,1,@V_FROM_DT)
+-							--	--AND T.[BTD_TRN_DATE]   >= @V_FIN_DATE_FROM 
+-							--	--AND	T.[BTD_TRN_DATE]	< @V_FROM_DT
+-							--	--AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL(ST_DT.[START_TIME],'00:00:00.000') AS TIME)>= CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+-							--	--																							          THEN DATEADD(HOUR,7,CAST(@V_FIN_DATE_FROM AS DATETIME))
+-							--	--																							          ELSE @V_FIN_DATE_FROM END
+-							--	--AND CAST(T.[BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL(ST_DT.[START_TIME],'00:00:00.000') AS TIME) < CASE WHEN T.[BTD_TRX_MODE] IN (4,5,33) 
+-							--	--																							          THEN DATEADD(HOUR,7,CAST(@V_FROM_DT AS DATETIME))
+-							--	--																							          ELSE @V_FROM_DT END
+-
+-							--	AND	CAST([BTD_TRN_DATE] AS DATETIME)+CAST(ISNULL([START_TIME],'00:00:00.000') AS TIME)  BETWEEN CASE WHEN [BTD_TRX_MODE] IN (4,5,33) 
+-							--																										 THEN DATEADD(HOUR,7,CAST(@V_FIN_DATE_FROM AS DATETIME))
+-							--																										 ELSE @V_FIN_DATE_FROM END
+-							--																										 AND 
+-							--																								    CASE WHEN [BTD_TRX_MODE] IN (4,5,33)
+-							--																									     THEN DATEADD(MINUTE,6*300+59,CAST(@V_FROM_DT AS DATETIME))
+-							--																										 ELSE @V_FROM_DT END
+-								
+-							--GROUP BY T.[BTD_ITEM],T.[BTD_DEPT]
+-						)	AS	[OPENING]
+-			OUTER APPLY ( SELECT ISNULL([IOS_OPENING_VAL],0) AS [STX_OP_VALUE]
+-			                    ,ISNULL([IOS_OPENING_STK],0) AS [STX_OP_QTY]
+-			              FROM [INV_ITEM_DEPT_OPENING_STOCK] 
+-						  WHERE	[IOS_DEPT]		= ISNULL(S.[BTD_DEPT],[STD_DEPT])
+-							AND [IOS_ITEM]		= ISNULL(S.[BTD_ITEM],[STD_ITEM])
+-							AND [IOS_FIN_YEAR]	= @V_FIN_YEAR ) AS OP
++								AND T.[BTD_BATCH_TYPE]<>13
++                            GROUP BY [REPORT_DATE].[REPORT_MONTH]
++                        ) [MONTHLY_HISTORY]
++                    ) [RUNNING_HISTORY]
++                ) [OPENING_HISTORY]
++                ORDER BY [REPORT_MONTH] DESC
++            ) AS [OPENING]
+ 	WHERE	(	@V_DPT_PK IS NULL	OR
+ 				EXISTS  (	SELECT	1
+ 							FROM	@T_PARAMETER

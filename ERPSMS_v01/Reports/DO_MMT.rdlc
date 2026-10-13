@@ -61,6 +61,10 @@
           <DataField>CIM_BRAND_TEXT</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="SOD_IS_PACK_MAT">
+          <DataField>SOD_IS_PACK_MAT</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="CIM_BRAND_CODE">
           <DataField>CIM_BRAND_CODE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -6579,7 +6583,7 @@ Code.HTMLDecode(First(Fields!DPH_ADNL_BUYER.Value, "DOHeaderDtls")))</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Code.HTMLDecode(Fields!CIM_BRAND_TEXT.Value)</Value>
+                                  <Value>=Code.GoodsDescription(Fields!CIM_BRAND_TEXT.Value, Fields!DPD_ITEM_TEXT.Value, Fields!SOD_IS_PACK_MAT.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6977,7 +6981,7 @@ Code.HTMLDecode(First(Fields!DPH_ADNL_BUYER.Value, "DOHeaderDtls")))</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(String.IsNullOrEmpty(Fields!LOT_NO.Value),"","LOT NO. " &amp; Code.HTMLDecode(Fields!DPD_LOT_NO.Value)) &amp; 
+                                  <Value>=IIF(String.IsNullOrEmpty(Fields!DPD_LOT_NO.Value),"","LOT NO. " &amp; Code.HTMLDecode(Fields!DPD_LOT_NO.Value)) &amp;
 IIF(String.IsNullOrEmpty(Fields!LOT_SIZE.Value),"","     LOT SIZE. " &amp; Code.HTMLDecode(Fields!LOT_SIZE.Value)) &amp;
 IIF(len(Fields!CIM_BRAND_CODE.Value)&gt;0, "      Brand Code : " &amp; Code.HTMLDecode(Fields!CIM_BRAND_CODE.Value),"")</Value>
                                   <Style>
@@ -7183,7 +7187,7 @@ IIF(len(Fields!CIM_BRAND_CODE.Value)&gt;0, "      Brand Code : " &amp; Code.HTML
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(ISNothing(Fields!CIM_PACKING_SPEC_NAME.Value),"","PACKING TYPE: " &amp; Code.HTMLDecode(Fields!CIM_PACKING_SPEC_NAME.Value))</Value>
+                                  <Value>=IIF(String.IsNullOrWhiteSpace(System.Convert.ToString(Fields!CIM_PACKING_SPEC_NAME.Value)),"","PACKING TYPE: " &amp; Code.HTMLDecode(System.Convert.ToString(Fields!CIM_PACKING_SPEC_NAME.Value)))</Value>
                                   <Style>
                                     <FontFamily>Arial Unicode MS</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -7910,12 +7914,12 @@ IIF(len(Fields!CIM_BRAND_CODE.Value)&gt;0, "      Brand Code : " &amp; Code.HTML
                     </TablixMember>
                     <TablixMember>
                       <Visibility>
-                        <Hidden>=IIF(String.IsNullOrEmpty(Fields!LOT_NO.Value) AND string.IsNullOrEmpty(Fields!CIM_BRAND_CODE.Value),true,false)</Hidden>
+                        <Hidden>=String.IsNullOrEmpty(System.Convert.ToString(Fields!DPD_LOT_NO.Value)) AND String.IsNullOrEmpty(System.Convert.ToString(Fields!LOT_SIZE.Value)) AND String.IsNullOrEmpty(System.Convert.ToString(Fields!CIM_BRAND_CODE.Value))</Hidden>
                       </Visibility>
                     </TablixMember>
                     <TablixMember>
                       <Visibility>
-                        <Hidden>=IIF(len(Fields!APS_PACK_TEXT.Value)&gt;0,false,true)</Hidden>
+                        <Hidden>=String.IsNullOrWhiteSpace(System.Convert.ToString(Fields!CIM_PACKING_SPEC_NAME.Value))</Hidden>
                       </Visibility>
                     </TablixMember>
                   </TablixMembers>
@@ -9820,6 +9824,16 @@ iif(Len(First(Fields!CMP_FAX.Value, "CompanyDtls"))&gt;0, "  Fax : " &amp; First
     End Select
     End Function
 
+
+ Function GoodsDescription(ByVal BrandText As Object, ByVal ItemText As Object, ByVal IsPackingMaterial As Object) As String
+    Dim Description As String = System.Convert.ToString(BrandText)
+
+    If System.Convert.ToString(IsPackingMaterial) = "1" AndAlso Description.Trim().Length = 0 Then
+        Description = System.Convert.ToString(ItemText)
+    End If
+
+    Return HTMLDecode(Description)
+ End Function
 
  Function HTMLDecode(byVal EncodedString) As String
 
